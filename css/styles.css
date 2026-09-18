@@ -1,0 +1,1270 @@
+/* ==========================================================================
+   Prenasen & Prishantini — wedding celebrations
+   A printed South Indian wedding invitation, rebuilt as a webpage.
+
+   Contents
+   1. Fonts & design tokens
+   2. Base elements
+   3. Gold / script type helpers
+   4. Decorative motifs (toran, lamps, ganesha, bokeh, silk)
+   5. Header & navigation
+   6. Hero (home)
+   7. Countdown plate
+   8. Invitation panels, cards, lists
+   9. Forms
+   10. Footer
+   11. Motion & responsive
+   ========================================================================== */
+
+/* 1. Fonts & design tokens
+   -------------------------------------------------------------------------- */
+
+@import url("https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;600;700&family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=Great+Vibes&display=swap");
+
+:root {
+  /* Silk */
+  --silk-red: #8f1224;
+  --silk-red-bright: #b01d32;
+  --silk-red-deep: #6b0e1c;
+  --maroon: #5c0a16;
+
+  /* Temple gold */
+  --gold: #c9a227;
+  --gold-mid: #d4af37;
+  --gold-light: #e6c56e;
+  --gold-pale: #f3dfa6;
+
+  /* Ivory & cream (text on red) */
+  --ivory: #f7ecd0;
+  --cream: #fff6df;
+
+  /* Champagne field (story / ceremonial gold pages) */
+  --champagne: #f6e4b6;
+  --champagne-deep: #f3c97a;
+  --peach: #f7d9a0;
+
+  /* Ink on gold */
+  --ink: #3b2a14;
+  --ink-soft: #5c452a;
+
+  /* Countdown plate */
+  --plate: #111111;
+  --plate-edge: #2a2118;
+
+  /* Rhythm */
+  --measure: 62ch;
+  --panel-pad: clamp(2.5rem, 6vw, 5rem);
+  --rule-gold: linear-gradient(90deg, transparent, var(--gold) 20%, var(--gold-pale) 50%, var(--gold) 80%, transparent);
+
+  /* Type */
+  --font-display: "Cinzel", "Playfair Display", Georgia, serif;
+  --font-script: "Great Vibes", "Cormorant Garamond", cursive;
+  --font-body: "Cormorant Garamond", Georgia, "Times New Roman", serif;
+}
+
+/* 2. Base elements
+   -------------------------------------------------------------------------- */
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  font-family: var(--font-body);
+  font-size: clamp(1.0625rem, 0.45vw + 0.95rem, 1.25rem);
+  line-height: 1.75;
+  color: var(--ink);
+  background-color: var(--champagne);
+  -webkit-font-smoothing: antialiased;
+}
+
+img {
+  max-width: 100%;
+  height: auto;
+}
+
+p {
+  margin: 0 0 1.1em;
+}
+
+a {
+  color: var(--maroon);
+  text-underline-offset: 0.25em;
+  text-decoration-thickness: 1px;
+}
+
+a:hover {
+  color: var(--silk-red-bright);
+}
+
+:focus-visible {
+  outline: 2px solid var(--gold-mid);
+  outline-offset: 3px;
+  border-radius: 2px;
+}
+
+.skip-link {
+  position: absolute;
+  left: 50%;
+  top: -100px;
+  transform: translateX(-50%);
+  z-index: 100;
+  padding: 0.6rem 1.4rem;
+  background: var(--maroon);
+  color: var(--gold-pale);
+  font-family: var(--font-display);
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  font-size: 0.75rem;
+  text-decoration: none;
+}
+
+.skip-link:focus {
+  top: 0.5rem;
+}
+
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+
+/* 3. Gold / script type helpers
+   -------------------------------------------------------------------------- */
+
+h1,
+h2,
+h3,
+h4 {
+  font-family: var(--font-display);
+  font-weight: 600;
+  line-height: 1.2;
+  margin: 0 0 0.6em;
+  letter-spacing: 0.04em;
+}
+
+/* Foiled gold lettering. Falls back to a flat gold if background-clip is out. */
+.gold-type {
+  color: var(--gold-mid);
+  background-image: linear-gradient(
+    180deg,
+    var(--gold-pale) 0%,
+    var(--gold-light) 28%,
+    var(--gold-mid) 52%,
+    var(--gold) 74%,
+    var(--gold-light) 100%
+  );
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  filter: drop-shadow(0 1px 0 rgba(58, 5, 14, 0.7)) drop-shadow(0 3px 14px rgba(40, 3, 10, 0.55));
+}
+
+@supports not ((-webkit-background-clip: text) or (background-clip: text)) {
+  .gold-type {
+    -webkit-text-fill-color: currentColor;
+    color: var(--gold-light);
+  }
+}
+
+.script {
+  font-family: var(--font-script);
+  font-weight: 400;
+  letter-spacing: 0.01em;
+  line-height: 1.15;
+}
+
+.eyebrow {
+  font-family: var(--font-display);
+  font-size: clamp(0.68rem, 1.4vw, 0.8rem);
+  text-transform: uppercase;
+  letter-spacing: 0.34em;
+  margin: 0 0 1.1rem;
+  color: var(--gold);
+}
+
+.panel--gold .eyebrow {
+  color: var(--ink-soft);
+}
+
+/* A small gold rule with a diamond, used between ceremonial blocks. */
+.rule {
+  display: block;
+  width: min(300px, 70%);
+  height: 1px;
+  margin: 2.2rem auto;
+  border: 0;
+  background: var(--rule-gold);
+  position: relative;
+  opacity: 0.85;
+}
+
+.rule::after {
+  content: "";
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 9px;
+  height: 9px;
+  background: var(--gold-mid);
+  transform: translate(-50%, -50%) rotate(45deg);
+}
+
+/* 4. Decorative motifs
+   -------------------------------------------------------------------------- */
+
+/* Red silk field. Layered gradients suggest folds over the silk photograph. */
+.silk {
+  position: relative;
+  isolation: isolate;
+  color: var(--ivory);
+  background-color: var(--silk-red);
+  background-image:
+    radial-gradient(120% 80% at 50% 0%, rgba(214, 74, 96, 0.28), transparent 60%),
+    radial-gradient(85% 65% at 10% 90%, rgba(70, 6, 16, 0.85), transparent 62%),
+    radial-gradient(85% 65% at 90% 90%, rgba(70, 6, 16, 0.85), transparent 62%),
+    linear-gradient(0deg, var(--silk-red) 0%, var(--silk-red) 100%),
+    url("../assets/images/silk-red.jpg");
+  background-size: auto, auto, auto, auto, cover;
+  background-position: center;
+  background-blend-mode: soft-light, multiply, multiply, multiply, normal;
+}
+
+/* Very slow satin sheen travelling across the silk. */
+.silk::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  background: linear-gradient(
+    104deg,
+    transparent 30%,
+    rgba(255, 214, 170, 0.09) 47%,
+    rgba(255, 233, 200, 0.14) 51%,
+    rgba(255, 214, 170, 0.09) 55%,
+    transparent 72%
+  );
+  background-size: 300% 100%;
+  animation: sheen 26s linear infinite;
+}
+
+@keyframes sheen {
+  from { background-position: 140% 0; }
+  to { background-position: -40% 0; }
+}
+
+.silk a {
+  color: var(--gold-light);
+}
+
+/* Champagne bokeh field — page two of the invitation. */
+.bokeh {
+  background-color: var(--champagne);
+  background-image: url("../assets/images/bokeh-champagne.jpg");
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+/* A field painted once behind the whole page and pinned to the viewport, so the
+   copy scrolls over a still backdrop instead of restarting at every panel.
+   Panels on such a page carry no field class of their own — they stay
+   transparent and let this layer show through.
+
+   This uses a fixed pseudo-element rather than `background-attachment: fixed`,
+   which iOS Safari and several mobile browsers ignore or render badly. */
+.field-fixed::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  background-position: center;
+  background-size: cover;
+  background-repeat: no-repeat;
+}
+
+.field-fixed--champagne {
+  background-color: var(--champagne);
+}
+
+.field-fixed--champagne::before {
+  background-image: url("../assets/images/bokeh-champagne.jpg");
+}
+
+/* Warm marigold-gold field — the Nalangu pages. */
+.bokeh--gold {
+  background-color: var(--champagne-deep);
+  background-image: url("../assets/images/bokeh-gold.jpg");
+}
+
+/* A soft cream veil so dark-brown body text stays comfortable on the hot
+   marigold field, while the colour keeps burning at the edges. */
+.bokeh--gold::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+  background: radial-gradient(
+    78% 72% at 50% 50%,
+    rgba(255, 249, 232, 0.82) 0%,
+    rgba(255, 245, 219, 0.55) 55%,
+    rgba(255, 240, 205, 0) 100%
+  );
+}
+
+/* Toran — the hanging flower doorway across the top of ceremonial pages. */
+.toran {
+  position: absolute;
+  inset: 0 0 auto;
+  height: clamp(96px, 15vw, 210px);
+  background: url("../assets/images/toran-garland.png") center top / 100% 100% no-repeat;
+  pointer-events: none;
+  z-index: 2;
+}
+
+.toran--beads {
+  background-image: url("../assets/images/bead-garland.png");
+  height: clamp(80px, 12vw, 165px);
+}
+
+/* Gold Ganesha, seated under the centre of the garland. */
+.ganesha {
+  position: absolute;
+  top: clamp(0.2rem, 1.4vw, 1rem);
+  left: 50%;
+  transform: translateX(-50%);
+  width: clamp(54px, 8vw, 108px);
+  z-index: 3;
+  filter: drop-shadow(0 4px 12px rgba(58, 5, 14, 0.5));
+}
+
+/* Deepam — kuthu vilakku lamp stands with hanging marigold, flanking the couple. */
+.lamp {
+  position: absolute;
+  bottom: 0;
+  width: clamp(110px, 17vw, 260px);
+  z-index: 1;
+  pointer-events: none;
+  filter: drop-shadow(0 6px 18px rgba(58, 5, 14, 0.45));
+}
+
+.lamp--left {
+  left: 0;
+}
+
+.lamp--right {
+  right: 0;
+  transform: scaleX(-1);
+}
+
+/* Hanging lotus / jasmine strings. */
+.strand {
+  position: absolute;
+  top: 0;
+  width: clamp(48px, 7vw, 104px);
+  z-index: 2;
+  pointer-events: none;
+}
+
+.strand--left { left: 6%; }
+.strand--right { right: 6%; }
+
+/* Marigold-draped pots and pillars, standing either side of the Nalangu couch. */
+.pillar {
+  position: absolute;
+  bottom: 0;
+  width: clamp(100px, 16vw, 230px);
+  z-index: 1;
+  pointer-events: none;
+}
+
+.pillar--left { left: 0; }
+
+.pillar--right {
+  right: 0;
+  transform: scaleX(-1);
+}
+
+/* A ceremonial stage: the couple sit centred between the pillars. */
+.panel--stage {
+  padding-bottom: 0;
+}
+
+.panel--stage .panel__title--script {
+  margin-bottom: 0.15em;
+}
+
+/* 5. Header & navigation
+   -------------------------------------------------------------------------- */
+
+.site-header {
+  position: relative;
+  z-index: 10;
+  background: linear-gradient(180deg, var(--maroon), var(--silk-red-deep));
+  border-bottom: 1px solid rgba(201, 162, 39, 0.45);
+  box-shadow: 0 2px 18px rgba(58, 5, 14, 0.3);
+}
+
+.site-header__inner {
+  max-width: 1180px;
+  margin: 0 auto;
+  padding: 0.85rem clamp(1rem, 4vw, 2rem);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5rem;
+  text-align: center;
+}
+
+.site-logo {
+  font-family: var(--font-script);
+  font-size: clamp(1.5rem, 3.4vw, 2.1rem);
+  line-height: 1.1;
+  text-decoration: none;
+  color: var(--gold-light);
+}
+
+.site-logo .gold-type {
+  display: inline-block;
+}
+
+.nav-toggle {
+  display: none;
+  font-family: var(--font-display);
+  font-size: 0.72rem;
+  letter-spacing: 0.24em;
+  text-transform: uppercase;
+  color: var(--gold-light);
+  background: transparent;
+  border: 1px solid rgba(201, 162, 39, 0.6);
+  border-radius: 2px;
+  padding: 0.5rem 1.1rem;
+  cursor: pointer;
+}
+
+.site-nav ul {
+  list-style: none;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: clamp(1rem, 3.5vw, 3rem);
+  margin: 0;
+  padding: 0;
+}
+
+.site-nav a {
+  font-family: var(--font-display);
+  font-size: clamp(0.7rem, 1.3vw, 0.86rem);
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.24em;
+  text-decoration: none;
+  color: var(--gold-light);
+  padding: 0.35rem 0;
+  border-bottom: 1px solid transparent;
+  transition: color 0.2s ease, border-color 0.2s ease;
+}
+
+.site-nav a:hover {
+  color: var(--cream);
+  border-bottom-color: var(--gold);
+}
+
+.site-nav a[aria-current="page"] {
+  color: var(--cream);
+  border-bottom-color: var(--gold-mid);
+}
+
+/* Secondary row: the practical pages, kept quieter than the four ceremonial ones. */
+.site-nav--secondary ul {
+  gap: clamp(0.9rem, 2.5vw, 2rem);
+}
+
+.site-nav--secondary a {
+  font-size: clamp(0.6rem, 1.1vw, 0.7rem);
+  font-weight: 400;
+  letter-spacing: 0.2em;
+  color: rgba(243, 223, 166, 0.72);
+}
+
+.site-nav--secondary a:hover,
+.site-nav--secondary a[aria-current="page"] {
+  color: var(--gold-light);
+}
+
+/* 6. Hero (home)
+   -------------------------------------------------------------------------- */
+
+/* The silk field carries one continuous background behind the hero and the
+   countdown, so no seam shows where the two sections meet. */
+.silk-field {
+  position: relative;
+}
+
+.hero {
+  position: relative;
+  overflow: hidden;
+  padding: calc(clamp(96px, 15vw, 210px) + 1rem) clamp(1rem, 5vw, 3rem) clamp(2.5rem, 6vw, 4.5rem);
+  text-align: center;
+}
+
+.hero__inner {
+  position: relative;
+  z-index: 4;
+  max-width: 860px;
+  margin: 0 auto;
+}
+
+.hero__names {
+  margin: 0 0 0.1em;
+  font-family: var(--font-script);
+  font-weight: 400;
+  font-size: clamp(2.6rem, 8.5vw, 5.4rem);
+  line-height: 1.05;
+  letter-spacing: 0.01em;
+}
+
+.hero__sub {
+  font-family: var(--font-display);
+  font-size: clamp(0.85rem, 2.6vw, 1.5rem);
+  text-transform: uppercase;
+  letter-spacing: 0.3em;
+  margin: 0 0 0.6em;
+}
+
+.hero__date {
+  font-family: var(--font-body);
+  font-size: clamp(1rem, 2vw, 1.2rem);
+  font-style: italic;
+  letter-spacing: 0.06em;
+  color: var(--ivory);
+  margin-bottom: 0;
+}
+
+.hero__couple {
+  display: block;
+  width: clamp(190px, 38vw, 380px);
+  margin: clamp(0.8rem, 2vw, 1.6rem) auto 0;
+  filter: drop-shadow(0 10px 26px rgba(48, 4, 12, 0.5));
+}
+
+/* 7. Countdown plate
+   -------------------------------------------------------------------------- */
+
+.countdown-band {
+  position: relative;
+  padding: clamp(2rem, 6vw, 4.5rem) clamp(1rem, 5vw, 3rem) clamp(2.5rem, 7vw, 5rem);
+  text-align: center;
+}
+
+.countdown {
+  max-width: 940px;
+  margin: 0 auto;
+  padding: clamp(1rem, 2.6vw, 1.8rem) clamp(0.75rem, 2.5vw, 2rem) clamp(0.9rem, 2vw, 1.4rem);
+  background: linear-gradient(180deg, #1a1412, var(--plate) 55%, #0b0908);
+  border: 1px solid rgba(201, 162, 39, 0.55);
+  border-radius: 14px;
+  box-shadow:
+    0 0 0 1px rgba(0, 0, 0, 0.4) inset,
+    0 18px 45px rgba(40, 3, 10, 0.55);
+}
+
+.countdown__title {
+  font-family: var(--font-display);
+  font-size: clamp(0.72rem, 2vw, 1rem);
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.3em;
+  margin: 0 0 0.9rem;
+  color: var(--gold-light);
+}
+
+.countdown__grid {
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  gap: clamp(0.15rem, 1vw, 0.6rem);
+}
+
+.countdown__unit {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.15rem;
+  padding: 0.2rem 0;
+  border-left: 1px solid rgba(201, 162, 39, 0.22);
+}
+
+.countdown__unit:first-child {
+  border-left: 0;
+}
+
+.countdown__number {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: clamp(1.5rem, 6vw, 3.4rem);
+  line-height: 1.05;
+  font-variant-numeric: tabular-nums;
+  font-feature-settings: "tnum" 1;
+  color: var(--gold-pale);
+  text-shadow: 0 0 18px rgba(212, 175, 55, 0.35);
+}
+
+.countdown__unit--seconds .countdown__number {
+  color: var(--silk-red-bright);
+  text-shadow: 0 0 20px rgba(200, 40, 60, 0.45);
+}
+
+.countdown__label {
+  font-family: var(--font-display);
+  font-size: clamp(0.5rem, 1.35vw, 0.72rem);
+  text-transform: uppercase;
+  letter-spacing: 0.16em;
+  color: rgba(243, 223, 166, 0.68);
+}
+
+/* 8. Invitation panels, cards, lists
+   -------------------------------------------------------------------------- */
+
+.site-main {
+  display: block;
+}
+
+/* Each section is a panel of the invitation, stacked down the page. */
+.panel {
+  position: relative;
+  padding: var(--panel-pad) clamp(1rem, 5vw, 3rem);
+  text-align: center;
+  overflow: hidden;
+}
+
+.panel--gold {
+  color: var(--ink);
+}
+
+.panel--gold h1,
+.panel--gold h2,
+.panel--gold h3 {
+  color: var(--maroon);
+}
+
+/* Panels that hang a garland above their content need room for it. */
+.panel--crest {
+  padding-top: calc(clamp(80px, 12vw, 165px) + var(--panel-pad));
+}
+
+.panel--crest-tall {
+  padding-top: calc(clamp(96px, 15vw, 210px) + var(--panel-pad));
+}
+
+.panel__inner {
+  position: relative;
+  z-index: 4;
+  max-width: var(--measure);
+  margin: 0 auto;
+}
+
+.panel__inner--wide {
+  max-width: 1080px;
+}
+
+.panel__title {
+  font-size: clamp(1.7rem, 5vw, 3rem);
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+.panel__title--script {
+  font-family: var(--font-script);
+  font-size: clamp(2.6rem, 9vw, 5rem);
+  text-transform: none;
+  letter-spacing: 0.01em;
+  color: var(--maroon);
+}
+
+.page-title {
+  font-size: clamp(2rem, 7vw, 4.2rem);
+  line-height: 1.06;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+.lede {
+  font-size: 1.1em;
+  font-style: italic;
+  color: var(--ink-soft);
+}
+
+.silk .lede {
+  color: var(--ivory);
+}
+
+/* Centred story prose, as on page two of the invitation. */
+.prose {
+  max-width: var(--measure);
+  margin: 0 auto;
+  text-align: center;
+}
+
+.prose p + p {
+  margin-top: 0.2em;
+}
+
+.prose .said {
+  font-style: italic;
+  font-size: 1.12em;
+  color: var(--maroon);
+}
+
+.prose .beat {
+  font-family: var(--font-display);
+  letter-spacing: 0.12em;
+  font-size: 0.95em;
+  text-transform: uppercase;
+  color: var(--ink-soft);
+}
+
+.signoff {
+  font-family: var(--font-script);
+  font-size: clamp(1.8rem, 5vw, 2.8rem);
+  color: var(--maroon);
+  margin-top: 1.2rem;
+}
+
+/* A repeated gold script refrain, used sparingly between panels. */
+.refrain {
+  font-family: var(--font-script);
+  font-size: clamp(1.6rem, 5vw, 2.6rem);
+  text-align: center;
+  color: var(--gold);
+  opacity: 0.85;
+  margin: 0;
+  padding: clamp(0.8rem, 2vw, 1.5rem) 0;
+}
+
+/* Ivory invitation cards. */
+.card-grid {
+  list-style: none;
+  margin: 0 auto;
+  padding: 0;
+  max-width: 1080px;
+  display: grid;
+  gap: clamp(1rem, 2.5vw, 1.8rem);
+  grid-template-columns: repeat(auto-fit, minmax(270px, 1fr));
+}
+
+.card {
+  position: relative;
+  padding: clamp(1.4rem, 3vw, 2.2rem);
+  text-align: center;
+  background: linear-gradient(180deg, var(--cream), #fdeecd);
+  border: 1px solid var(--gold);
+  border-radius: 3px;
+  box-shadow:
+    0 0 0 4px rgba(255, 255, 255, 0.5) inset,
+    0 0 0 5px rgba(201, 162, 39, 0.3) inset,
+    0 10px 26px rgba(92, 10, 22, 0.12);
+}
+
+.card h2,
+.card h3 {
+  color: var(--maroon);
+  font-size: clamp(1.05rem, 2.4vw, 1.35rem);
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+
+.card p {
+  color: var(--ink-soft);
+}
+
+.card > :last-child {
+  margin-bottom: 0;
+}
+
+.card__link {
+  display: inline-block;
+  font-family: var(--font-display);
+  font-size: 0.72rem;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  text-decoration: none;
+  color: var(--maroon);
+  border-bottom: 1px solid var(--gold);
+  padding-bottom: 2px;
+}
+
+.card__link:hover {
+  color: var(--silk-red-bright);
+  border-bottom-color: var(--gold-mid);
+}
+
+/* Ritual list — the auspicious meanings, one line each. */
+.ritual-list {
+  list-style: none;
+  margin: 0 auto;
+  padding: 0;
+  max-width: var(--measure);
+  text-align: left;
+}
+
+.ritual-list li {
+  position: relative;
+  padding: 0.9rem 0 0.9rem 2.6rem;
+  border-bottom: 1px solid rgba(201, 162, 39, 0.35);
+}
+
+.ritual-list li:last-child {
+  border-bottom: 0;
+}
+
+.ritual-list .glyph {
+  position: absolute;
+  left: 0;
+  top: 0.85rem;
+  font-size: 1.3rem;
+  line-height: 1.4;
+}
+
+.ritual-list strong {
+  display: block;
+  font-family: var(--font-display);
+  font-size: 0.86em;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--maroon);
+}
+
+/* Definition pairs inside cards. */
+.meta-list {
+  margin: 0 0 1.2rem;
+}
+
+.meta-list > div {
+  padding: 0.55rem 0;
+  border-bottom: 1px solid rgba(201, 162, 39, 0.3);
+}
+
+.meta-list > div:last-child {
+  border-bottom: 0;
+}
+
+.meta-list dt {
+  font-family: var(--font-display);
+  font-size: 0.68rem;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--ink-soft);
+}
+
+.meta-list dd {
+  margin: 0.15rem 0 0;
+  font-size: 1.05em;
+  color: var(--maroon);
+}
+
+/* Day-of timeline. */
+.timeline {
+  list-style: none;
+  margin: 0 auto;
+  padding: 0;
+  max-width: var(--measure);
+  text-align: left;
+}
+
+.timeline li {
+  position: relative;
+  padding: 1rem 0 1rem 1.8rem;
+  border-bottom: 1px solid rgba(201, 162, 39, 0.35);
+}
+
+.timeline li::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 1.55rem;
+  width: 8px;
+  height: 8px;
+  background: var(--gold-mid);
+  transform: rotate(45deg);
+}
+
+.timeline li:last-child {
+  border-bottom: 0;
+}
+
+.timeline time {
+  display: block;
+  font-family: var(--font-display);
+  font-size: 0.72rem;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--maroon);
+}
+
+.registry-links {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  gap: 0.8rem;
+}
+
+.registry-links a {
+  display: block;
+  padding: 0.9rem 1rem;
+  font-family: var(--font-display);
+  font-size: 0.8rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  text-decoration: none;
+  color: var(--maroon);
+  border: 1px solid var(--gold);
+  background: rgba(255, 255, 255, 0.4);
+}
+
+.registry-links a:hover {
+  background: var(--cream);
+  border-color: var(--gold-mid);
+}
+
+/* "Find us" block. */
+.findus {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.9rem;
+  font-family: var(--font-script);
+  font-size: clamp(1.8rem, 5vw, 2.8rem);
+  color: var(--maroon);
+  text-decoration: none;
+}
+
+.findus__pin {
+  width: clamp(28px, 4vw, 44px);
+  flex: none;
+}
+
+.findus:hover {
+  color: var(--silk-red-bright);
+}
+
+/* Photo slots. */
+.figure-slot {
+  margin: 1.8rem auto;
+  max-width: 560px;
+}
+
+.figure-slot__frame {
+  aspect-ratio: 4 / 3;
+  border: 1px solid var(--gold);
+  background:
+    repeating-linear-gradient(45deg, rgba(201, 162, 39, 0.08) 0 12px, transparent 12px 24px),
+    var(--cream);
+  box-shadow: 0 0 0 5px rgba(255, 255, 255, 0.55) inset;
+}
+
+.figure-slot figcaption {
+  margin-top: 0.7rem;
+  font-size: 0.9em;
+  font-style: italic;
+  color: var(--ink-soft);
+}
+
+/* 9. Forms
+   -------------------------------------------------------------------------- */
+
+.form-card {
+  max-width: 640px;
+  margin: 0 auto;
+  padding: clamp(1.5rem, 4vw, 2.6rem);
+  text-align: left;
+  background: linear-gradient(180deg, var(--cream), #fdeecd);
+  border: 1px solid var(--gold);
+  box-shadow:
+    0 0 0 4px rgba(255, 255, 255, 0.5) inset,
+    0 0 0 5px rgba(201, 162, 39, 0.3) inset,
+    0 10px 26px rgba(92, 10, 22, 0.12);
+}
+
+.field {
+  margin: 0 0 1.3rem;
+  padding: 0;
+  border: 0;
+}
+
+.field label,
+.field-label {
+  display: block;
+  margin-bottom: 0.4rem;
+  font-family: var(--font-display);
+  font-size: 0.7rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--maroon);
+}
+
+input[type="text"],
+input[type="email"],
+select,
+textarea {
+  width: 100%;
+  padding: 0.7rem 0.85rem;
+  font-family: var(--font-body);
+  font-size: 1rem;
+  color: var(--ink);
+  background: #fffaf0;
+  border: 1px solid var(--gold);
+  border-radius: 2px;
+}
+
+textarea {
+  min-height: 7rem;
+  resize: vertical;
+}
+
+input[type="text"]:focus,
+input[type="email"]:focus,
+select:focus,
+textarea:focus {
+  border-color: var(--maroon);
+  outline: 2px solid var(--gold-mid);
+  outline-offset: 1px;
+}
+
+.choice-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem 1.6rem;
+}
+
+.choice-row label {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin: 0;
+  font-family: var(--font-body);
+  font-size: 1rem;
+  letter-spacing: 0;
+  text-transform: none;
+  color: var(--ink);
+}
+
+input[type="radio"],
+input[type="checkbox"] {
+  accent-color: var(--maroon);
+  width: 1.05rem;
+  height: 1.05rem;
+}
+
+.button {
+  display: inline-block;
+  padding: 0.85rem 2.4rem;
+  font-family: var(--font-display);
+  font-size: 0.78rem;
+  font-weight: 600;
+  letter-spacing: 0.24em;
+  text-transform: uppercase;
+  color: var(--gold-pale);
+  background: linear-gradient(180deg, var(--silk-red), var(--maroon));
+  border: 1px solid var(--gold);
+  border-radius: 2px;
+  cursor: pointer;
+  box-shadow: 0 6px 18px rgba(92, 10, 22, 0.25);
+}
+
+.button:hover {
+  background: linear-gradient(180deg, var(--silk-red-bright), var(--silk-red));
+  color: var(--cream);
+}
+
+.hint {
+  font-size: 0.92em;
+  font-style: italic;
+  color: var(--ink-soft);
+}
+
+.form-status {
+  margin: 1rem 0 0;
+  padding: 0.8rem 1rem;
+  border-left: 3px solid var(--gold-mid);
+  background: rgba(255, 255, 255, 0.55);
+  font-size: 0.98em;
+}
+
+.form-status.is-error {
+  border-left-color: var(--silk-red-bright);
+  color: var(--maroon);
+}
+
+.form-status.is-success {
+  border-left-color: var(--gold-mid);
+  color: var(--ink);
+}
+
+/* 10. Footer
+   -------------------------------------------------------------------------- */
+
+.site-footer {
+  position: relative;
+  padding: clamp(2.5rem, 6vw, 4rem) clamp(1rem, 5vw, 3rem) clamp(2rem, 4vw, 3rem);
+  text-align: center;
+  color: var(--ivory);
+  background: linear-gradient(180deg, var(--silk-red-deep), var(--maroon));
+  border-top: 1px solid rgba(201, 162, 39, 0.45);
+}
+
+.site-footer__names {
+  font-family: var(--font-script);
+  font-size: clamp(1.7rem, 4.5vw, 2.4rem);
+  margin: 0 0 0.4rem;
+}
+
+.site-footer p {
+  margin: 0 0 0.4rem;
+}
+
+.site-footer a {
+  color: var(--gold-light);
+}
+
+.site-footer__copy {
+  margin-top: 1.4rem;
+  font-family: var(--font-display);
+  font-size: 0.66rem;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: rgba(247, 236, 208, 0.6);
+}
+
+/* 11. Scroll reveals
+   --------------------------------------------------------------------------
+   Mark anything with `data-reveal` and it fades up as it comes into view.
+   `data-reveal="fade"` fades on the spot with no movement — used for the story
+   title, which should simply appear out of nothing.
+   Stagger a group with `data-reveal-delay="300"` (milliseconds).
+
+   Elements only start hidden when the `js` class is present, which the small
+   script in each page's <head> sets. With JavaScript off, nothing is hidden and
+   the whole story reads normally. */
+
+.js [data-reveal] {
+  opacity: 0;
+  transform: translateY(1.75rem);
+  transition:
+    opacity 900ms ease,
+    transform 900ms cubic-bezier(0.22, 0.68, 0.24, 1);
+}
+
+/* The title has no rise — it resolves out of the gold, slowly. */
+.js [data-reveal="fade"] {
+  transform: none;
+  transition-duration: 1800ms;
+}
+
+.js [data-reveal].is-revealed {
+  opacity: 1;
+  transform: none;
+}
+
+/* 12. Motion & responsive
+   -------------------------------------------------------------------------- */
+
+@media (max-width: 760px) {
+  /* Keep the toran across the top; retire the side hangings and lamps. */
+  .strand {
+    display: none;
+  }
+
+  .lamp {
+    width: 88px;
+    opacity: 0.9;
+  }
+
+  .countdown__grid {
+    grid-template-columns: repeat(3, 1fr);
+    gap: 0.4rem 0.2rem;
+  }
+
+  .countdown__unit:nth-child(4) {
+    border-left: 0;
+  }
+
+  .ritual-list li {
+    padding-left: 2.2rem;
+  }
+
+  /* Collapsible nav. The four ceremonial links stack; the toggle drives them. */
+  .nav-toggle {
+    display: inline-block;
+  }
+
+  /* Only the primary nav collapses. The secondary row is short enough to stay. */
+  #site-nav:not(.is-open) ul {
+    display: none;
+  }
+
+  #site-nav ul {
+    flex-direction: column;
+    gap: 0.35rem;
+    padding-top: 0.5rem;
+  }
+}
+
+@media (max-width: 460px) {
+  .lamp {
+    width: 68px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  .silk::after {
+    animation: none;
+  }
+
+  /* Reveals resolve instantly rather than not at all, so no text is stranded. */
+  .js [data-reveal] {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+
+  *,
+  *::before,
+  *::after {
+    transition-duration: 0.01ms !important;
+  }
+}
+
+@media print {
+  .site-header,
+  .site-footer,
+  .toran,
+  .lamp,
+  .strand,
+  .ganesha {
+    display: none;
+  }
+
+  body {
+    background: #fff;
+    color: #000;
+  }
+}

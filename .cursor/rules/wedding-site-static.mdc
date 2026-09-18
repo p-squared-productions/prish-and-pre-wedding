@@ -1,0 +1,12 @@
+---
+description: Keep this wedding site static vanilla HTML, CSS, and JS
+alwaysApply: true
+---
+
+This is a static vanilla wedding website. Do not add frameworks, bundlers, package managers, TypeScript, or backends.
+
+Match the existing page structure: same header, nav, footer, and shared `css/styles.css` plus `js/main.js`. Use relative links.
+
+When adding a page, section page, or nav item, follow `.claude/skills/add-wedding-page/SKILL.md`.
+
+When the user mentions couple names, wedding date, venue, city, registry links, schedule, travel info, RSVP copy, or replacing placeholders, follow `.claude/skills/update-wedding-content/SKILL.md`.
