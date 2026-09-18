@@ -326,12 +326,77 @@ h4 {
   );
 }
 
+/* Garlands */
+
+.garlands-top{
+  position: absolute;
+  top:0;
+  left:0px;
+  width: 100vw;
+  height:auto;
+  z-index: 5;
+}
+
+.bell{
+  position:absolute;
+  top: 2vh;
+  width: 12vw;
+  height:auto;
+}
+
+/* first three bells */
+
+.home{
+  z-index: 3;
+  left: 12.5vw;
+}
+
+.story{
+  z-index: 5;
+  left: 18.5vw;
+  top: 11vh;
+}
+
+.nalangu{
+  z-index: 3;
+  left: 25vw;
+}
+
+
+
+/* last three bells */
+
+.wedding{
+  z-index: 3;
+  right: 11.5vw;
+  top: 3vh;
+}
+
+.rsvp{
+  z-index: 3;
+  right: 18vw;
+  top: 11vh;
+}
+
+.travel{
+  z-index: 3;
+  right: 25vw;
+  top: 3vh;
+}
+
+/*  back bells */
+
+
+
+
+
+
 /* Toran — the hanging flower doorway across the top of ceremonial pages. */
 .toran {
   position: absolute;
   inset: 0 0 auto;
   height: clamp(96px, 15vw, 210px);
-  background: url("../assets/images/toran-garland.png") center top / 100% 100% no-repeat;
+  background: url("../assets/images/garlands_new.png") center top / 100% 100% no-repeat;
   pointer-events: none;
   z-index: 2;
 }
@@ -517,6 +582,7 @@ h4 {
 
 .hero {
   position: relative;
+  top:13vh;
   overflow: hidden;
   padding: calc(clamp(96px, 15vw, 210px) + 1rem) clamp(1rem, 5vw, 3rem) clamp(2.5rem, 6vw, 4.5rem);
   text-align: center;
@@ -533,8 +599,8 @@ h4 {
   margin: 0 0 0.1em;
   font-family: var(--font-script);
   font-weight: 400;
-  font-size: clamp(2.6rem, 8.5vw, 5.4rem);
-  line-height: 1.05;
+  font-size: 8.6vh;
+  line-height: 1.15;
   letter-spacing: 0.01em;
 }
 
@@ -573,6 +639,7 @@ h4 {
 
 .countdown {
   max-width: 940px;
+  top: 20vh;
   margin: 0 auto;
   padding: clamp(1rem, 2.6vw, 1.8rem) clamp(0.75rem, 2.5vw, 2rem) clamp(0.9rem, 2vw, 1.4rem);
   background: linear-gradient(180deg, #1a1412, var(--plate) 55%, #0b0908);
@@ -641,6 +708,7 @@ h4 {
 
 .site-main {
   display: block;
+  z-index: 5;
 }
 
 /* Each section is a panel of the invitation, stacked down the page. */
