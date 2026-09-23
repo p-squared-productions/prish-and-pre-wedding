@@ -33,6 +33,7 @@
   --gold-mid: #d4af37;
   --gold-light: #e6c56e;
   --gold-pale: #f3dfa6;
+  --gold-henna: #ecd28f;   /* Nalangu henna field, a shade under gold-pale */
 
   /* Ivory & cream (text on red) */
   --ivory: #f7ecd0;
@@ -304,6 +305,16 @@ h4 {
   background-image: url("../assets/images/bokeh-champagne.jpg");
 }
 
+/* Henna mandala field — the Nalangu page. Soft gold mandalas, every second row
+   shifted half a step (the tile carries both rows), over pale
+   gold across the whole page; its panels carry no field class of their own. */
+.field-henna {
+  background-color: var(--gold-henna);
+  background-image: url("../assets/images/henna-mandala-tile.png");
+  background-size: 280px 560px;
+  background-repeat: repeat;
+}
+
 /* Warm marigold-gold field — the Nalangu pages. */
 .bokeh--gold {
   background-color: var(--champagne-deep);
@@ -426,7 +437,10 @@ h4 {
   .bell__etch-light{ transform: translateY(3px); }
 }
 
-/* first three bells */
+/* Two bells on each side, mirrored: the outer bell hangs high, the inner one
+   lower. Left to right they read Home, Our Story, Nalangu, Wedding. */
+
+/* left pair */
 
 .home{
   z-index: 3;
@@ -434,35 +448,22 @@ h4 {
 }
 
 .story{
-  z-index: 5;
+  z-index: 3;
   left: 18.5vw;
   top: 11vh;
 }
 
+/* right pair */
+
 .nalangu{
-  z-index: 3;
-  left: 25vw;
-}
-
-
-
-/* last three bells */
-
-.wedding{
-  z-index: 3;
-  right: 11.5vw;
-  top: 3vh;
-}
-
-.rsvp{
   z-index: 3;
   right: 18vw;
   top: 11vh;
 }
 
-.travel{
+.wedding{
   z-index: 3;
-  right: 25vw;
+  right: 11.5vw;
   top: 3vh;
 }
 
@@ -636,21 +637,32 @@ h4 {
   border-bottom-color: var(--gold-mid);
 }
 
-/* Secondary row: the practical pages, kept quieter than the four ceremonial ones. */
-.site-nav--secondary ul {
-  gap: clamp(0.9rem, 2.5vw, 2rem);
+/* In-page links under the Wedding page title: travel, registry and RSVP. */
+.jump-links {
+  list-style: none;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 0.6rem clamp(1rem, 3vw, 2rem);
+  margin: 1.6rem 0 0;
+  padding: 0;
 }
 
-.site-nav--secondary a {
-  font-size: clamp(0.6rem, 1.1vw, 0.7rem);
-  font-weight: 400;
-  letter-spacing: 0.2em;
-  color: rgba(243, 223, 166, 0.72);
-}
-
-.site-nav--secondary a:hover,
-.site-nav--secondary a[aria-current="page"] {
+.jump-links a {
+  font-family: var(--font-display);
+  font-size: clamp(0.66rem, 1.2vw, 0.78rem);
+  font-weight: 600;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  text-decoration: none;
   color: var(--gold-light);
+  border-bottom: 1px solid var(--gold);
+  padding-bottom: 2px;
+}
+
+.jump-links a:hover {
+  color: var(--cream);
+  border-bottom-color: var(--gold-light);
 }
 
 /* 6. Hero (home)
@@ -664,9 +676,10 @@ h4 {
 
 .hero {
   position: relative;
-  top:13vh;
   overflow: hidden;
-  padding: calc(clamp(96px, 15vw, 210px) + 1rem) clamp(1rem, 5vw, 3rem) clamp(2.5rem, 6vw, 4.5rem);
+  /* The extra 13vh clears the hanging bells; as padding it also pushes the
+     countdown down, so the couple never overlaps the frame. */
+  padding: calc(clamp(96px, 15vw, 210px) + 1rem + 13vh) clamp(1rem, 5vw, 3rem) clamp(2.5rem, 6vw, 4.5rem);
   text-align: center;
 }
 
@@ -719,70 +732,82 @@ h4 {
   text-align: center;
 }
 
+/* The countdown sits inside the henna frame (border.png, recoloured to
+   --gold-light as border-gold.png). .countdown__inner is inset by % of the
+   frame's own box, which keeps the values inside the frame's opening. The frame is min(720px, ~90vw) wide, so
+   type is sized as min(px, vw) pairs that shrink with it. */
 .countdown {
-  max-width: 940px;
-  top: 20vh;
+  position: relative;
+  width: min(720px, 100%);
+  aspect-ratio: 1200 / 885;
   margin: 0 auto;
-  padding: clamp(1rem, 2.6vw, 1.8rem) clamp(0.75rem, 2.5vw, 2rem) clamp(0.9rem, 2vw, 1.4rem);
-  background: linear-gradient(180deg, #1a1412, var(--plate) 55%, #0b0908);
-  border: 1px solid rgba(201, 162, 39, 0.55);
-  border-radius: 14px;
-  box-shadow:
-    0 0 0 1px rgba(0, 0, 0, 0.4) inset,
-    0 18px 45px rgba(40, 3, 10, 0.55);
+  background:
+    url("../assets/images/border-gold.png") center / 100% 100% no-repeat,
+    radial-gradient(34% 38% at 50% 52%, rgba(58, 5, 14, 0.72), rgba(58, 5, 14, 0) 100%);
+  filter: drop-shadow(0 6px 16px rgba(40, 3, 10, 0.45));
+}
+
+.countdown[hidden] {
+  display: none;
+}
+
+.countdown__inner {
+  position: absolute;
+  inset: 18% 27% 12%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
 }
 
 .countdown__title {
-  font-family: var(--font-display);
-  font-size: clamp(0.72rem, 2vw, 1rem);
-  font-weight: 700;
-  text-transform: uppercase;
-  letter-spacing: 0.3em;
-  margin: 0 0 0.9rem;
+  font-family: var(--font-script);
+  font-size: min(36px, 4.5vw);
+  font-weight: 400;
+  line-height: 1.1;
+  margin: 0 0 min(20px, 2.5vw);
   color: var(--gold-light);
 }
 
+/* Two rows of three: months, weeks, days over hours, minutes, seconds. */
 .countdown__grid {
   display: grid;
-  grid-template-columns: repeat(6, 1fr);
-  gap: clamp(0.15rem, 1vw, 0.6rem);
+  grid-template-columns: repeat(3, 1fr);
+  gap: min(16px, 2vw) 0;
 }
 
 .countdown__unit {
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 0.15rem;
-  padding: 0.2rem 0;
-  border-left: 1px solid rgba(201, 162, 39, 0.22);
+  gap: 3px;
+  border-left: 1px solid rgba(230, 197, 110, 0.35);
 }
 
-.countdown__unit:first-child {
+.countdown__unit:nth-child(3n + 1) {
   border-left: 0;
 }
 
 .countdown__number {
   font-family: var(--font-display);
   font-weight: 700;
-  font-size: clamp(1.5rem, 6vw, 3.4rem);
-  line-height: 1.05;
+  font-size: min(50px, 6.3vw);
+  line-height: 1;
   font-variant-numeric: tabular-nums;
   font-feature-settings: "tnum" 1;
   color: var(--gold-pale);
-  text-shadow: 0 0 18px rgba(212, 175, 55, 0.35);
+  text-shadow: 0 1px 0 rgba(58, 5, 14, 0.8), 0 0 14px rgba(212, 175, 55, 0.35);
 }
 
 .countdown__unit--seconds .countdown__number {
-  color: var(--silk-red-bright);
-  text-shadow: 0 0 20px rgba(200, 40, 60, 0.45);
+  color: var(--cream);
 }
 
 .countdown__label {
   font-family: var(--font-display);
-  font-size: clamp(0.5rem, 1.35vw, 0.72rem);
+  font-size: max(8px, min(13px, 1.6vw));
   text-transform: uppercase;
-  letter-spacing: 0.16em;
-  color: rgba(243, 223, 166, 0.68);
+  letter-spacing: clamp(0.06em, 1vw, 0.18em);
+  color: var(--gold-light);
 }
 
 /* 8. Invitation panels, cards, lists
@@ -835,6 +860,15 @@ h4 {
   font-size: clamp(1.7rem, 5vw, 3rem);
   letter-spacing: 0.1em;
   text-transform: uppercase;
+}
+
+/* A smaller heading for the parts inside one panel, e.g. Travel & Stay. */
+.panel__subtitle {
+  margin: 2.4rem 0 1rem;
+  font-size: clamp(1rem, 2.4vw, 1.3rem);
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--maroon);
 }
 
 .panel__title--script {
@@ -962,35 +996,42 @@ h4 {
   border-bottom-color: var(--gold-mid);
 }
 
-/* Ritual list — the auspicious meanings, one line each. */
+/* Ritual list — the auspicious meanings, each in a small ivory box with its icon. */
 .ritual-list {
   list-style: none;
   margin: 0 auto;
   padding: 0;
-  max-width: var(--measure);
-  text-align: left;
+  max-width: 1080px;
+  display: grid;
+  gap: clamp(0.9rem, 2vw, 1.4rem);
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
 }
 
 .ritual-list li {
-  position: relative;
-  padding: 0.9rem 0 0.9rem 2.6rem;
-  border-bottom: 1px solid rgba(201, 162, 39, 0.35);
-}
-
-.ritual-list li:last-child {
-  border-bottom: 0;
+  padding: clamp(1.2rem, 2.5vw, 1.6rem);
+  text-align: center;
+  font-size: 0.95em;
+  line-height: 1.6;
+  color: var(--ink-soft);
+  background: linear-gradient(180deg, var(--cream), #fdeecd);
+  border: 1px solid var(--gold);
+  border-radius: 3px;
+  box-shadow:
+    0 0 0 4px rgba(255, 255, 255, 0.5) inset,
+    0 0 0 5px rgba(201, 162, 39, 0.3) inset,
+    0 8px 20px rgba(92, 10, 22, 0.1);
 }
 
 .ritual-list .glyph {
-  position: absolute;
-  left: 0;
-  top: 0.85rem;
-  font-size: 1.3rem;
-  line-height: 1.4;
+  display: block;
+  width: 56px;
+  height: 56px;
+  margin: 0 auto 0.8rem;
 }
 
 .ritual-list strong {
   display: block;
+  margin-bottom: 0.4rem;
   font-family: var(--font-display);
   font-size: 0.86em;
   font-weight: 600;
@@ -1344,25 +1385,11 @@ input[type="checkbox"] {
     opacity: 0.9;
   }
 
-  .countdown__grid {
-    grid-template-columns: repeat(3, 1fr);
-    gap: 0.4rem 0.2rem;
-  }
-
-  .countdown__unit:nth-child(4) {
-    border-left: 0;
-  }
-
-  .ritual-list li {
-    padding-left: 2.2rem;
-  }
-
   /* Collapsible nav. The four ceremonial links stack; the toggle drives them. */
   .nav-toggle {
     display: inline-block;
   }
 
-  /* Only the primary nav collapses. The secondary row is short enough to stay. */
   #site-nav:not(.is-open) ul {
     display: none;
   }

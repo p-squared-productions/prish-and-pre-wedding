@@ -11,10 +11,8 @@ The visual system is a classic South African Tamil / South Indian wedding invita
   index.html      Home — the silk hero, Ganesha, couple, lamps, countdown
   story.html      Our Story — "A Chance Encounter" on champagne bokeh
   nalangu.html    Nalangu — the pre-wedding ceremony and its meaning
-  details.html    Wedding day — ceremony, reception, order of the day
-  travel.html     Travel & stay
-  registry.html   Registry
-  rsvp.html       RSVP form
+  details.html    Wedding day — ceremony, reception, order of the day, then
+                  Travel & stay (#travel), Registry (#registry), RSVP form (#rsvp)
   css/styles.css  Shared stylesheet (all decoration lives here)
   js/main.js      Shared unobtrusive JS
   assets/images/  Motifs extracted from the invitation PDF, plus photos
@@ -52,8 +50,10 @@ guess** — set it to the real ceremony time and keep it in step with `[CEREMONY
 
 - Edit existing CSS variables in `css/styles.css` before adding new CSS files.
 - Copy the existing header, nav, and footer when you add a page. Mark the current page with `aria-current="page"`.
-- Nav is two rows: the four ceremonial pages (Home, Our Story, Nalangu, Wedding), then a quieter
-  secondary row (Travel, Registry, RSVP). Only the primary row collapses on mobile.
+- Nav is one row: Home, Our Story, Nalangu, Wedding. It collapses on mobile. Travel, Registry and
+  RSVP are sections of `details.html`, reached by the jump links under its title; link to them as
+  `details.html#travel`, `details.html#registry`, `details.html#rsvp`. The homepage has one bell per
+  nav page.
 - Decoration is applied with classes, not inline styles: `.silk`, `.bokeh`, `.bokeh--gold`, `.toran`,
   `.ganesha`, `.lamp`, `.strand`, `.pillar`, `.panel--crest`. Decorative images carry empty `alt` and
   `aria-hidden="true"`; the couple illustrations are content and carry real `alt` text.
@@ -88,7 +88,7 @@ field class of their own.
 
 ## RSVP today
 
-The form on `rsvp.html` is front-end only. `js/main.js` validates required fields (name, email, attending) and shows an on-page message. Nothing is submitted to a server. The success message tells guests the form is not wired up and to contact `yeshria.pillay@gmail.com`.
+The RSVP form (`#rsvp` on `details.html`) is front-end only. `js/main.js` validates required fields (name, email, attending) and shows an on-page message. Nothing is submitted to a server. The success message tells guests the form is not wired up and to contact `yeshria.pillay@gmail.com`.
 
 ## Images
 

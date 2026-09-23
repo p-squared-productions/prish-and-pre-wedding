@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Wedding Day — Prenasen &amp; Prishantini</title>
-  <meta name="description" content="Ceremony, reception and the order of the day for the wedding of Prenasen and Prishantini.">
+  <meta name="description" content="Ceremony, reception, order of the day, travel, registry and RSVP for the wedding of Prenasen and Prishantini.">
   <link rel="stylesheet" href="css/styles.css">
 </head>
 <body>
@@ -21,13 +21,6 @@
           <li><a href="details.html" aria-current="page">Wedding</a></li>
         </ul>
       </nav>
-      <nav class="site-nav site-nav--secondary" aria-label="More">
-        <ul>
-          <li><a href="travel.html">Travel</a></li>
-          <li><a href="registry.html">Registry</a></li>
-          <li><a href="rsvp.html">RSVP</a></li>
-        </ul>
-      </nav>
     </div>
   </header>
 
@@ -41,6 +34,11 @@
         <hr class="rule">
         <p class="lede">5 December 2026 at The Garden Venue in Johannesburg. We would love you there from the first
           blessing to the last song.</p>
+        <ul class="jump-links" aria-label="On this page">
+          <li><a href="#travel">Travel &amp; Stay</a></li>
+          <li><a href="#registry">Registry</a></li>
+          <li><a href="#rsvp">RSVP</a></li>
+        </ul>
       </div>
     </section>
 
@@ -116,6 +114,141 @@
         <p>Our celebrations open with the Nalangu.
           <a class="card__link" href="nalangu.html">Read what it means</a>
         </p>
+      </div>
+    </section>
+    <section class="panel panel--gold bokeh--gold bokeh" id="travel">
+      <div class="panel__inner panel__inner--wide">
+        <p class="eyebrow">Getting There</p>
+        <h2 class="panel__title">Travel &amp; Stay</h2>
+        <hr class="rule">
+        <div class="panel__inner">
+          <h3 class="panel__subtitle">Getting to Johannesburg</h3>
+          <!-- TODO: add the airport you want guests to fly into, and a driving route. -->
+          <p>The ceremony and reception are both at The Garden Venue in Johannesburg, so once you are
+            here you will not need to travel between venues on the day.</p>
+          <p>If you are flying in, try to arrive the day before &mdash; the celebrations start early
+            and we would rather you were rested than rushing.</p>
+        </div>
+
+        <h3 class="panel__subtitle">Where to Stay</h3>
+        <ul class="card-grid">
+          <li class="card">
+            <h3>[HOTEL_NAME_1]</h3>
+            <!-- TODO: hotel name, area, booking link, and whether a block is held. -->
+            <p>A short drive from The Garden Venue.</p>
+          </li>
+          <li class="card">
+            <h3>[HOTEL_NAME_2]</h3>
+            <!-- TODO: hotel name, area, booking link. -->
+            <p>Another option nearby, for a different price range.</p>
+          </li>
+          <li class="card">
+            <h3>[HOTEL_NAME_3]</h3>
+            <!-- TODO: hotel name, area, booking link. -->
+            <p>A third option, in another part of Johannesburg.</p>
+          </li>
+        </ul>
+
+        <div class="panel__inner">
+          <h3 class="panel__subtitle">Parking &amp; Transport</h3>
+          <!-- TODO: confirm parking, ride-share pick-up point, and any shuttle. -->
+          <p>There is parking at The Garden Venue. If you would rather not drive, ride-hailing services
+            run throughout Johannesburg.</p>
+          <p>Anything else about getting around Johannesburg? Write to
+            <a href="mailto:yeshria.pillay@gmail.com">yeshria.pillay@gmail.com</a> and we will help.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="panel panel--gold bokeh" id="registry">
+      <div class="panel__inner">
+        <p class="eyebrow">Gifts</p>
+        <h2 class="panel__title">Registry</h2>
+        <hr class="rule">
+        <p class="lede">Your blessings are the gift we want most. If you would like to give
+          something as well, we have put a few lists together.</p>
+        <div class="card">
+          <h3>Where to look</h3>
+          <!-- TODO: replace the registry names and point each href at the real list. -->
+          <p>A few lists, for anyone who would like to give something.</p>
+          <ul class="registry-links">
+            <li><a href="#">[REGISTRY_NAME_1]</a></li>
+            <li><a href="#">[REGISTRY_NAME_2]</a></li>
+            <li><a href="#">[REGISTRY_NAME_3]</a></li>
+          </ul>
+        </div>
+        <hr class="rule">
+        <p>Anything you would rather ask us directly? Write to
+          <a href="mailto:yeshria.pillay@gmail.com">yeshria.pillay@gmail.com</a>.</p>
+      </div>
+    </section>
+
+    <section class="panel panel--gold bokeh--gold bokeh" id="rsvp">
+      <div class="panel__inner">
+        <p class="eyebrow">Please reply</p>
+        <h2 class="panel__title">RSVP</h2>
+        <hr class="rule">
+        <p class="lede">Let us know whether you can join us on 5 December 2026. This form stays on
+          the page for now and does not send your reply anywhere yet.</p>
+        <div class="form-card">
+          <form id="rsvp-form" action="#" method="get">
+            <div class="field">
+              <label for="guest-name">Guest name</label>
+              <input id="guest-name" name="guest-name" type="text" autocomplete="name" required>
+            </div>
+
+            <div class="field">
+              <label for="guest-email">Email</label>
+              <input id="guest-email" name="guest-email" type="email" autocomplete="email" required>
+            </div>
+
+            <fieldset class="field">
+              <legend class="field-label">Will you attend?</legend>
+              <div class="choice-row">
+                <label><input type="radio" name="attending" value="yes" required> Yes, I will be there</label>
+                <label><input type="radio" name="attending" value="no"> No, I cannot make it</label>
+              </div>
+            </fieldset>
+
+            <fieldset class="field">
+              <legend class="field-label">Which celebrations?</legend>
+              <div class="choice-row">
+                <label><input type="checkbox" name="events" value="nalangu"> Nalangu</label>
+                <label><input type="checkbox" name="events" value="wedding"> Wedding day</label>
+              </div>
+            </fieldset>
+
+            <div class="field">
+              <label for="plus-one">Plus-one</label>
+              <select id="plus-one" name="plus-one">
+                <option value="no">No plus-one</option>
+                <option value="yes">Yes, I am bringing a guest</option>
+              </select>
+            </div>
+
+            <div class="field">
+              <label for="meal-choice">Meal choice</label>
+              <select id="meal-choice" name="meal-choice">
+                <option value="">Please choose</option>
+                <option value="vegetarian">Vegetarian</option>
+                <option value="non-vegetarian">Non-vegetarian</option>
+                <option value="kids">Kids meal</option>
+              </select>
+            </div>
+
+            <div class="field">
+              <label for="guest-note">Note</label>
+              <textarea id="guest-note" name="guest-note"></textarea>
+              <p class="hint">Allergies, song requests, or anything we should know.</p>
+            </div>
+
+            <button class="button" type="submit">Send our reply</button>
+            <p id="rsvp-status" class="form-status" hidden role="status"></p>
+          </form>
+          <hr class="rule">
+          <p class="hint">Until this form is connected, please also write to
+            <a href="mailto:yeshria.pillay@gmail.com">yeshria.pillay@gmail.com</a>.</p>
+        </div>
       </div>
     </section>
   </main>

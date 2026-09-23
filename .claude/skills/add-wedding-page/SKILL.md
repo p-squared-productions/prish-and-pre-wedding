@@ -21,5 +21,5 @@ Use this skill for any new public page (FAQ, schedule add-on, rehearsal dinner, 
 
 - Do not introduce React, Vue, Tailwind, npm, or a backend.
 - Do not duplicate the full CSS file into the new page.
-- Do not skip updating nav on even one existing HTML file. Both nav rows must stay identical across pages.
+- Do not skip updating nav on even one existing HTML file. The nav must stay identical across pages.
 - Do not replace Prenasen or Prishantini with placeholder tokens.

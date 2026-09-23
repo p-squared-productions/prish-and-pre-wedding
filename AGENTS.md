@@ -6,7 +6,7 @@ See `CLAUDE.md` for the full file map, RSVP notes, and conventions.
 
 ## Stack
 
-- Pages: `index.html`, `story.html`, `nalangu.html`, `details.html`, `travel.html`, `registry.html`, `rsvp.html`
+- Pages: `index.html`, `story.html`, `nalangu.html`, `details.html` (which also holds the travel, registry and RSVP sections)
 - Shared CSS: `css/styles.css` (change `:root` variables first)
 - Shared JS: `js/main.js` (unobtrusive; page-check RSVP logic)
 - Motifs and photos: `assets/images/` (artwork extracted from `Prenasen & Prishantini.pdf`)

@@ -14,10 +14,7 @@ the visual reference. The decorative artwork in `assets/images/` was extracted f
 | `index.html` | The silk hero — garland, Ganesha, the couple, lamps, and the countdown |
 | `story.html` | "A Chance Encounter" — their real story, on champagne gold |
 | `nalangu.html` | The Nalangu ceremony and what each ritual means |
-| `details.html` | Wedding day: ceremony, reception, order of the day |
-| `travel.html` | Getting there, where to stay, parking |
-| `registry.html` | Gift registry |
-| `rsvp.html` | RSVP form (front-end only) |
+| `details.html` | Wedding day: ceremony, reception, order of the day, then travel & stay, registry and the RSVP form (front-end only) |
 
 ## How to open it
 
