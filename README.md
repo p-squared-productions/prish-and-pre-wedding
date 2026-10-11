@@ -12,9 +12,8 @@ the visual reference. The decorative artwork in `assets/images/` was extracted f
 | Page | What it is |
 | --- | --- |
 | `index.html` | The silk hero — garland, Ganesha, the couple, lamps, and the countdown |
-| `story.html` | "A Chance Encounter" — their real story, on champagne gold |
 | `nalangu.html` | The Nalangu ceremony and what each ritual means |
-| `details.html` | Wedding day: ceremony, reception, order of the day, then travel & stay, registry and the RSVP form (front-end only) |
+| `details.html` | Wedding: traditions & meaning, details and programme |
 
 ## How to open it
 
@@ -28,18 +27,11 @@ Set throughout the site:
 - **5 December 2026** — The Garden Venue, Johannesburg
 - Questions go to **yeshria.pillay@gmail.com**
 
-## Placeholder tokens still to replace
+## Placeholder tokens
 
-Search the project for these and swap them for the real details when you have them:
+None are open right now.
 
-- `[CEREMONY_TIME]`, `[RECEPTION_TIME]`, `[DRESS_CODE]`
-- `[NALANGU_DATE]`, `[NALANGU_TIME]`, `[NALANGU_VENUE]`
-- `[HOTEL_NAME_1]`–`[HOTEL_NAME_3]`
-- `[REGISTRY_NAME_1]`–`[REGISTRY_NAME_3]` (and their `href`s)
-
-The homepage countdown reads `WEDDING_DATE_ISO` in `js/main.js`, currently `2026-12-05T10:00:00`.
-The date is right; **the 10:00 time is a placeholder** — change it to the real ceremony time once it
-is set. If that value is not a parseable date, the countdown simply stays hidden.
+The homepage countdown reads `WEDDING_DATE_ISO` in `js/main.js`, currently `2026-12-05T14:00:00` (the 2:00 PM ceremony). If that value is not a parseable date, the countdown simply stays hidden.
 
 Photos go in `assets/images/`, alongside the invitation motifs.
 
@@ -47,4 +39,3 @@ Photos go in `assets/images/`, alongside the invitation motifs.
 
 Later work should stay vanilla HTML, CSS, and JS unless the site owner asks for something else. Reuse `css/styles.css` and `js/main.js`. Do not add a framework, bundler, or backend by default.
 
-The RSVP form only checks fields in the browser. It does not send replies anywhere yet.

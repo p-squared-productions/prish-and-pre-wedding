@@ -10,7 +10,7 @@ Use this skill for any new public page (FAQ, schedule add-on, rehearsal dinner, 
 ## Do this
 
 1. Create a new `.html` file in the project root, not in a nested app folder.
-2. Copy the header, nav, footer, skip link, and page shell from an existing page such as `story.html`.
+2. Copy the header, nav, footer, skip link, and page shell from an existing page such as `nalangu.html`.
 3. Point the new page at `css/styles.css` and `js/main.js`. Do not add a new stylesheet, JS bundle, framework, or build tool.
 4. Add the page to the `<nav>` list on **every** existing HTML file. Keep the same order everywhere. Set `aria-current="page"` only on the new page’s own nav link.
 5. Keep the couple's real names, Prenasen and Prishantini, and the remaining placeholder tokens (`[WEDDING_DATE]`, `[VENUE]`, `[CITY]`, `[CONTACT_EMAIL]`). Keep the accessibility patterns (skip link, heading order, labels, `:focus-visible` already in CSS).

@@ -9,10 +9,8 @@ The visual system is a classic South African Tamil / South Indian wedding invita
 ```
 ./
   index.html      Home — the silk hero, Ganesha, couple, lamps, countdown
-  story.html      Our Story — "A Chance Encounter" on champagne bokeh
-  nalangu.html    Nalangu — the pre-wedding ceremony and its meaning
-  details.html    Wedding day — ceremony, reception, order of the day, then
-                  Travel & stay (#travel), Registry (#registry), RSVP form (#rsvp)
+  nalangu.html    Nalangu — #traditions, #details, #programme
+  details.html    Wedding — #traditions, #details, #programme
   css/styles.css  Shared stylesheet (all decoration lives here)
   js/main.js      Shared unobtrusive JS
   assets/images/  Motifs extracted from the invitation PDF, plus photos
@@ -27,8 +25,7 @@ The visual system is a classic South African Tamil / South Indian wedding invita
 ## Placeholder tokens
 
 The couple's names are real and final: **Prenasen** and **Prishantini**. Never replace them with
-`[PARTNER_A]` / `[PARTNER_B]` tokens. Their story on `story.html` is their real story from the PDF —
-do not rewrite it into generic placeholder copy.
+`[PARTNER_A]` / `[PARTNER_B]` tokens. The Our Story page has been retired; do not rewrite their story into generic placeholder copy if it returns.
 
 The core details are now filled in and should be kept consistent everywhere:
 
@@ -36,24 +33,21 @@ The core details are now filled in and should be kept consistent everywhere:
 - Venue: **The Garden Venue**
 - City: **Johannesburg**
 - Contact: **yeshria.pillay@gmail.com**
+- Nalangu: **4 December 2026**, 4:00 PM until late, **Meyersdal Nature Estate Club House**, casual / Indian attire (no green)
+- Wedding: **5 December 2026**, 2:00 PM ceremony with reception to follow, formal / Indian attire (red reserved for the bridal couple)
 
-These placeholders are still open, and should be left as tokens until the couple supplies a value:
-`[CEREMONY_TIME]`, `[RECEPTION_TIME]`, `[DRESS_CODE]`, `[NALANGU_DATE]`, `[NALANGU_TIME]`,
-`[NALANGU_VENUE]`, `[HOTEL_NAME_1]`–`[HOTEL_NAME_3]`, `[REGISTRY_NAME_1]`–`[REGISTRY_NAME_3]`.
+No placeholder tokens are currently open.
 
 The homepage countdown reads `WEDDING_DATE_ISO` in `js/main.js` and shows months, weeks, days, hours,
-minutes and seconds. It holds `2026-12-05T10:00:00`. The date is confirmed; **the time is still a
-guess** — set it to the real ceremony time and keep it in step with `[CEREMONY_TIME]` on
+minutes and seconds. It holds `2026-12-05T14:00:00`, the 2:00 PM ceremony start; keep it in step with the time on
 `details.html`. If the constant is not a parseable date, the countdown stays hidden.
 
 ## Conventions
 
 - Edit existing CSS variables in `css/styles.css` before adding new CSS files.
-- Copy the existing header, nav, and footer when you add a page. Mark the current page with `aria-current="page"`.
-- Nav is one row: Home, Our Story, Nalangu, Wedding. It collapses on mobile. Travel, Registry and
-  RSVP are sections of `details.html`, reached by the jump links under its title; link to them as
-  `details.html#travel`, `details.html#registry`, `details.html#rsvp`. The homepage has one bell per
-  nav page.
+- Copy the existing bells, skip link and footer when you add a page.
+- Navigation is two hanging bells (`.bell--left`, `.bell--right`) on every page, linking to the other two pages: Home shows Nalangu and Wedding; Nalangu shows Home and Wedding; Wedding shows Home and Nalangu. There is no header bar. Copy the bell markup from `index.html`.
+- Nalangu and Wedding each have three sub-sections (Traditions & Meaning, Details, Programme) reached by jump links under the page title. Travel, Registry and RSVP sections have been removed; the RSVP code in `js/main.js` is dormant.
 - Decoration is applied with classes, not inline styles: `.silk`, `.bokeh`, `.bokeh--gold`, `.toran`,
   `.ganesha`, `.lamp`, `.strand`, `.pillar`, `.panel--crest`. Decorative images carry empty `alt` and
   `aria-hidden="true"`; the couple illustrations are content and carry real `alt` text.
@@ -61,7 +55,7 @@ guess** — set it to the real ceremony time and keep it in step with `[CEREMONY
 
 ### Scroll reveals
 
-`story.html` fades its text in as the reader reaches it. To animate anything:
+No page uses reveals right now (`story.html` was removed; see git history). To animate anything:
 
 - Add `data-reveal` for a fade-and-rise, or `data-reveal="fade"` to appear on the
   spot with no movement (used for the title and the short dramatic beats).
@@ -69,7 +63,7 @@ guess** — set it to the real ceremony time and keep it in step with `[CEREMONY
 - `js/main.js` drives it with one `IntersectionObserver`, gated on
   `[data-reveal]` existing, so pages without reveals pay nothing.
 - A page using reveals needs the small failsafe script in its `<head>` (copy it
-  from `story.html`). It adds the `js` class only when `IntersectionObserver`
+  from git history of `story.html`). It adds the `js` class only when `IntersectionObserver`
   exists, and strips it again if `main.js` has not signalled `data-reveal-ready`
   within three seconds — so a failed script can never leave text invisible.
 - Elements are only hidden under `.js`, so with JavaScript off nothing is
@@ -83,12 +77,12 @@ instead of the pattern restarting at every panel. Panels on such a page carry no
 field class of their own.
 - Keep JavaScript unobtrusive. Pages must work with JS off, except mobile nav, RSVP checks, and the countdown.
 - Reuse `js/main.js`. Gate page-specific logic so other pages do not error.
-- Use relative links (`story.html`, `css/styles.css`) so the site works as files or from a simple static server.
+- Use relative links (`nalangu.html`, `css/styles.css`) so the site works as files or from a simple static server.
 - Never add a framework, bundler, package manager, TypeScript, or backend unless the owner explicitly asks.
 
-## RSVP today
+## RSVP
 
-The RSVP form (`#rsvp` on `details.html`) is front-end only. `js/main.js` validates required fields (name, email, attending) and shows an on-page message. Nothing is submitted to a server. The success message tells guests the form is not wired up and to contact `yeshria.pillay@gmail.com`.
+The RSVP form has been removed from the site. The form-handling code in `js/main.js` is gated on `#rsvp-form`, so it does nothing without it.
 
 ## Images
 

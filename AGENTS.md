@@ -6,7 +6,7 @@ See `CLAUDE.md` for the full file map, RSVP notes, and conventions.
 
 ## Stack
 
-- Pages: `index.html`, `story.html`, `nalangu.html`, `details.html` (which also holds the travel, registry and RSVP sections)
+- Pages: `index.html`, `nalangu.html`, `details.html`
 - Shared CSS: `css/styles.css` (change `:root` variables first)
 - Shared JS: `js/main.js` (unobtrusive; page-check RSVP logic)
 - Motifs and photos: `assets/images/` (artwork extracted from `Prenasen & Prishantini.pdf`)
@@ -14,9 +14,8 @@ See `CLAUDE.md` for the full file map, RSVP notes, and conventions.
 
 ## Do
 
-- Reuse the existing header, nav, and footer on every page.
+- Reuse the existing bell navigation and footer on every page.
 - Keep the real details consistent everywhere: Prenasen and Prishantini, 5 December 2026, The Garden Venue, Johannesburg, yeshria.pillay@gmail.com.
-- Leave the remaining tokens (`[CEREMONY_TIME]`, `[NALANGU_DATE]`, `[HOTEL_NAME_1]`, `[REGISTRY_NAME_1]`, and similar) until the couple supplies a value.
 - Use relative links. Stay mobile-first and accessible (skip link, labels, `:focus-visible`, `aria-current`, `aria-expanded`).
 - Follow `.claude/skills/add-wedding-page/SKILL.md` for new pages.
 - Follow `.claude/skills/update-wedding-content/SKILL.md` when replacing couple details.

@@ -35,6 +35,13 @@
   --gold-pale: #f3dfa6;
   --gold-henna: #ecd28f;   /* Nalangu henna field, a shade under gold-pale */
 
+  /* Nalangu palette: mustard, light yellow and gold */
+  --mustard: #dfaa1c;
+  --mustard-deep: #c89212;
+  --lemon: #fff4bd;
+  --lemon-deep: #fbe68f;
+  --nalangu-ink: #4f3406;  /* deep brown that replaces maroon on the Nalangu page */
+
   /* Ivory & cream (text on red) */
   --ivory: #f7ecd0;
   --cream: #fff6df;
@@ -309,10 +316,264 @@ h4 {
    shifted half a step (the tile carries both rows), over pale
    gold across the whole page; its panels carry no field class of their own. */
 .field-henna {
-  background-color: var(--gold-henna);
-  background-image: url("../assets/images/henna-mandala-tile.png");
-  background-size: 280px 560px;
-  background-repeat: repeat;
+  background-color: var(--mustard-deep);
+  background-image:
+    url("../assets/images/paisley-tile-brown.png"),
+    radial-gradient(60% 18% at 50% 8%, rgba(255, 236, 150, 0.45), transparent 100%),
+    radial-gradient(70% 16% at 50% 33%, rgba(255, 228, 130, 0.35), transparent 100%),
+    radial-gradient(70% 16% at 50% 62%, rgba(255, 228, 130, 0.35), transparent 100%),
+    radial-gradient(70% 16% at 50% 90%, rgba(255, 236, 150, 0.4), transparent 100%),
+    linear-gradient(180deg, var(--mustard) 0%, var(--mustard-deep) 30%, #b5820b 60%, var(--mustard-deep) 100%);
+  background-size: 420px 420px, 100% 100%, 100% 100%, 100% 100%, 100% 100%, 100% 100%;
+  background-repeat: repeat, no-repeat, no-repeat, no-repeat, no-repeat, no-repeat;
+}
+
+/* Separator between panels: a thin line, five diyas (one large in the middle,
+   two smaller either side), and the line again. It overlaps the panels' padding
+   so it sits on the seam instead of a hard edge. */
+.divider {
+  position: relative;
+  z-index: 6;
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  gap: clamp(0.5rem, 1.6vw, 0.9rem);
+  width: min(640px, 88vw);
+  margin: calc(var(--panel-pad) * -0.3) auto;
+  pointer-events: none;
+}
+
+.divider__line {
+  flex: 1;
+  align-self: center;
+  height: 1px;
+  background: var(--nalangu-ink);
+  opacity: 0.55;
+}
+
+.divider--gold .divider__line {
+  background: var(--gold-light);
+  opacity: 0.75;
+}
+
+.divider__diya {
+  display: block;
+  width: clamp(18px, 3.4vw, 26px);
+  height: auto;
+}
+
+.divider__diya--big {
+  width: clamp(34px, 6.4vw, 50px);
+}
+
+/* Deep maroon silk, a darker sibling of .silk for alternating wedding panels. */
+.silk--maroon {
+  background-color: var(--maroon);
+  background-image:
+    radial-gradient(120% 80% at 50% 0%, rgba(176, 29, 50, 0.4), transparent 62%),
+    linear-gradient(0deg, var(--maroon) 0%, var(--maroon) 100%),
+    url("../assets/images/silk-red.jpg");
+  background-size: auto, auto, cover;
+  background-blend-mode: soft-light, multiply, normal;
+}
+
+/* Text set directly on silk (outside the ivory cards): gold titles, ivory copy. */
+.silk .panel__title,
+.silk .panel__subtitle {
+  color: var(--gold-light);
+}
+
+.silk .eyebrow {
+  color: var(--gold-pale);
+}
+
+.silk .card a,
+.silk .form-card a,
+.silk .registry-links a {
+  color: var(--maroon);
+}
+
+.silk .panel__inner > .hint {
+  color: var(--ivory);
+}
+
+.silk .timeline time {
+  color: var(--gold-light);
+}
+
+.silk .timeline__event h3 {
+  color: var(--gold-pale);
+}
+
+.silk .timeline__event p {
+  color: var(--ivory);
+}
+
+/* On the wedding page each timeline stop is a small gold diya, with the line
+   running down from beneath it. */
+.silk .timeline--split li {
+  grid-template-columns: minmax(5.5rem, 1fr) 2.6rem 1.7fr;
+}
+
+.silk .timeline--split li::before {
+  width: 1.7rem;
+  height: 1.7rem;
+  margin-top: 0;
+  background: url("../assets/images/diya-gold.png") center / contain no-repeat;
+  transform: none;
+  box-shadow: none;
+}
+
+.silk .timeline--split li::after {
+  margin-top: 2rem;
+  background: var(--gold);
+}
+
+.silk .timeline--split time {
+  padding-top: 0.4rem;
+}
+
+.silk .timeline__event h3 {
+  padding-top: 0.2rem;
+}
+
+/* Nalangu field bands: mustard and light yellow edged in gold. */
+.field-mustard {
+  background-color: var(--mustard);
+  background-image:
+    url("../assets/images/paisley-tile-brown.png"),
+    radial-gradient(110% 80% at 50% 0%, rgba(255, 244, 189, 0.5), transparent 62%),
+    linear-gradient(180deg, var(--mustard) 0%, var(--mustard-deep) 100%);
+  background-size: 420px 420px, auto, auto;
+  box-shadow:
+    inset 0 2px 0 var(--gold-light),
+    inset 0 -2px 0 var(--gold);
+}
+
+.field-lemon {
+  background-color: var(--lemon);
+  background-image:
+    radial-gradient(100% 70% at 50% 50%, rgba(255, 255, 240, 0.65), transparent 70%),
+    url("../assets/images/paisley-tile-gold.png");
+  background-size: auto, 420px 420px;
+}
+
+/* On the Nalangu page maroon gives way to a deep gold-brown, so the two
+   celebrations keep to their own colours. */
+.theme-nalangu .site-main {
+  --maroon: var(--nalangu-ink);
+}
+
+/* Contrast on the Nalangu mustard: links, timeline and body copy in deep gold-brown. */
+.theme-nalangu .jump-links a {
+  color: var(--nalangu-ink);
+  border-bottom-color: var(--nalangu-ink);
+}
+
+.theme-nalangu .jump-links a:hover {
+  color: #2e1d02;
+}
+
+.theme-nalangu .timeline--split li::before {
+  background: var(--nalangu-ink);
+  box-shadow: 0 0 0 3px var(--mustard);
+}
+
+.theme-nalangu .timeline--split li::after {
+  background: var(--nalangu-ink);
+  opacity: 0.55;
+}
+
+.theme-nalangu .timeline__event p,
+.theme-nalangu .lede,
+.theme-nalangu .panel--gold .eyebrow {
+  color: var(--nalangu-ink);
+}
+
+/* Home cards that preview each celebration's colours. */
+.card.card--nalangu {
+  background: linear-gradient(180deg, var(--lemon), var(--mustard));
+}
+
+.card.card--nalangu h3,
+.card.card--nalangu .card__link {
+  color: #2e1d02;
+  font-weight: 700;
+  border-bottom-color: #2e1d02;
+}
+
+.card.card--nalangu p {
+  color: var(--nalangu-ink);
+}
+
+.card.card--wedding {
+  background: linear-gradient(180deg, var(--silk-red), var(--maroon));
+}
+
+.card.card--wedding h3,
+.card.card--wedding .card__link {
+  color: var(--gold-light);
+}
+
+.card.card--wedding p {
+  color: var(--ivory);
+}
+
+.card.card--wedding .card__link:hover {
+  color: var(--cream);
+}
+
+.card__links {
+  list-style: none;
+  margin: 1.2rem 0 0;
+  padding: 0;
+  display: grid;
+  gap: 0.7rem;
+}
+
+/* Red mandala field: one gold mandala tile painted on the body, so the pattern
+   runs unbroken down the whole page. Silk panels turn transparent over it;
+   .silk--maroon deepens the same pattern instead of starting a new one. */
+.field-mandala-red {
+  background-color: var(--silk-red);
+  background-image:
+    url("../assets/images/henna-mandala-tile-gold.png"),
+    linear-gradient(180deg, var(--silk-red-bright) 0%, var(--silk-red) 45%, var(--silk-red-deep) 100%);
+  background-size: 280px 560px, 100% 100%;
+  background-repeat: repeat, no-repeat;
+}
+
+/* Wedding page: one deep red that drifts lighter and darker down the page. */
+.field-mandala-red--flow {
+  background-color: #7a0f1f;
+  background-image:
+    url("../assets/images/henna-mandala-tile-gold.png"),
+    radial-gradient(60% 18% at 50% 8%, rgba(214, 74, 96, 0.35), transparent 100%),
+    radial-gradient(70% 16% at 50% 35%, rgba(176, 29, 50, 0.4), transparent 100%),
+    radial-gradient(70% 16% at 50% 65%, rgba(176, 29, 50, 0.4), transparent 100%),
+    radial-gradient(70% 16% at 50% 92%, rgba(214, 74, 96, 0.3), transparent 100%),
+    linear-gradient(180deg, #8f1224 0%, #7a0f1f 30%, #6b0e1c 60%, #7a0f1f 100%);
+  background-size: 280px 560px, 100% 100%, 100% 100%, 100% 100%, 100% 100%, 100% 100%;
+  background-repeat: repeat, no-repeat, no-repeat, no-repeat, no-repeat, no-repeat;
+}
+
+.field-mandala-red .silk,
+.field-mandala-red .silk--maroon {
+  background: none;
+}
+
+.field-mandala-red .silk::after {
+  display: none;
+}
+
+/* A stage panel must not trap its garlands in a stacking context, or the
+   bells would hang in front of them instead of beneath. */
+.silk.panel--stage {
+  isolation: auto;
+}
+
+.field-mandala-red .silk--maroon {
+  background: rgba(40, 3, 10, 0.5);
 }
 
 /* Warm marigold-gold field — the Nalangu pages. */
@@ -437,33 +698,17 @@ h4 {
   .bell__etch-light{ transform: translateY(3px); }
 }
 
-/* Two bells on each side, mirrored: the outer bell hangs high, the inner one
-   lower. Left to right they read Home, Our Story, Nalangu, Wedding. */
+/* Two bells, mirrored, on every page: the first link hangs left, the second right. */
 
-/* left pair */
-
-.home{
+.bell--left{
   z-index: 3;
   left: 12.5vw;
+  top: 3vh;
 }
 
-.story{
+.bell--right{
   z-index: 3;
-  left: 18.5vw;
-  top: 11vh;
-}
-
-/* right pair */
-
-.nalangu{
-  z-index: 3;
-  right: 18vw;
-  top: 11vh;
-}
-
-.wedding{
-  z-index: 3;
-  right: 11.5vw;
+  right: 12.5vw;
   top: 3vh;
 }
 
@@ -654,7 +899,7 @@ h4 {
   border-bottom-color: var(--gold-mid);
 }
 
-/* In-page links under the Wedding page title: travel, registry and RSVP. */
+/* In-page links under the Nalangu and Wedding page titles. */
 .jump-links {
   list-style: none;
   display: flex;
@@ -724,6 +969,19 @@ h4 {
   margin: 0 0 0.6em;
 }
 
+.hero__welcome {
+  max-width: 44rem;
+  margin: clamp(1.4rem, 3vw, 2.4rem) auto 0;
+  color: var(--ivory);
+}
+
+.hero__welcome-close {
+  font-family: var(--font-script);
+  font-size: clamp(1.8rem, 5vw, 2.8rem);
+  color: var(--gold-light);
+  margin: 0;
+}
+
 .hero__date {
   font-family: var(--font-body);
   font-size: clamp(1rem, 2vw, 1.2rem);
@@ -749,28 +1007,28 @@ h4 {
   text-align: center;
 }
 
-/* The countdown sits inside the henna frame (border.png, recoloured to
-   --gold-light as border-gold.png). .countdown__inner is inset by % of the
+/* The countdown sits inside the floral frame (countdown-frame.png: the maroon
+   line art with its white removed, recoloured to --gold-light). .countdown__inner is inset by % of the
    frame's own box, which keeps the values inside the frame's opening. The frame is min(720px, ~90vw) wide, so
    type is sized as min(px, vw) pairs that shrink with it. */
 .countdown {
   position: relative;
-  width: min(720px, 100%);
-  aspect-ratio: 1200 / 885;
+  width: min(780px, 100%);
+  aspect-ratio: 1600 / 1037;
   margin: 0 auto;
   background:
-    url("../assets/images/border-gold.png") center / 100% 100% no-repeat,
-    radial-gradient(34% 38% at 50% 52%, rgba(58, 5, 14, 0.72), rgba(58, 5, 14, 0) 100%);
+    url("../assets/images/countdown-frame.png") center / 100% 100% no-repeat,
+    radial-gradient(34% 38% at 50% 50%, rgba(58, 5, 14, 0.72), rgba(58, 5, 14, 0) 100%);
   filter: drop-shadow(0 6px 16px rgba(40, 3, 10, 0.45));
 }
 
-.countdown[hidden] {
+.countdown-wrap[hidden] {
   display: none;
 }
 
 .countdown__inner {
   position: absolute;
-  inset: 18% 27% 12%;
+  inset: 21% 25% 19%;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -778,10 +1036,11 @@ h4 {
 
 .countdown__title {
   font-family: var(--font-script);
-  font-size: min(36px, 4.5vw);
+  font-size: clamp(2rem, 6vw, 3.2rem);
   font-weight: 400;
   line-height: 1.1;
-  margin: 0 0 min(20px, 2.5vw);
+  text-align: center;
+  margin: clamp(0.6rem, 2vw, 1.2rem) 0 0;
   color: var(--gold-light);
 }
 
@@ -1084,18 +1343,21 @@ h4 {
   margin: 0 0 0 50%;
   transform: translateX(-50%);
   padding: 0;
-  display: grid;
-  gap: clamp(0.9rem, 2vw, 1.4rem);
-  grid-template-columns: repeat(3, 1fr);
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  --ritual-gap: clamp(0.9rem, 2vw, 1.4rem);
+  gap: var(--ritual-gap);
 }
 
 @media (max-width: 760px) {
-  .ritual-list {
-    grid-template-columns: 1fr;
+  ul.ritual-list li {
+    flex-basis: 100%;
   }
 }
 
 .ritual-list li {
+  flex: 0 1 calc((100% - 2 * var(--ritual-gap)) / 3);
   padding: clamp(1.2rem, 2.5vw, 1.6rem);
   text-align: center;
   font-size: 0.95em;
@@ -1193,6 +1455,70 @@ h4 {
   letter-spacing: 0.22em;
   text-transform: uppercase;
   color: var(--maroon);
+}
+
+/* Split timeline: time on the left, a gold line and dot down the middle, the event on the right. */
+.timeline--split {
+  max-width: 820px;
+}
+
+.timeline--split li {
+  display: grid;
+  grid-template-columns: minmax(5.5rem, 1fr) 1.8rem 1.7fr;
+  column-gap: 0.4rem;
+  padding: 0 0 clamp(1.4rem, 3vw, 2.2rem);
+  border-bottom: 0;
+}
+
+.timeline--split li::before {
+  position: static;
+  grid-column: 2;
+  grid-row: 1;
+  justify-self: center;
+  align-self: start;
+  margin-top: 0.35rem;
+  z-index: 1;
+  box-shadow: 0 0 0 3px var(--cream);
+}
+
+.timeline--split li::after {
+  content: "";
+  grid-column: 2;
+  grid-row: 1;
+  justify-self: center;
+  align-self: stretch;
+  width: 1px;
+  margin-top: 0.7rem;
+  background: var(--gold-mid);
+}
+
+.timeline--split li:last-child::after {
+  display: none;
+}
+
+.timeline--split time {
+  grid-column: 1;
+  grid-row: 1;
+  text-align: right;
+  font-size: clamp(0.7rem, 1.8vw, 0.86rem);
+  line-height: 1.5;
+  padding-top: 0.2rem;
+}
+
+.timeline__event {
+  grid-column: 3;
+  grid-row: 1;
+}
+
+.timeline__event h3 {
+  margin: 0 0 0.35rem;
+  font-size: clamp(1rem, 2.4vw, 1.25rem);
+  color: var(--maroon);
+}
+
+.timeline__event p {
+  margin: 0;
+  color: var(--ink-soft);
 }
 
 .registry-links {

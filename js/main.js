@@ -6,7 +6,7 @@
      The time below is still a guess — set it to the real ceremony time, and keep
      it in step with the times shown on details.html. If this is not a parseable
      date the countdown stays hidden. */
-  var WEDDING_DATE_ISO = "2026-12-05T10:00:00";
+  var WEDDING_DATE_ISO = "2026-12-05T14:00:00";
 
   /* --- Mobile nav ------------------------------------------------------- */
 
