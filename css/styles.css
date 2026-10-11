@@ -550,6 +550,23 @@ h4 {
 /* A ceremonial stage: the couple sit centred between the pillars. */
 .panel--stage {
   padding-bottom: 0;
+  /* Let the side garlands hang past the panel into the next one instead of
+     being clipped; only the sideways overflow is trimmed. */
+  overflow-x: clip;
+  overflow-y: visible;
+}
+
+/* Keep the intro between the side garlands. */
+.nalangu-description {
+  max-width: min(34rem, 62vw);
+  margin: clamp(1.5rem, 5vw, 4rem) auto 0;
+}
+/* Text sits in front of the garlands (z-index 5) so it is never hidden. */
+.panel--stage > .eyebrow,
+.panel--stage > .panel__title,
+.panel--stage > .nalangu-description {
+  position: relative;
+  z-index: 6;
 }
 
 .panel--stage .panel__title--script {
@@ -950,6 +967,69 @@ h4 {
   grid-template-columns: repeat(auto-fit, minmax(270px, 1fr));
 }
 
+/* Nalangu details: one ivory invitation panel, three centred rows split by gold gems. */
+.nalangu-details {
+  max-width: 760px;
+  margin: 0 auto;
+  padding: clamp(1.6rem, 4vw, 3rem) clamp(1.2rem, 5vw, 3.5rem);
+  text-align: center;
+  background: linear-gradient(180deg, var(--cream), #fdeecd);
+  border: 1px solid var(--gold);
+  border-radius: 3px;
+  box-shadow:
+    0 0 0 6px rgba(255, 255, 255, 0.5) inset,
+    0 0 0 7px rgba(201, 162, 39, 0.45) inset,
+    0 12px 30px rgba(92, 10, 22, 0.15);
+}
+
+.nalangu-details__row h3 {
+  margin: 0 0 0.5rem;
+  font-family: var(--font-script);
+  font-size: clamp(1.8rem, 5vw, 2.5rem);
+  font-weight: 400;
+  color: var(--gold);
+  text-transform: none;
+  letter-spacing: 0;
+}
+
+.nalangu-details__main {
+  margin: 0;
+  font-family: var(--font-display);
+  font-size: clamp(1rem, 2.6vw, 1.4rem);
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--maroon);
+}
+
+.nalangu-details__sub {
+  margin: 0.45rem auto 0;
+  max-width: 34rem;
+  font-style: italic;
+  font-size: clamp(1.05rem, 2.2vw, 1.25rem);
+  color: var(--ink-soft);
+}
+
+.nalangu-details__gem {
+  display: block;
+  height: 1px;
+  margin: clamp(1.4rem, 3vw, 2.2rem) auto;
+  max-width: 320px;
+  background: var(--rule-gold);
+  position: relative;
+}
+
+.nalangu-details__gem::after {
+  content: "";
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 9px;
+  height: 9px;
+  background: var(--gold);
+  transform: translate(-50%, -50%) rotate(45deg);
+  box-shadow: 0 0 0 3px var(--cream);
+}
+
 .card {
   position: relative;
   padding: clamp(1.4rem, 3vw, 2.2rem);
@@ -999,12 +1079,20 @@ h4 {
 /* Ritual list — the auspicious meanings, each in a small ivory box with its icon. */
 .ritual-list {
   list-style: none;
-  margin: 0 auto;
+  /* Break out of the narrow text measure so each box has room. */
+  width: min(1080px, 90vw);
+  margin: 0 0 0 50%;
+  transform: translateX(-50%);
   padding: 0;
-  max-width: 1080px;
   display: grid;
   gap: clamp(0.9rem, 2vw, 1.4rem);
-  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  grid-template-columns: repeat(3, 1fr);
+}
+
+@media (max-width: 760px) {
+  .ritual-list {
+    grid-template-columns: 1fr;
+  }
 }
 
 .ritual-list li {
