@@ -543,18 +543,19 @@ h4 {
   background-repeat: repeat, no-repeat;
 }
 
-/* Wedding page: one deep red that drifts lighter and darker down the page. */
+/* Wedding page: a maroon floral damask that drifts lighter and darker down the
+   page. The tile is mirrored top to bottom, so it repeats without a seam. */
 .field-mandala-red--flow {
   background-color: #7a0f1f;
   background-image:
-    url("../assets/images/henna-mandala-tile-gold.png"),
-    radial-gradient(60% 18% at 50% 8%, rgba(214, 74, 96, 0.35), transparent 100%),
-    radial-gradient(70% 16% at 50% 35%, rgba(176, 29, 50, 0.4), transparent 100%),
-    radial-gradient(70% 16% at 50% 65%, rgba(176, 29, 50, 0.4), transparent 100%),
-    radial-gradient(70% 16% at 50% 92%, rgba(214, 74, 96, 0.3), transparent 100%),
-    linear-gradient(180deg, #8f1224 0%, #7a0f1f 30%, #6b0e1c 60%, #7a0f1f 100%);
-  background-size: 280px 560px, 100% 100%, 100% 100%, 100% 100%, 100% 100%, 100% 100%;
-  background-repeat: repeat, no-repeat, no-repeat, no-repeat, no-repeat, no-repeat;
+    radial-gradient(60% 18% at 50% 8%, rgba(176, 29, 50, 0.45), transparent 100%),
+    radial-gradient(70% 16% at 50% 35%, rgba(140, 22, 40, 0.4), transparent 100%),
+    radial-gradient(70% 16% at 50% 65%, rgba(140, 22, 40, 0.4), transparent 100%),
+    radial-gradient(70% 16% at 50% 92%, rgba(176, 29, 50, 0.35), transparent 100%),
+    linear-gradient(180deg, rgba(60, 4, 12, 0) 0%, rgba(60, 4, 12, 0.35) 55%, rgba(60, 4, 12, 0) 100%),
+    url("../assets/images/floral-tile-maroon.jpg");
+  background-size: 100% 100%, 100% 100%, 100% 100%, 100% 100%, 100% 100%, 374px 1280px;
+  background-repeat: no-repeat, no-repeat, no-repeat, no-repeat, no-repeat, repeat;
 }
 
 .field-mandala-red .silk,
@@ -1503,6 +1504,30 @@ h4 {
   font-size: clamp(0.7rem, 1.8vw, 0.86rem);
   line-height: 1.5;
   padding-top: 0.2rem;
+}
+
+/* Staggered timeline: events alternate sides of the centre line, odd on the
+   right with their time on the left, even mirrored. Narrow screens fall back
+   to the single-sided layout above. */
+@media (min-width: 640px) {
+  .timeline--alt {
+    max-width: 920px;
+  }
+
+  .timeline--alt li,
+  .silk .timeline--alt li {
+    grid-template-columns: minmax(0, 1fr) 2.6rem minmax(0, 1fr);
+  }
+
+  .timeline--alt li:nth-child(even) time {
+    grid-column: 3;
+    text-align: left;
+  }
+
+  .timeline--alt li:nth-child(even) .timeline__event {
+    grid-column: 1;
+    text-align: right;
+  }
 }
 
 .timeline__event {
