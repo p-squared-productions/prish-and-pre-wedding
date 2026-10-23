@@ -7,53 +7,34 @@
   <meta name="description" content="Welcome to the wedding celebrations of Prenasen and Prishantini, 5 December 2026.">
   <link rel="stylesheet" href="css/styles.css">
 </head>
-<body class="field-mandala-red">
-        <img class="garlands-top" src="assets/images/garlands_new.png" alt="" aria-hidden="true" width="100vw">
+<body class="field-mandala-red field-fixed field-fixed--home">
       <img class="ganesha" src="assets/images/ganesha.png" alt="" aria-hidden="true" width="520" height="640">
        <a class="bell bell--left" href="nalangu.html" aria-label="Nalangu">
-         <img src="assets/images/bell.png" alt="" aria-hidden="true">
-         <svg class="bell__etch" viewBox="0 0 880 1030" aria-hidden="true" focusable="false">
-           <defs>
-             <path id="bell-arc-nalangu" d="M 190 634 Q 432 744 674 634" fill="none"></path>
-           </defs>
-           <text class="bell__etch-light">
-             <textPath href="#bell-arc-nalangu" startOffset="50%" textLength="400" lengthAdjust="spacing">Nalangu</textPath>
-           </text>
-           <text class="bell__etch-cut">
-             <textPath href="#bell-arc-nalangu" startOffset="50%" textLength="400" lengthAdjust="spacing">Nalangu</textPath>
-           </text>
-         </svg>
+         <img src="assets/images/ai/nalangu-bell.png" alt="" aria-hidden="true">
        </a>
        <a class="bell bell--right" href="details.html" aria-label="Wedding day">
-         <img src="assets/images/bell.png" alt="" aria-hidden="true">
-         <svg class="bell__etch" viewBox="0 0 880 1030" aria-hidden="true" focusable="false">
-           <defs>
-             <path id="bell-arc-wedding" d="M 190 634 Q 432 744 674 634" fill="none"></path>
-           </defs>
-           <text class="bell__etch-light">
-             <textPath href="#bell-arc-wedding" startOffset="50%" textLength="400" lengthAdjust="spacing">Wedding</textPath>
-           </text>
-           <text class="bell__etch-cut">
-             <textPath href="#bell-arc-wedding" startOffset="50%" textLength="400" lengthAdjust="spacing">Wedding</textPath>
-           </text>
-         </svg>
+         <img src="assets/images/ai/wedding-bell.png" alt="" aria-hidden="true">
        </a>
 
+  <!-- The couple stay pinned behind the page; scrolling steps through the three stages above them. -->
+  <img class="hero__couple" src="assets/images/couple-nalangu.png"
+       alt="Illustration of the bride in a red and gold sari seated beside the groom in cream traditional dress, with lamps and offerings before them."
+       width="804" height="736">
+
   <main id="main" class="site-main">
-    <!-- Page one of the invitation: silk, garland, Ganesha, the couple, the lamps. -->
+    <!-- Page one of the invitation: silk, Ganesha, the names and the countdown. -->
     <div class="silk silk-field">
       <section class="hero">
         <!-- <div class="toran" aria-hidden="true"></div> -->
         
 
         <div class="hero__inner">
-          <h1 class="hero__names gold-type">Prenasen &amp; Prishantini</h1>
-          <p class="hero__sub gold-type">5 December 2026</p>
-          <p class="hero__date">&ldquo;Two hearts, one journey, and a lifetime of love ahead.&rdquo;</p>
-          <img class="hero__couple" src="assets/images/couple-nalangu.png"
-               alt="Illustration of the bride in a red and gold sari seated beside the groom in cream traditional dress, with lamps and offerings before them."
-               width="804" height="736">
-          <div class="hero__welcome">
+          <div class="stage">
+            <h1 class="hero__names gold-type">Prenasen &amp; Prishantini</h1>
+            <p class="hero__sub gold-type">5 December 2026</p>
+            <p class="hero__date">&ldquo;Two hearts, one journey, and a lifetime of love ahead.&rdquo;</p>
+          </div>
+          <div class="hero__welcome stage">
             <p>Welcome to our wedding website! We are so excited to celebrate this special chapter of
               our lives with our family and friends. Here you will find everything you need to know
               about our wedding celebrations, including our love story, event details, schedules,
@@ -63,7 +44,7 @@
         </div>
       </section>
 
-      <section class="countdown-band" aria-labelledby="countdown-title">
+      <section class="countdown-band stage" aria-labelledby="countdown-title">
         <div class="countdown-wrap" data-countdown hidden>
           <div class="countdown">
             <div class="countdown__inner">
@@ -101,11 +82,6 @@
     </div>
   </main>
 
-  <footer class="site-footer">
-    <a href="details.html#details">FAQ</a>
-    <span class="site-footer__copy">&copy; <span data-year>2026</span> &middot; P squared productions</span>
-    <a href="https://www.google.com/maps/search/?api=1&amp;query=The+Garden+Venue+Johannesburg" target="_blank" rel="noopener">Pin</a>
-  </footer>
   <script src="js/main.js"></script>
 </body>
 </html>

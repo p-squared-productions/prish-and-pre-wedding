@@ -51,7 +51,12 @@ minutes and seconds. It holds `2026-12-05T14:00:00`, the 2:00 PM ceremony start;
 - Decoration is applied with classes, not inline styles: `.silk`, `.bokeh`, `.bokeh--gold`, `.toran`,
   `.ganesha`, `.lamp`, `.strand`, `.pillar`, `.panel--crest`. Decorative images carry empty `alt` and
   `aria-hidden="true"`; the couple illustrations are content and carry real `alt` text.
-- Keep the top garland on small screens. Side hangings drop away below 760px.
+- The top garland strip has been removed from every page; Ganesha stays. Side hangings drop away below 760px.
+- On the homepage the couple illustration (`.hero__couple`) is pinned to the bottom of the viewport behind the copy, so only the text scrolls.
+- The bells and Ganesha are `position: fixed` on every page. There is no footer.
+- Nalangu and Wedding carry `.fade-under-ganesha` on `<body>`: `js/main.js` masks `.site-main` so copy fades out as it scrolls up to Ganesha. On those pages Ganesha must sit outside `<main>`, or it fades too.
+- Nalangu (`.theme-nalangu`) and Wedding (`.theme-wedding`) share the hexagon ritual tiles, the card-free details and the `.nalangu-notice` band; each page sets their colours through custom properties (`--tile`, `--detail-*`, `--crown-*`, `--notice-*`). Nalangu accents are lotus blue, pink and teal; Wedding accents are green, red and gold.
+- Homepage stages: `js/main.js` adds `.stages` to `<body>`; the three `.stage` blocks (names/date/verse, welcome, countdown) are pinned between Ganesha and the couple's heads and crossfade one after another as you scroll.
 
 ### Scroll reveals
 

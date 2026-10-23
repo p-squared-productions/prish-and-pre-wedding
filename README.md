@@ -11,7 +11,7 @@ the visual reference. The decorative artwork in `assets/images/` was extracted f
 
 | Page | What it is |
 | --- | --- |
-| `index.html` | The silk hero — garland, Ganesha, the couple, lamps, and the countdown |
+| `index.html` | The silk hero — Ganesha, the names, the pinned couple, and the countdown |
 | `nalangu.html` | The Nalangu ceremony and what each ritual means |
 | `details.html` | Wedding: traditions & meaning, details and programme |
 

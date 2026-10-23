@@ -19,2090 +19,2584 @@
 /* 1. Fonts & design tokens
    -------------------------------------------------------------------------- */
 
-@import url("https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;600;700&family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=Great+Vibes&display=swap");
-
-:root {
-  /* Silk */
-  --silk-red: #8f1224;
-  --silk-red-bright: #b01d32;
-  --silk-red-deep: #6b0e1c;
-  --maroon: #5c0a16;
-
-  /* Temple gold */
-  --gold: #c9a227;
-  --gold-mid: #d4af37;
-  --gold-light: #e6c56e;
-  --gold-pale: #f3dfa6;
-  --gold-henna: #ecd28f;   /* Nalangu henna field, a shade under gold-pale */
-
-  /* Nalangu palette: mustard, light yellow and gold */
-  --mustard: #dfaa1c;
-  --mustard-deep: #c89212;
-  --lemon: #fff4bd;
-  --lemon-deep: #fbe68f;
-  --nalangu-ink: #4f3406;  /* deep brown that replaces maroon on the Nalangu page */
-
-  /* Nalangu colours: yellow, orange, teal, cerise */
-  --nal-yellow: #f9c933;
-  --nal-orange: #e9731a;
-  --nal-orange-deep: #c25a0a;
-  --nal-teal: #0f7b7e;
-  --nal-teal-deep: #0b4a4d;
-  --nal-cerise: #c2185b;
-  --nal-text: #2a1004;       /* body copy on the orange page */
-  --nal-text-head: #4a0820;  /* headings: deep burgundy */
-  --nal-text-on-cerise: #fff6df;  /* body copy on the cerise page */
-  --nal-head-on-cerise: #ffdf6b;  /* headings on the cerise page */
-
-  /* Ivory & cream (text on red) */
-  --ivory: #f7ecd0;
-  --cream: #fff6df;
-
-  /* Champagne field (story / ceremonial gold pages) */
-  --champagne: #f6e4b6;
-  --champagne-deep: #f3c97a;
-  --peach: #f7d9a0;
-
-  /* Ink on gold */
-  --ink: #3b2a14;
-  --ink-soft: #5c452a;
-
-  /* Countdown plate */
-  --plate: #111111;
-  --plate-edge: #2a2118;
-
-  /* Rhythm */
-  --measure: 62ch;
-  --panel-pad: clamp(2.5rem, 6vw, 5rem);
-  --rule-gold: linear-gradient(90deg, transparent, var(--gold) 20%, var(--gold-pale) 50%, var(--gold) 80%, transparent);
-
-  /* Type */
-  --font-display: "Cinzel", "Playfair Display", Georgia, serif;
-  --font-script: "Great Vibes", "Cormorant Garamond", cursive;
-  --font-body: "Cormorant Garamond", Georgia, "Times New Roman", serif;
-}
-
-/* 2. Base elements
-   -------------------------------------------------------------------------- */
-
-*,
-*::before,
-*::after {
-  box-sizing: border-box;
-}
-
-html {
-  scroll-behavior: smooth;
-  /* Footer maroon shows under the page if it is ever pulled past the end. */
-  background-color: #5c0a16;
-  overscroll-behavior-y: none;
-}
-
-body {
-  margin: 0;
-  font-family: var(--font-body);
-  font-size: clamp(1.2rem, 0.5vw + 1.05rem, 1.4rem);
-  line-height: 1.75;
-  color: var(--ink);
-  background-color: var(--champagne);
-  -webkit-font-smoothing: antialiased;
-}
-
-img {
-  max-width: 100%;
-  height: auto;
-}
-
-p {
-  margin: 0 0 1.1em;
-}
-
-a {
-  color: var(--maroon);
-  text-underline-offset: 0.25em;
-  text-decoration-thickness: 1px;
-}
-
-a:hover {
-  color: var(--silk-red-bright);
-}
-
-:focus-visible {
-  outline: 2px solid var(--gold-mid);
-  outline-offset: 3px;
-  border-radius: 2px;
-}
-
-.skip-link {
-  position: absolute;
-  left: 50%;
-  top: -100px;
-  transform: translateX(-50%);
-  z-index: 100;
-  padding: 0.6rem 1.4rem;
-  background: var(--maroon);
-  color: var(--gold-pale);
-  font-family: var(--font-display);
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
-  font-size: 0.75rem;
-  text-decoration: none;
-}
-
-.skip-link:focus {
-  top: 0.5rem;
-}
-
-.visually-hidden {
-  position: absolute;
-  width: 1px;
-  height: 1px;
-  overflow: hidden;
-  clip: rect(0 0 0 0);
-  clip-path: inset(50%);
-  white-space: nowrap;
-}
-
-/* 3. Gold / script type helpers
-   -------------------------------------------------------------------------- */
-
-h1,
-h2,
-h3,
-h4 {
-  font-family: var(--font-display);
-  font-weight: 600;
-  line-height: 1.2;
-  margin: 0 0 0.6em;
-  letter-spacing: 0.04em;
-}
-
-/* Foiled gold lettering. Falls back to a flat gold if background-clip is out. */
-.gold-type {
-  color: var(--gold-mid);
-  background-image: linear-gradient(
-    180deg,
-    var(--gold-pale) 0%,
-    var(--gold-light) 28%,
-    var(--gold-mid) 52%,
-    var(--gold) 74%,
-    var(--gold-light) 100%
-  );
-  -webkit-background-clip: text;
-  background-clip: text;
-  -webkit-text-fill-color: transparent;
-  filter: drop-shadow(0 1px 0 rgba(58, 5, 14, 0.7)) drop-shadow(0 3px 14px rgba(40, 3, 10, 0.55));
-}
-
-@supports not ((-webkit-background-clip: text) or (background-clip: text)) {
-  .gold-type {
-    -webkit-text-fill-color: currentColor;
-    color: var(--gold-light);
-  }
-}
-
-.script {
-  font-family: var(--font-script);
-  font-weight: 400;
-  letter-spacing: 0.01em;
-  line-height: 1.15;
-}
-
-.eyebrow {
-  font-family: var(--font-display);
-  font-size: clamp(0.85rem, 1.8vw, 1rem);
-  text-transform: uppercase;
-  letter-spacing: 0.34em;
-  margin: 0 0 1.1rem;
-  color: var(--gold);
-}
-
-.panel--gold .eyebrow {
-  color: var(--ink-soft);
-}
-
-/* A small gold rule with a diamond, used between ceremonial blocks. */
-.rule {
-  display: block;
-  width: min(300px, 70%);
-  height: 1px;
-  margin: 2.2rem auto;
-  border: 0;
-  background: var(--rule-gold);
-  position: relative;
-  opacity: 0.85;
-}
-
-.rule::after {
-  content: "";
-  position: absolute;
-  left: 50%;
-  top: 50%;
-  width: 9px;
-  height: 9px;
-  background: var(--gold-mid);
-  transform: translate(-50%, -50%) rotate(45deg);
-}
-
-/* 4. Decorative motifs
-   -------------------------------------------------------------------------- */
-
-/* Red silk field. Layered gradients suggest folds over the silk photograph. */
-.silk {
-  position: relative;
-  isolation: isolate;
-  color: var(--ivory);
-  background-color: var(--silk-red);
-  background-image:
-    radial-gradient(120% 80% at 50% 0%, rgba(214, 74, 96, 0.28), transparent 60%),
-    radial-gradient(85% 65% at 10% 90%, rgba(70, 6, 16, 0.85), transparent 62%),
-    radial-gradient(85% 65% at 90% 90%, rgba(70, 6, 16, 0.85), transparent 62%),
-    linear-gradient(0deg, var(--silk-red) 0%, var(--silk-red) 100%),
-    url("../assets/images/silk-red.jpg");
-  background-size: auto, auto, auto, auto, cover;
-  background-position: center;
-  background-blend-mode: soft-light, multiply, multiply, multiply, normal;
-}
-
-/* Very slow satin sheen travelling across the silk. */
-.silk::after {
-  content: "";
-  position: absolute;
-  inset: 0;
-  z-index: -1;
-  pointer-events: none;
-  background: linear-gradient(
-    104deg,
-    transparent 30%,
-    rgba(255, 214, 170, 0.09) 47%,
-    rgba(255, 233, 200, 0.14) 51%,
-    rgba(255, 214, 170, 0.09) 55%,
-    transparent 72%
-  );
-  background-size: 300% 100%;
-  animation: sheen 26s linear infinite;
-}
-
-@keyframes sheen {
-  from { background-position: 140% 0; }
-  to { background-position: -40% 0; }
-}
-
-.silk a {
-  color: var(--gold-light);
-}
-
-/* Champagne bokeh field — page two of the invitation. */
-.bokeh {
-  background-color: var(--champagne);
-  background-image: url("../assets/images/bokeh-champagne.jpg");
-  background-size: cover;
-  background-position: center;
-  background-repeat: no-repeat;
-}
-
-/* A field painted once behind the whole page and pinned to the viewport, so the
-   copy scrolls over a still backdrop instead of restarting at every panel.
-   Panels on such a page carry no field class of their own — they stay
-   transparent and let this layer show through.
-
-   This uses a fixed pseudo-element rather than `background-attachment: fixed`,
-   which iOS Safari and several mobile browsers ignore or render badly. */
-.field-fixed::before {
-  content: "";
-  position: fixed;
-  inset: 0;
-  z-index: -1;
-  pointer-events: none;
-  background-position: center;
-  background-size: cover;
-  background-repeat: no-repeat;
-}
-
-.field-fixed--champagne {
-  background-color: var(--champagne);
-}
-
-.field-fixed--champagne::before {
-  background-image: url("../assets/images/bokeh-champagne.jpg");
-}
-
-/* Ornamental field — the Nalangu page. A butter-yellow and gold ethnic pattern
-   (ethnic-tile-butter.jpg, recoloured from the vecteezy original), kept low in
-   contrast so the dark-brown copy stays clear, across the whole page; its panels carry no field class of their own. */
-.field-henna {
-  background-color: var(--lemon);
-  background-image:
-    radial-gradient(60% 18% at 50% 8%, rgba(255, 246, 200, 0.5), transparent 100%),
-    radial-gradient(70% 16% at 50% 33%, rgba(255, 246, 200, 0.4), transparent 100%),
-    radial-gradient(70% 16% at 50% 62%, rgba(255, 246, 200, 0.4), transparent 100%),
-    radial-gradient(70% 16% at 50% 90%, rgba(255, 246, 200, 0.45), transparent 100%),
-    url("../assets/images/ethnic-tile-butter.jpg");
-  background-size: 100% 100%, 100% 100%, 100% 100%, 100% 100%, 480px 320px;
-  background-repeat: no-repeat, no-repeat, no-repeat, no-repeat, repeat;
-}
-
-/* Separator between panels: a thin line, five diyas (one large in the middle,
-   two smaller either side), and the line again. It overlaps the panels' padding
-   so it sits on the seam instead of a hard edge. */
-.divider {
-  position: relative;
-  z-index: 6;
-  display: flex;
-  align-items: flex-end;
-  justify-content: center;
-  gap: clamp(0.5rem, 1.6vw, 0.9rem);
-  width: min(640px, 88vw);
-  margin: calc(var(--panel-pad) * -0.3) auto;
-  pointer-events: none;
-}
-
-.divider__line {
-  flex: 1;
-  align-self: center;
-  height: 1px;
-  background: var(--nalangu-ink);
-  opacity: 0.55;
-}
-
-.divider--gold .divider__line {
-  background: var(--gold-light);
-  opacity: 0.75;
-}
-
-.divider__diya {
-  display: block;
-  width: clamp(18px, 3.4vw, 26px);
-  height: auto;
-}
-
-.divider__diya--big {
-  width: clamp(34px, 6.4vw, 50px);
-}
-
-/* Wedding dress-code notice: a little smaller than the shared notice size. */
-.silk .nalangu-details__sub--notice {
-  font-size: clamp(1.1rem, 2.5vw, 1.4rem);
-}
-
-/* Wedding page break: gold filigree either side of a gold Ganesha. */
-.divider--ornament {
-  align-items: center;
-  gap: clamp(0.3rem, 1.2vw, 0.8rem);
-  width: min(540px, 86vw);
-}
-
-.divider__filigree {
-  display: block;
-  flex: 1 1 0;
-  min-width: 0;
-  height: auto;
-}
-
-.divider__ganesha {
-  display: block;
-  flex: none;
-  width: clamp(30px, 6vw, 46px);
-  height: auto;
-}
-
-/* Deep maroon silk, a darker sibling of .silk for alternating wedding panels. */
-.silk--maroon {
-  background-color: var(--maroon);
-  background-image:
-    radial-gradient(120% 80% at 50% 0%, rgba(176, 29, 50, 0.4), transparent 62%),
-    linear-gradient(0deg, var(--maroon) 0%, var(--maroon) 100%),
-    url("../assets/images/silk-red.jpg");
-  background-size: auto, auto, cover;
-  background-blend-mode: soft-light, multiply, normal;
-}
-
-/* Text set directly on silk (outside the ivory cards): gold titles, ivory copy. */
-.silk .panel__title,
-.silk .panel__subtitle {
-  color: var(--gold-light);
-}
-
-.silk .eyebrow {
-  color: var(--gold-pale);
-}
-
-.silk .card a,
-.silk .form-card a,
-.silk .registry-links a {
-  color: var(--maroon);
-}
-
-.silk .panel__inner > .hint {
-  color: var(--ivory);
-}
-
-.silk .timeline time {
-  color: var(--gold-light);
-}
-
-.silk .timeline__event h3 {
-  color: var(--gold-pale);
-}
-
-.silk .timeline__event p {
-  color: var(--ivory);
-}
-
-/* On the wedding page each timeline stop is a small gold diya, with the line
-   running down from beneath it. */
-.silk .timeline--split li {
-  grid-template-columns: minmax(5.5rem, 1fr) 2.6rem 1.7fr;
-}
-
-.silk .timeline--split li::before {
-  width: 1.7rem;
-  height: 1.7rem;
-  margin-top: 0;
-  background: url("../assets/images/diya-gold.png") center / contain no-repeat;
-  transform: none;
-  box-shadow: none;
-}
-
-.silk .timeline--split li::after {
-  margin-top: 2rem;
-  background: var(--gold);
-}
-
-.silk .timeline--split time {
-  font-size: clamp(1rem, 2.4vw, 1.2rem);
-  padding-top: 0.35rem;
-}
-
-.silk .timeline__event h3 {
-  padding-top: 0.2rem;
-}
-
-/* Nalangu field bands: mustard and light yellow edged in gold. */
-.field-mustard {
-  background-color: var(--mustard);
-  background-image:
-    url("../assets/images/paisley-tile-brown.png"),
-    radial-gradient(110% 80% at 50% 0%, rgba(255, 244, 189, 0.5), transparent 62%),
-    linear-gradient(180deg, var(--mustard) 0%, var(--mustard-deep) 100%);
-  background-size: 420px 420px, auto, auto;
-  box-shadow:
-    inset 0 2px 0 var(--gold-light),
-    inset 0 -2px 0 var(--gold);
-}
-
-.field-lemon {
-  background-color: var(--lemon);
-  background-image:
-    radial-gradient(100% 70% at 50% 50%, rgba(255, 255, 240, 0.65), transparent 70%),
-    url("../assets/images/paisley-tile-gold.png");
-  background-size: auto, 420px 420px;
-}
-
-/* On the Nalangu page maroon gives way to a deep gold-brown, so the two
-   celebrations keep to their own colours. */
-.theme-nalangu .site-main {
-  --maroon: var(--nalangu-ink);
-}
-
-/* Contrast on the Nalangu mustard: links, timeline and body copy in deep gold-brown. */
-.theme-nalangu .jump-links a {
-  color: var(--nalangu-ink);
-  border-bottom-color: var(--nalangu-ink);
-}
-
-.theme-nalangu .jump-links a:hover {
-  color: #2e1d02;
-}
-
-.theme-nalangu .timeline--split li::before {
-  background: var(--nalangu-ink);
-  box-shadow: 0 0 0 3px var(--mustard);
-}
-
-.theme-nalangu .timeline--split li::after {
-  background: var(--nalangu-ink);
-  opacity: 0.55;
-}
-
-.theme-nalangu .timeline__event p,
-.theme-nalangu .lede,
-.theme-nalangu .panel--gold .eyebrow {
-  color: var(--nalangu-ink);
-}
-
-/* Nalangu colours: the lotus pattern pressed into cerise silk, tone on tone,
-   so it reads as embossed (lotus-pattern-embossed-cerise.jpg, repeating down
-   the whole page). Copy is cream and pale yellow; teal and orange are the
-   accents. The details card stays cream with dark copy. */
-.theme-nalangu .site-main {
-  --maroon: var(--nal-head-on-cerise);
-  --ink: var(--nal-text-on-cerise);
-  --ink-soft: var(--nal-text-on-cerise);
-}
-
-.theme-nalangu.field-henna {
-  background-color: #a0164e;
-  background-image: url("../assets/images/lotus-pattern-embossed-cerise.jpg");
-  background-size: 260px 260px;
-  background-repeat: repeat;
-}
-
-.theme-nalangu .panel--stage,
-.theme-nalangu #traditions,
-.theme-nalangu #details,
-.theme-nalangu #programme {
-  background: none;
-}
-
-.theme-nalangu .panel--gold h1,
-.theme-nalangu .panel--gold h2,
-.theme-nalangu .panel--gold h3 {
-  color: var(--nal-head-on-cerise);
-}
-
-.theme-nalangu .ritual-list strong {
-  color: #a0164e;
-}
-
-.theme-nalangu .timeline time,
-.theme-nalangu .jump-links a,
-.theme-nalangu .timeline__event p,
-.theme-nalangu .lede,
-.theme-nalangu .panel--gold .eyebrow,
-.theme-nalangu .nalangu-description,
-.theme-nalangu .panel__inner > p {
-  color: var(--nal-text-on-cerise);
-}
-
-/* The meaning boxes: light yellow with cerise icons and headings, warm dark-brown copy. */
-.theme-nalangu .ritual-list li {
-  color: #3a2a1a;
-  background: linear-gradient(180deg, #fffbe3, #fff0b0);
-  border-color: #e0b93a;
-  box-shadow:
-    0 0 0 4px rgba(255, 255, 255, 0.55) inset,
-    0 0 0 5px rgba(224, 185, 58, 0.45) inset,
-    0 8px 20px rgba(40, 3, 20, 0.3);
-}
-
-.theme-nalangu .jump-links a {
-  border-bottom-color: var(--nal-orange);
-}
-
-.theme-nalangu .jump-links a:hover {
-  color: #fff;
-}
-
-.theme-nalangu .timeline--split li::before,
-.theme-nalangu .timeline--split li::after,
-.theme-nalangu .divider__line {
-  background: var(--nal-orange);
-}
-
-.theme-nalangu .timeline--split li::before {
-  box-shadow: 0 0 0 3px #a0164e;
-}
-
-.theme-nalangu .rule {
-  background: linear-gradient(90deg, transparent, var(--nal-orange) 20%, var(--nal-yellow) 50%, var(--nal-orange) 80%, transparent);
-}
-
-.theme-nalangu .rule::after {
-  background: var(--nal-yellow);
-}
-
-.theme-nalangu .nalangu-details {
-  background: linear-gradient(180deg, #fffbe6, #fff0b8);
-  border-color: var(--nal-teal);
-  box-shadow:
-    0 0 0 6px rgba(255, 255, 255, 0.5) inset,
-    0 0 0 7px rgba(15, 123, 126, 0.5) inset,
-    0 12px 30px rgba(40, 3, 20, 0.35);
-}
-
-.theme-nalangu .nalangu-details__main,
-.theme-nalangu .nalangu-details__sub {
-  color: #2a1004;
-}
-
-.theme-nalangu .nalangu-details__sub--notice {
-  color: var(--nal-cerise);
-}
-
-.theme-nalangu .nalangu-details__row h3 {
-  color: var(--nal-teal);
-}
-
-.theme-nalangu .nalangu-details__gem {
-  background: linear-gradient(90deg, transparent, var(--nal-teal) 20%, var(--nal-teal) 80%, transparent);
-}
-
-.theme-nalangu .nalangu-details__gem::after {
-  background: var(--nal-teal);
-  box-shadow: 0 0 0 3px #fff6c9;
-}
-
-/* Home cards that preview each celebration's colours. */
-.card.card--nalangu {
-  background: linear-gradient(180deg, var(--lemon), var(--mustard));
-}
-
-.card.card--nalangu h3,
-.card.card--nalangu .card__link {
-  color: #2e1d02;
-  font-weight: 700;
-  border-bottom-color: #2e1d02;
-}
-
-.card.card--nalangu p {
-  color: var(--nalangu-ink);
-}
-
-.card.card--wedding {
-  background: linear-gradient(180deg, var(--silk-red), var(--maroon));
-}
-
-.card.card--wedding h3,
-.card.card--wedding .card__link {
-  color: var(--gold-light);
-}
-
-.card.card--wedding p {
-  color: var(--ivory);
-}
-
-.card.card--wedding .card__link:hover {
-  color: var(--cream);
-}
-
-.card__links {
-  list-style: none;
-  margin: 1.2rem 0 0;
-  padding: 0;
-  display: grid;
-  gap: 0.7rem;
-}
-
-/* Red mandala field: one gold mandala tile painted on the body, so the pattern
-   runs unbroken down the whole page. Silk panels turn transparent over it;
-   .silk--maroon deepens the same pattern instead of starting a new one. */
-.field-mandala-red {
-  background-color: #520411;
-  background-image:
-    url("../assets/images/paisley-tile-maroon.png"),
-    linear-gradient(180deg, #6a0a18 0%, #520411 45%, #46030e 100%);
-  background-size: 420px 420px, 100% 100%;
-  background-repeat: repeat, no-repeat;
-}
-
-/* Wedding page: a maroon floral damask that drifts lighter and darker down the
-   page. The tile is mirrored top to bottom, so it repeats without a seam. */
-.field-mandala-red--flow {
-  background-color: #7a0f1f;
-  background-image:
-    radial-gradient(60% 18% at 50% 8%, rgba(176, 29, 50, 0.45), transparent 100%),
-    radial-gradient(70% 16% at 50% 35%, rgba(140, 22, 40, 0.4), transparent 100%),
-    radial-gradient(70% 16% at 50% 65%, rgba(140, 22, 40, 0.4), transparent 100%),
-    radial-gradient(70% 16% at 50% 92%, rgba(176, 29, 50, 0.35), transparent 100%),
-    linear-gradient(180deg, rgba(60, 4, 12, 0) 0%, rgba(60, 4, 12, 0.35) 55%, rgba(60, 4, 12, 0) 100%),
-    url("../assets/images/floral-tile-maroon-embossed.jpg");
-  background-size: 100% 100%, 100% 100%, 100% 100%, 100% 100%, 100% 100%, 374px 1280px;
-  background-repeat: no-repeat, no-repeat, no-repeat, no-repeat, no-repeat, repeat;
-}
-
-.field-mandala-red .silk,
-.field-mandala-red .silk--maroon {
-  background: none;
-}
-
-.field-mandala-red .silk::after {
-  display: none;
-}
-
-/* A stage panel must not trap its garlands in a stacking context, or the
-   bells would hang in front of them instead of beneath. */
-.silk.panel--stage {
-  isolation: auto;
-}
-
-.field-mandala-red .silk--maroon {
-  background: rgba(40, 3, 10, 0.5);
-}
-
-/* Warm marigold-gold field — the Nalangu pages. */
-.bokeh--gold {
-  background-color: var(--champagne-deep);
-  background-image: url("../assets/images/bokeh-gold.jpg");
-}
-
-/* A soft cream veil so dark-brown body text stays comfortable on the hot
-   marigold field, while the colour keeps burning at the edges. */
-.bokeh--gold::before {
-  content: "";
-  position: absolute;
-  inset: 0;
-  z-index: 1;
-  pointer-events: none;
-  background: radial-gradient(
-    78% 72% at 50% 50%,
-    rgba(255, 249, 232, 0.82) 0%,
-    rgba(255, 245, 219, 0.55) 55%,
-    rgba(255, 240, 205, 0) 100%
-  );
-}
-
-/* Garlands */
-
-.garlands-top{
-  position: absolute;
-  top:0;
-  left:0px;
-  width: 100vw;
-  height:auto;
-  z-index: 5;
-  pointer-events: none;
-}
-
-.bell{
-  position:absolute;
-  top: 2vh;
-  width: 12vw;
-  height:auto;
-  display: block;
-  line-height: 0;
-}
-
-.bell img{
-  width: 100%;
-  height: auto;
-  display: block;
-}
-
-.bell img,
-.bell__etch{
-  transition: transform 220ms ease, filter 220ms ease, opacity 220ms ease;
-  transform-origin: 50% 8%;
-}
-
-/* The page name, etched around the waist of the bell. */
-.bell__etch{
-  position: absolute;
-  inset: 0;
-  width: 100%;
-  height: 100%;
-  pointer-events: none;
-  overflow: visible;
-}
-
-.bell__etch text{
-  font-family: var(--font-display);
-  font-size: 68px;
-  font-weight: 600;
-  letter-spacing: 0.04em;
-  text-anchor: middle;
-  text-transform: uppercase;
-}
-
-/* Two passes: a pale edge below the cut, then the cut itself. */
-.bell__etch-light{
-  fill: rgba(255, 244, 214, 0.55);
-  transform: translateY(3px);
-}
-
-.bell__etch-cut{
-  fill: rgba(94, 58, 18, 0.7);
-}
-
-/* The bell lifts a little and catches the gold light when it can be rung. */
-.bell:hover img,
-.bell:focus-visible img,
-.bell:hover .bell__etch,
-.bell:focus-visible .bell__etch{
-  transform: scale(1.06) rotate(-3deg);
-}
-
-.bell:hover img,
-.bell:focus-visible img{
-  filter: brightness(1.18) saturate(1.1)
-          drop-shadow(0 0 10px rgba(230, 197, 110, 0.85))
-          drop-shadow(0 0 22px rgba(201, 162, 39, 0.55));
-}
-
-.bell:hover .bell__etch-cut,
-.bell:focus-visible .bell__etch-cut{
-  fill: rgba(78, 44, 10, 0.88);
-}
-
-/* The right bell tilts inwards, towards the page centre. */
-.bell--right:hover img,
-.bell--right:focus-visible img,
-.bell--right:hover .bell__etch,
-.bell--right:focus-visible .bell__etch{
-  transform: scale(1.06) rotate(3deg);
-}
-
-.bell:focus{ outline: none; }
-
-.bell:focus-visible{
-  outline: 2px solid var(--gold-light);
-  outline-offset: 4px;
-  border-radius: 6px;
-}
-
-@media (prefers-reduced-motion: reduce){
-  .bell img,
-  .bell__etch{ transition: filter 220ms ease, opacity 220ms ease; }
-  .bell:hover img,
-  .bell:focus-visible img,
-  .bell:hover .bell__etch,
-  .bell:focus-visible .bell__etch{ transform: none; }
-  .bell__etch-light{ transform: translateY(3px); }
-}
-
-/* Two bells, mirrored, on every page: the first link hangs left, the second right. */
-
-.bell--left{
-  z-index: 3;
-  left: 12.5vw;
-  top: 3vh;
-}
-
-.bell--right{
-  z-index: 3;
-  right: 12.5vw;
-  top: 3vh;
-}
-
-/* On phones the bells grow so the etched page names are easy to read. The
-   etched text is an SVG that scales with the bell. */
-@media (max-width: 760px){
-  .bell{ width: 32vw; }
-  .bell--left{ left: 4vw; }
-  .bell--right{ right: 4vw; }
-}
-
-/*  back bells */
-
-
-
-
-
-
-/* Toran — the hanging flower doorway across the top of ceremonial pages. */
-.toran {
-  position: absolute;
-  inset: 0 0 auto;
-  height: clamp(96px, 15vw, 210px);
-  background: url("../assets/images/garlands_new.png") center top / 100% 100% no-repeat;
-  pointer-events: none;
-  z-index: 2;
-}
-
-.toran--beads {
-  background-image: url("../assets/images/bead-garland.png");
-  height: clamp(80px, 12vw, 165px);
-}
-
-/* Gold Ganesha, seated under the centre of the garland. */
-.ganesha {
-  position: absolute;
-  top: clamp(0.2rem, 1.1vw, 1rem);
-  left: 50%;
-  transform: translateX(-50%);
-  width: clamp(54px, 8vw, 108px);
-  z-index: 6;
-  filter: drop-shadow(0 4px 12px rgba(58, 5, 14, 0.5));
-}
-
-/* Deepam — kuthu vilakku lamp stands with hanging marigold, flanking the couple. */
-.lamp {
-  position: absolute;
-  bottom: 0;
-  width: clamp(110px, 17vw, 260px);
-  z-index: 1;
-  pointer-events: none;
-  filter: drop-shadow(0 6px 18px rgba(58, 5, 14, 0.45));
-}
-
-.lamp--left {
-  left: 0;
-}
-
-.lamp--right {
-  right: 0;
-  transform: scaleX(-1);
-}
-
-/* Hanging lotus / jasmine strings. */
-.strand {
-  position: absolute;
-  top: 0;
-  width: clamp(48px, 7vw, 104px);
-  z-index: 2;
-  pointer-events: none;
-}
-
-.strand--left { left: 6%; }
-.strand--right { right: 6%; }
-
-/* Marigold-draped pots and pillars, standing either side of the Nalangu couch. */
-.pillar {
-  position: absolute;
-  bottom: 0;
-  width: clamp(100px, 16vw, 230px);
-  z-index: 1;
-  pointer-events: none;
-}
-
-.pillar--left { left: 0; }
-
-.pillar--right {
-  right: 0;
-  transform: scaleX(-1);
-}
-
-/* A ceremonial stage: the couple sit centred between the pillars. */
-.panel--stage {
-  padding-bottom: 0;
-  /* Let the side garlands hang past the panel into the next one instead of
-     being clipped; only the sideways overflow is trimmed. */
-  overflow-x: clip;
-  overflow-y: visible;
-}
-
-/* Keep the intro between the side garlands. */
-.nalangu-description {
-  max-width: min(34rem, 62vw);
-  margin: clamp(1.5rem, 5vw, 4rem) auto 0;
-}
-/* Text sits in front of the garlands (z-index 5) so it is never hidden. */
-.panel--stage > .eyebrow,
-.panel--stage > .panel__title,
-.panel--stage > .nalangu-description {
-  position: relative;
-  z-index: 6;
-}
-
-.panel--stage .panel__title--script {
-  margin-bottom: 0.15em;
-}
-
-/* 5. Header & navigation
-   -------------------------------------------------------------------------- */
-
-.site-header {
-  position: relative;
-  z-index: 10;
-  background: linear-gradient(180deg, var(--maroon), var(--silk-red-deep));
-  border-bottom: 1px solid rgba(201, 162, 39, 0.45);
-  box-shadow: 0 2px 18px rgba(58, 5, 14, 0.3);
-}
-
-.site-header__inner {
-  max-width: 1180px;
-  margin: 0 auto;
-  padding: 0.85rem clamp(1rem, 4vw, 2rem);
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 0.5rem;
-  text-align: center;
-}
-
-.site-logo {
-  font-family: var(--font-script);
-  font-size: clamp(1.5rem, 3.4vw, 2.1rem);
-  line-height: 1.1;
-  text-decoration: none;
-  color: var(--gold-light);
-}
-
-.site-logo .gold-type {
-  display: inline-block;
-}
-
-.nav-toggle {
-  display: none;
-  font-family: var(--font-display);
-  font-size: 0.95rem;
-  letter-spacing: 0.24em;
-  text-transform: uppercase;
-  color: var(--gold-light);
-  background: transparent;
-  border: 1px solid rgba(201, 162, 39, 0.6);
-  border-radius: 2px;
-  padding: 0.5rem 1.1rem;
-  cursor: pointer;
-}
-
-.site-nav ul {
-  list-style: none;
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  gap: clamp(1rem, 3.5vw, 3rem);
-  margin: 0;
-  padding: 0;
-}
-
-.site-nav a {
-  font-family: var(--font-display);
-  font-size: clamp(0.9rem, 1.6vw, 1.05rem);
-  font-weight: 600;
-  text-transform: uppercase;
-  letter-spacing: 0.24em;
-  text-decoration: none;
-  color: var(--gold-light);
-  padding: 0.35rem 0;
-  border-bottom: 1px solid transparent;
-  transition: color 0.2s ease, border-color 0.2s ease;
-}
-
-.site-nav a:hover {
-  color: var(--cream);
-  border-bottom-color: var(--gold);
-}
-
-.site-nav a[aria-current="page"] {
-  color: var(--cream);
-  border-bottom-color: var(--gold-mid);
-}
-
-/* In-page links under the Nalangu and Wedding page titles. */
-.jump-links {
-  list-style: none;
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  gap: 0.6rem clamp(1rem, 3vw, 2rem);
-  margin: 1.6rem 0 0;
-  padding: 0;
-}
-
-.jump-links a {
-  font-family: var(--font-display);
-  font-size: clamp(0.85rem, 1.6vw, 1rem);
-  font-weight: 600;
-  letter-spacing: 0.22em;
-  text-transform: uppercase;
-  text-decoration: none;
-  color: var(--gold-light);
-  border-bottom: 1px solid var(--gold);
-  padding-bottom: 2px;
-}
-
-.jump-links a:hover {
-  color: var(--cream);
-  border-bottom-color: var(--gold-light);
-}
-
-/* 6. Hero (home)
-   -------------------------------------------------------------------------- */
-
-/* The silk field carries one continuous background behind the hero and the
-   countdown, so no seam shows where the two sections meet. */
-.silk-field {
-  position: relative;
-}
-
-.hero {
-  position: relative;
-  overflow: hidden;
-  /* The extra 13vh clears the hanging bells; as padding it also pushes the
-     countdown down, so the couple never overlaps the frame. */
-  padding: calc(clamp(96px, 15vw, 210px) + 1rem + 13vh) clamp(1rem, 5vw, 3rem) clamp(2.5rem, 6vw, 4.5rem);
-  text-align: center;
-}
-
-.hero__inner {
-  position: relative;
-  z-index: 4;
-  max-width: 860px; 
-  margin: -7.5vh  auto; 
-}
-
-.hero__names {
-  margin: 0 0 0.1em;
-  font-family: var(--font-script);
-  font-weight: 400;
-  font-size: 8.6vh;
-  line-height: 1.15;
-  letter-spacing: 0.01em;
-  /* Written in from left to right: a soft-edged mask wipes across the names. */
-  -webkit-mask-image: linear-gradient(90deg, #000 40%, transparent 60%);
-  mask-image: linear-gradient(90deg, #000 40%, transparent 60%);
-  -webkit-mask-size: 250% 100%;
-  mask-size: 250% 100%;
-  -webkit-mask-repeat: no-repeat;
-  mask-repeat: no-repeat;
-  animation: write-on 3.6s cubic-bezier(0.45, 0.05, 0.35, 1) 0.4s both;
-}
-
-/* The date and the verse wait until the names are written, then fade in. */
-.hero__sub,
-.hero__date {
-  animation: hero-fade 1.2s ease-out 2.8s both;
-}
-
-@keyframes hero-fade {
-  from {
-    opacity: 0;
-  }
-  to {
-    opacity: 1;
-  }
-}
-
-@keyframes write-on {
-  from {
-    -webkit-mask-position: 100% 0;
-    mask-position: 100% 0;
-  }
-  to {
-    -webkit-mask-position: 0 0;
-    mask-position: 0 0;
-  }
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .hero__sub,
-  .hero__date {
-    animation: none;
-  }
-
-  .hero__names {
-    animation: none;
-    -webkit-mask-image: none;
-    mask-image: none;
-  }
-}
-
-.hero__sub {
-  font-family: var(--font-display);
-  font-size: clamp(1.4rem, 5vw, 2.6rem);
-  text-transform: uppercase;
-  letter-spacing: 0.3em;
-  margin: 0 0 0.6em;
-}
-
-.hero__welcome {
-  max-width: 44rem;
-  margin: clamp(1.4rem, 3vw, 2.4rem) auto 0;
-  color: var(--ivory);
-}
-
-.hero__welcome-close {
-  font-family: var(--font-script);
-  font-size: clamp(1.8rem, 5vw, 2.8rem);
-  color: var(--gold-light);
-  margin: 0;
-}
-
-.hero__date {
-  font-family: var(--font-body);
-  font-size: clamp(1.25rem, 3.2vw, 1.8rem);
-  font-style: italic;
-  letter-spacing: 0.06em;
-  color: var(--ivory);
-  margin-bottom: 0;
-}
-
-.hero__couple {
-  display: block;
-  width: clamp(190px, 38vw, 380px);
-  margin: clamp(0.8rem, 2vw, 1.6rem) auto 0;
-  filter: drop-shadow(0 10px 26px rgba(48, 4, 12, 0.5));
-}
-
-/* 7. Countdown plate
-   -------------------------------------------------------------------------- */
-
-.countdown-band {
-  position: relative;
-  margin-top: calc(-1 * clamp(3rem, 9vw, 7rem));
-  padding: 0 clamp(1rem, 5vw, 3rem) clamp(2.5rem, 7vw, 5rem);
-  text-align: center;
-}
-
-/* The countdown sits inside the floral frame (countdown-frame.png: the maroon
-   line art with its white removed, recoloured to --gold-light). .countdown__inner is inset by % of the
-   frame's own box, which keeps the values inside the frame's opening. The frame is min(720px, ~90vw) wide, so
-   type is sized as min(px, vw) pairs that shrink with it. */
-   .countdown {
-    position: relative;
-    width: min(780px, 100%);
-    aspect-ratio: 1600 / 1037;
-    margin: 10vh auto;
-    top: 2rem;
-    background:
-      url("../assets/images/countdown-frame.png") center / 100% 100% no-repeat,
-      radial-gradient(34% 38% at 50% 50%, rgba(58, 5, 14, 0.2), rgba(58, 5, 14, 0) 100%);
-    filter: drop-shadow(0 4px 10px rgba(40, 3, 10, 0.15));
-  }
-  
-  .countdown-wrap[hidden] {
-    display: none;
-  }
-  
-  .countdown__inner {
-    position: absolute;
-    inset: 21% 25% 19%;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-  }
-  
-  .countdown__title {
-    font-family: var(--font-script);
-    font-size: clamp(2rem, 6vw, 3.2rem);
-    font-weight: 400;
-    line-height: 1.1;
-    text-align: center;
-    margin: -2.5rem 0 0;
-    color: var(--gold-light);
-  }
-
-/* Two rows of three: months, weeks, days over hours, minutes, seconds. */
-.countdown__grid {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: min(16px, 2vw) 0;
-}
-
-.countdown__unit {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 3px;
-  border-left: 1px solid rgba(230, 197, 110, 0.35);
-}
-
-.countdown__unit:nth-child(3n + 1) {
-  border-left: 0;
-}
-
-.countdown__number {
-  font-family: var(--font-display);
-  font-weight: 700;
-  font-size: min(50px, 6.3vw);
-  line-height: 1;
-  font-variant-numeric: tabular-nums;
-  font-feature-settings: "tnum" 1;
-  color: var(--gold-pale);
-  text-shadow: 0 1px 0 rgba(58, 5, 14, 0.8), 0 0 14px rgba(212, 175, 55, 0.35);
-}
-
-.countdown__unit--seconds .countdown__number {
-  color: var(--cream);
-}
-
-.countdown__label {
-  font-family: var(--font-display);
-  font-size: max(11px, min(16px, 2.4vw));
-  text-transform: uppercase;
-  letter-spacing: clamp(0.06em, 1vw, 0.18em);
-  color: var(--gold-light);
-}
-
-/* 8. Invitation panels, cards, lists
-   -------------------------------------------------------------------------- */
-
-.site-main {
-  display: block;
-  z-index: 5;
-}
-
-/* Each section is a panel of the invitation, stacked down the page. */
-.panel {
-  position: relative;
-  padding: var(--panel-pad) clamp(1rem, 5vw, 3rem);
-  text-align: center;
-  overflow: hidden;
-}
-
-.panel--gold {
-  color: var(--ink);
-}
-
-.panel--gold h1,
-.panel--gold h2,
-.panel--gold h3 {
-  color: var(--maroon);
-}
-
-/* Panels that hang a garland above their content need room for it. */
-.panel--crest {
-  padding-top: calc(clamp(80px, 12vw, 165px) + var(--panel-pad));
-}
-
-.panel--crest-tall {
-  padding-top: calc(clamp(96px, 15vw, 210px) + var(--panel-pad));
-}
-
-.panel__inner {
-  position: relative;
-  z-index: 4;
-  max-width: var(--measure);
-  margin: 0 auto;
-}
-
-.panel__inner--wide {
-  max-width: 1080px;
-}
-
-
-.panel__title {
-  font-size: clamp(1.7rem, 5vw, 3rem);
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
-}
-
-/* A smaller heading for the parts inside one panel, e.g. Travel & Stay. */
-.panel__subtitle {
-  margin: 2.4rem 0 1rem;
-  font-size: clamp(1rem, 2.4vw, 1.3rem);
-  letter-spacing: 0.14em;
-  text-transform: uppercase;
-  color: var(--maroon);
-}
-
-.panel__title--script {
-  font-family: var(--font-script);
-  font-size: clamp(2.6rem, 9vw, 5rem);
-  text-transform: none;
-  letter-spacing: 0.01em;
-  color: var(--maroon);
-}
-
-.page-title {
-  font-size: clamp(2rem, 7vw, 4.2rem);
-  line-height: 1.06;
-  letter-spacing: 0.06em;
-  text-transform: uppercase;
-}
-
-.lede {
-  font-size: 1.1em;
-  font-style: italic;
-  color: var(--ink-soft);
-}
-
-.silk .lede {
-  color: var(--ivory);
-}
-
-/* Centred story prose, as on page two of the invitation. */
-.prose {
-  max-width: var(--measure);
-  margin: 0 auto;
-  text-align: center;
-}
-
-.prose p + p {
-  margin-top: 0.2em;
-}
-
-.prose .said {
-  font-style: italic;
-  font-size: 1.12em;
-  color: var(--maroon);
-}
-
-.prose .beat {
-  font-family: var(--font-display);
-  letter-spacing: 0.12em;
-  font-size: 1em;
-  text-transform: uppercase;
-  color: var(--ink-soft);
-}
-
-.signoff {
-  font-family: var(--font-script);
-  font-size: clamp(1.8rem, 5vw, 2.8rem);
-  color: var(--maroon);
-  margin-top: 1.2rem;
-}
-
-/* A repeated gold script refrain, used sparingly between panels. */
-.refrain {
-  font-family: var(--font-script);
-  font-size: clamp(1.6rem, 5vw, 2.6rem);
-  text-align: center;
-  color: var(--gold);
-  opacity: 0.85;
-  margin: 0;
-  padding: clamp(0.8rem, 2vw, 1.5rem) 0;
-}
-
-/* Ivory invitation cards. */
-.card-grid {
-  list-style: none;
-  margin: 0 auto;
-  padding: 0;
-  max-width: 1080px;
-  display: grid;
-  gap: clamp(1rem, 2.5vw, 1.8rem);
-  grid-template-columns: repeat(auto-fit, minmax(270px, 1fr));
-}
-
-/* Nalangu details: one ivory invitation panel, three centred rows split by gold gems. */
-.nalangu-details {
-  max-width: 760px;
-  margin: 0 auto;
-  padding: clamp(1.6rem, 4vw, 3rem) clamp(1.2rem, 5vw, 3.5rem);
-  text-align: center;
-  background: linear-gradient(180deg, var(--cream), #fdeecd);
-  border: 1px solid var(--gold);
-  border-radius: 3px;
-  box-shadow:
-    0 0 0 6px rgba(255, 255, 255, 0.5) inset,
-    0 0 0 7px rgba(201, 162, 39, 0.45) inset,
-    0 12px 30px rgba(92, 10, 22, 0.15);
-}
-
-.nalangu-details__row h3 {
-  margin: 0 0 0.5rem;
-  font-family: var(--font-script);
-  font-size: clamp(1.8rem, 5vw, 2.5rem);
-  font-weight: 400;
-  color: var(--gold);
-  text-transform: none;
-  letter-spacing: 0;
-}
-
-.nalangu-details__main {
-  margin: 0;
-  font-family: var(--font-display);
-  font-size: clamp(1rem, 2.6vw, 1.4rem);
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
-  color: var(--maroon);
-}
-
-.nalangu-details__sub {
-  margin: 0.45rem auto 0;
-  max-width: 34rem;
-  font-style: italic;
-  font-size: clamp(1.05rem, 2.2vw, 1.25rem);
-  color: var(--ink-soft);
-}
-
-/* The dress-code rule guests must not miss: large, bold, upright. */
-.nalangu-details__sub--notice {
-  max-width: 40rem;
-  font-style: normal;
-  font-weight: 700;
-  font-size: clamp(1.35rem, 3.2vw, 1.8rem);
-  line-height: 1.35;
-  color: var(--maroon);
-}
-
-.nalangu-details__gem {
-  display: block;
-  height: 1px;
-  margin: clamp(1.4rem, 3vw, 2.2rem) auto;
-  max-width: 320px;
-  background: var(--rule-gold);
-  position: relative;
-}
-
-.nalangu-details__gem::after {
-  content: "";
-  position: absolute;
-  left: 50%;
-  top: 50%;
-  width: 9px;
-  height: 9px;
-  background: var(--gold);
-  transform: translate(-50%, -50%) rotate(45deg);
-  box-shadow: 0 0 0 3px var(--cream);
-}
-
-.card {
-  position: relative;
-  padding: clamp(1.4rem, 3vw, 2.2rem);
-  text-align: center;
-  background: linear-gradient(180deg, var(--cream), #fdeecd);
-  border: 1px solid var(--gold);
-  border-radius: 3px;
-  box-shadow:
-    0 0 0 4px rgba(255, 255, 255, 0.5) inset,
-    0 0 0 5px rgba(201, 162, 39, 0.3) inset,
-    0 10px 26px rgba(92, 10, 22, 0.12);
-}
-
-.card h2,
-.card h3 {
-  color: var(--maroon);
-  font-size: clamp(1.05rem, 2.4vw, 1.35rem);
-  letter-spacing: 0.14em;
-  text-transform: uppercase;
-}
-
-.card p {
-  color: var(--ink-soft);
-}
-
-.card > :last-child {
-  margin-bottom: 0;
-}
-
-.card__link {
-  display: inline-block;
-  font-family: var(--font-display);
-  font-size: 0.95rem;
-  letter-spacing: 0.22em;
-  text-transform: uppercase;
-  text-decoration: none;
-  color: var(--maroon);
-  border-bottom: 1px solid var(--gold);
-  padding-bottom: 2px;
-}
-
-.card__link:hover {
-  color: var(--silk-red-bright);
-  border-bottom-color: var(--gold-mid);
-}
-
-/* Ritual list — the auspicious meanings, each in a small ivory box with its icon. */
-.ritual-list {
-  list-style: none;
-  /* Break out of the narrow text measure so each box has room. */
-  width: min(1080px, 90vw);
-  margin: 0 0 0 50%;
-  transform: translateX(-50%);
-  padding: 0;
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  --ritual-gap: clamp(0.9rem, 2vw, 1.4rem);
-  gap: var(--ritual-gap);
-}
-
-@media (max-width: 760px) {
-  ul.ritual-list li {
-    flex-basis: 100%;
-  }
-}
-
-.ritual-list li {
-  flex: 0 1 calc((100% - 2 * var(--ritual-gap)) / 3);
-  padding: clamp(1.2rem, 2.5vw, 1.6rem);
-  text-align: center;
-  font-size: 1em;
-  line-height: 1.6;
-  color: var(--ink-soft);
-  background: linear-gradient(180deg, var(--cream), #fdeecd);
-  border: 1px solid var(--gold);
-  border-radius: 3px;
-  box-shadow:
-    0 0 0 4px rgba(255, 255, 255, 0.5) inset,
-    0 0 0 5px rgba(201, 162, 39, 0.3) inset,
-    0 8px 20px rgba(92, 10, 22, 0.1);
-}
-
-.ritual-list .glyph {
-  display: block;
-  width: 56px;
-  height: 56px;
-  margin: 0 auto 0.8rem;
-}
-
-.ritual-list strong {
-  display: block;
-  margin-bottom: 0.4rem;
-  font-family: var(--font-display);
-  font-size: 0.95em;
-  font-weight: 600;
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
-  color: var(--maroon);
-}
-
-/* Definition pairs inside cards. */
-.meta-list {
-  margin: 0 0 1.2rem;
-}
-
-.meta-list > div {
-  padding: 0.55rem 0;
-  border-bottom: 1px solid rgba(201, 162, 39, 0.3);
-}
-
-.meta-list > div:last-child {
-  border-bottom: 0;
-}
-
-.meta-list dt {
-  font-family: var(--font-display);
-  font-size: 0.9rem;
-  letter-spacing: 0.22em;
-  text-transform: uppercase;
-  color: var(--ink-soft);
-}
-
-.meta-list dd {
-  margin: 0.15rem 0 0;
-  font-size: 1.05em;
-  color: var(--maroon);
-}
-
-/* Day-of timeline. */
-.timeline {
-  list-style: none;
-  margin: 0 auto;
-  padding: 0;
-  max-width: var(--measure);
-  text-align: left;
-}
-
-.timeline li {
-  position: relative;
-  padding: 1rem 0 1rem 1.8rem;
-  border-bottom: 1px solid rgba(201, 162, 39, 0.35);
-}
-
-.timeline li::before {
-  content: "";
-  position: absolute;
-  left: 0;
-  top: 1.55rem;
-  width: 8px;
-  height: 8px;
-  background: var(--gold-mid);
-  transform: rotate(45deg);
-}
-
-.timeline li:last-child {
-  border-bottom: 0;
-}
-
-.timeline time {
-  display: block;
-  font-family: var(--font-display);
-  font-size: 0.95rem;
-  letter-spacing: 0.22em;
-  text-transform: uppercase;
-  color: var(--maroon);
-}
-
-/* Split timeline: time on the left, a gold line and dot down the middle, the event on the right. */
-.timeline--split {
-  max-width: 820px;
-}
-
-.timeline--split li {
-  display: grid;
-  grid-template-columns: minmax(5.5rem, 1fr) 1.8rem 1.7fr;
-  column-gap: 0.4rem;
-  padding: 0 0 clamp(1.4rem, 3vw, 2.2rem);
-  border-bottom: 0;
-}
-
-.timeline--split li::before {
-  position: static;
-  grid-column: 2;
-  grid-row: 1;
-  justify-self: center;
-  align-self: start;
-  margin-top: 0.35rem;
-  z-index: 1;
-  box-shadow: 0 0 0 3px var(--cream);
-}
-
-.timeline--split li::after {
-  content: "";
-  grid-column: 2;
-  grid-row: 1;
-  justify-self: center;
-  align-self: stretch;
-  width: 1px;
-  margin-top: 0.7rem;
-  background: var(--gold-mid);
-}
-
-.timeline--split li:last-child::after {
-  display: none;
-}
-
-.timeline--split time {
-  grid-column: 1;
-  grid-row: 1;
-  text-align: right;
-  font-size: clamp(0.9rem, 2vw, 1.05rem);
-  line-height: 1.5;
-  padding-top: 0.2rem;
-}
-
-/* Staggered timeline: events alternate sides of the centre line, odd on the
-   right with their time on the left, even mirrored. Narrow screens fall back
-   to the single-sided layout above. */
-@media (min-width: 640px) {
-  .timeline--alt {
-    max-width: 920px;
-  }
-
-  .timeline--alt li,
-  .silk .timeline--alt li {
-    grid-template-columns: minmax(0, 1fr) 2.6rem minmax(0, 1fr);
-  }
-
-  .timeline--alt li:nth-child(even) time {
-    grid-column: 3;
-    text-align: left;
-  }
-
-  .timeline--alt li:nth-child(even) .timeline__event {
-    grid-column: 1;
-    text-align: right;
-  }
-}
-
-.timeline__event {
-  grid-column: 3;
-  grid-row: 1;
-}
-
-.timeline__event h3 {
-  margin: 0 0 0.35rem;
-  font-size: clamp(1rem, 2.4vw, 1.25rem);
-  color: var(--maroon);
-}
-
-.timeline__event p {
-  margin: 0;
-  color: var(--ink-soft);
-}
-
-.registry-links {
-  list-style: none;
-  margin: 0;
-  padding: 0;
-  display: grid;
-  gap: 0.8rem;
-}
-
-.registry-links a {
-  display: block;
-  padding: 0.9rem 1rem;
-  font-family: var(--font-display);
-  font-size: 1rem;
-  letter-spacing: 0.2em;
-  text-transform: uppercase;
-  text-decoration: none;
-  color: var(--maroon);
-  border: 1px solid var(--gold);
-  background: rgba(255, 255, 255, 0.4);
-}
-
-.registry-links a:hover {
-  background: var(--cream);
-  border-color: var(--gold-mid);
-}
-
-/* "Find us" block. */
-.findus {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.9rem;
-  font-family: var(--font-script);
-  font-size: clamp(1.8rem, 5vw, 2.8rem);
-  color: var(--maroon);
-  text-decoration: none;
-}
-
-.findus__pin {
-  width: clamp(28px, 4vw, 44px);
-  flex: none;
-}
-
-.findus:hover {
-  color: var(--silk-red-bright);
-}
-
-/* Photo slots. */
-.figure-slot {
-  margin: 1.8rem auto;
-  max-width: 560px;
-}
-
-.figure-slot__frame {
-  aspect-ratio: 4 / 3;
-  border: 1px solid var(--gold);
-  background:
-    repeating-linear-gradient(45deg, rgba(201, 162, 39, 0.08) 0 12px, transparent 12px 24px),
-    var(--cream);
-  box-shadow: 0 0 0 5px rgba(255, 255, 255, 0.55) inset;
-}
-
-.figure-slot figcaption {
-  margin-top: 0.7rem;
-  font-size: 1em;
-  font-style: italic;
-  color: var(--ink-soft);
-}
-
-/* 9. Forms
-   -------------------------------------------------------------------------- */
-
-.form-card {
-  max-width: 640px;
-  margin: 0 auto;
-  padding: clamp(1.5rem, 4vw, 2.6rem);
-  text-align: left;
-  background: linear-gradient(180deg, var(--cream), #fdeecd);
-  border: 1px solid var(--gold);
-  box-shadow:
-    0 0 0 4px rgba(255, 255, 255, 0.5) inset,
-    0 0 0 5px rgba(201, 162, 39, 0.3) inset,
-    0 10px 26px rgba(92, 10, 22, 0.12);
-}
-
-.field {
-  margin: 0 0 1.3rem;
-  padding: 0;
-  border: 0;
-}
-
-.field label,
-.field-label {
-  display: block;
-  margin-bottom: 0.4rem;
-  font-family: var(--font-display);
-  font-size: 0.9rem;
-  letter-spacing: 0.2em;
-  text-transform: uppercase;
-  color: var(--maroon);
-}
-
-input[type="text"],
-input[type="email"],
-select,
-textarea {
-  width: 100%;
-  padding: 0.7rem 0.85rem;
-  font-family: var(--font-body);
-  font-size: 1rem;
-  color: var(--ink);
-  background: #fffaf0;
-  border: 1px solid var(--gold);
-  border-radius: 2px;
-}
-
-textarea {
-  min-height: 7rem;
-  resize: vertical;
-}
-
-input[type="text"]:focus,
-input[type="email"]:focus,
-select:focus,
-textarea:focus {
-  border-color: var(--maroon);
-  outline: 2px solid var(--gold-mid);
-  outline-offset: 1px;
-}
-
-.choice-row {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 0.5rem 1.6rem;
-}
-
-.choice-row label {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.5rem;
-  margin: 0;
-  font-family: var(--font-body);
-  font-size: 1rem;
-  letter-spacing: 0;
-  text-transform: none;
-  color: var(--ink);
-}
-
-input[type="radio"],
-input[type="checkbox"] {
-  accent-color: var(--maroon);
-  width: 1.05rem;
-  height: 1.05rem;
-}
-
-.button {
-  display: inline-block;
-  padding: 0.85rem 2.4rem;
-  font-family: var(--font-display);
-  font-size: 1rem;
-  font-weight: 600;
-  letter-spacing: 0.24em;
-  text-transform: uppercase;
-  color: var(--gold-pale);
-  background: linear-gradient(180deg, var(--silk-red), var(--maroon));
-  border: 1px solid var(--gold);
-  border-radius: 2px;
-  cursor: pointer;
-  box-shadow: 0 6px 18px rgba(92, 10, 22, 0.25);
-}
-
-.button:hover {
-  background: linear-gradient(180deg, var(--silk-red-bright), var(--silk-red));
-  color: var(--cream);
-}
-
-.hint {
-  font-size: 1em;
-  font-style: italic;
-  color: var(--ink-soft);
-}
-
-.form-status {
-  margin: 1rem 0 0;
-  padding: 0.8rem 1rem;
-  border-left: 3px solid var(--gold-mid);
-  background: rgba(255, 255, 255, 0.55);
-  font-size: 0.98em;
-}
-
-.form-status.is-error {
-  border-left-color: var(--silk-red-bright);
-  color: var(--maroon);
-}
-
-.form-status.is-success {
-  border-left-color: var(--gold-mid);
-  color: var(--ink);
-}
-
-/* 10. Footer
-   -------------------------------------------------------------------------- */
-
-.site-footer {
-  position: relative;
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  justify-content: space-between;
-  gap: 0.3rem 1rem;
-  padding: 0.6rem clamp(1rem, 5vw, 3rem);
-  color: var(--ivory);
-  background: linear-gradient(180deg, var(--silk-red-deep), var(--maroon));
-  border-top: 1px solid rgba(201, 162, 39, 0.45);
-  font-family: var(--font-display);
-  font-size: 0.9rem;
-  letter-spacing: 0.18em;
-  text-transform: uppercase;
-}
-
-.site-footer a {
-  color: var(--gold-light);
-}
-
-.site-footer__copy {
-  color: rgba(247, 236, 208, 0.7);
-}
-
-/* 11. Scroll reveals
-   --------------------------------------------------------------------------
-   Mark anything with `data-reveal` and it fades up as it comes into view.
-   `data-reveal="fade"` fades on the spot with no movement — used for the story
-   title, which should simply appear out of nothing.
-   Stagger a group with `data-reveal-delay="300"` (milliseconds).
-
-   Elements only start hidden when the `js` class is present, which the small
-   script in each page's <head> sets. With JavaScript off, nothing is hidden and
-   the whole story reads normally. */
-
-.js [data-reveal] {
-  opacity: 0;
-  transform: translateY(1.75rem);
-  transition:
-    opacity 900ms ease,
-    transform 900ms cubic-bezier(0.22, 0.68, 0.24, 1);
-}
-
-/* The title has no rise — it resolves out of the gold, slowly. */
-.js [data-reveal="fade"] {
-  transform: none;
-  transition-duration: 1800ms;
-}
-
-.js [data-reveal].is-revealed {
-  opacity: 1;
-  transform: none;
-}
-
-/* 12. Motion & responsive
-   -------------------------------------------------------------------------- */
-
-@media (max-width: 760px) {
-  /* Keep the toran across the top; retire the side hangings and lamps. */
-  .strand {
-    display: none;
-  }
-
-  .lamp {
-    width: 88px;
-    opacity: 0.9;
-  }
-
-  /* Collapsible nav. The four ceremonial links stack; the toggle drives them. */
-  .nav-toggle {
-    display: inline-block;
-  }
-
-  #site-nav:not(.is-open) ul {
-    display: none;
-  }
-
-  #site-nav ul {
-    flex-direction: column;
-    gap: 0.35rem;
-    padding-top: 0.5rem;
-  }
-}
-
-@media (max-width: 460px) {
-  .lamp {
-    width: 68px;
-  }
-}
-
-@media (prefers-reduced-motion: reduce) {
-  html {
-    scroll-behavior: auto;
-  }
-
-  .silk::after {
-    animation: none;
-  }
-
-  /* Reveals resolve instantly rather than not at all, so no text is stranded. */
-  .js [data-reveal] {
-    opacity: 1;
-    transform: none;
-    transition: none;
-  }
-
-  *,
-  *::before,
-  *::after {
-    transition-duration: 0.01ms !important;
-  }
-}
-
-@media print {
-  .site-header,
-  .site-footer,
-  .toran,
-  .lamp,
-  .strand,
-  .ganesha {
-    display: none;
-  }
-
-  body {
-    background: #fff;
-    color: #000;
-  }
-}
+   @import url("https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;600;700&family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=Great+Vibes&display=swap");
+
+   :root {
+     /* Silk */
+     --silk-red: #8f1224;
+     --silk-red-bright: #b01d32;
+     --silk-red-deep: #6b0e1c;
+     --maroon: #5c0a16;
+   
+     /* Temple gold */
+     --gold: #c9a227;
+     --gold-mid: #d4af37;
+     --gold-light: #e6c56e;
+     --gold-pale: #f3dfa6;
+     --gold-henna: #ecd28f;   /* Nalangu henna field, a shade under gold-pale */
+   
+     /* Nalangu palette: mustard, light yellow and gold */
+     --mustard: #dfaa1c;
+     --mustard-deep: #c89212;
+     --lemon: #fff4bd;
+     --lemon-deep: #fbe68f;
+     --nalangu-ink: #4f3406;  /* deep brown that replaces maroon on the Nalangu page */
+   
+     /* Nalangu colours: yellow, orange, teal, cerise */
+     --nal-yellow: #f9c933;
+     --nal-orange: #e9731a;
+     --nal-orange-deep: #c25a0a;
+     --nal-teal: #0f7b7e;
+     --nal-teal-deep: #0b4a4d;
+     --nal-cerise: #c2185b;
+     --nal-text: #2a1004;       /* body copy on the orange page */
+     --nal-text-head: #4a0820;  /* headings: deep burgundy */
+     --nal-text-on-field: var(--nal-text);     /* body copy on the yellow painted backdrop */
+     --nal-head-on-field: var(--nalangu-ink); /* headings on the yellow painted backdrop */
+
+     /* Nalangu accents, sampled from the blue and pink lotuses (assets/images/ai/lotus-*.png) */
+     --nal-lotus-blue: #1a73d1;
+     --nal-lotus-blue-deep: #0d3f8f;
+     --nal-lotus-aqua: #4fd6e0;
+     --nal-lotus-pink: #e8287a;
+     --nal-lotus-pink-deep: #b3125a;
+     --nal-lotus-blush: #fbd3e4;
+     --nal-lotus-teal: #0f8f9e;  /* the teal end of the Ganesha page breaks */
+
+     /* Paper for the hexagon tiles and notices, and the ink set on it */
+     --paper: #fffaf0;
+     --paper-deep: #f5e8cc;
+     --paper-ink: #2a1004;
+     --paper-glass: rgba(255, 250, 240, 0.62);       /* hexagon tiles: paper the backdrop shows through */
+     --paper-glass-deep: rgba(245, 232, 204, 0.62);
+
+     /* Wedding accents: green, red and gold, from the mandap backdrop */
+     --wed-green: #1f7a45;
+     --wed-green-deep: #0f4f2c;
+     --wed-green-light: #8fd3a4;  /* green that reads on the deep red backdrop */
+     --wed-red: #b01d32;
+     --wed-red-deep: #7d0f1f;
+     --wed-gold-deep: #7a5a0c;
+
+     /* Ivory & cream (text on red) */
+     --ivory: #f7ecd0;
+     --cream: #fff6df;
+   
+     /* Champagne field (story / ceremonial gold pages) */
+     --champagne: #f6e4b6;
+     --champagne-deep: #f3c97a;
+     --peach: #f7d9a0;
+   
+     /* Ink on gold */
+     --ink: #3b2a14;
+     --ink-soft: #5c452a;
+   
+     /* Countdown plate */
+     --plate: #111111;
+     --plate-edge: #2a2118;
+   
+     /* Rhythm */
+     --measure: 62ch;
+     --panel-pad: clamp(2.5rem, 6vw, 5rem);
+     --rule-gold: linear-gradient(90deg, transparent, var(--gold) 20%, var(--gold-pale) 50%, var(--gold) 80%, transparent);
+   
+     /* Type */
+     --font-display: "Cinzel", "Playfair Display", Georgia, serif;
+     --font-script: "Great Vibes", "Cormorant Garamond", cursive;
+     --font-body: "Cormorant Garamond", Georgia, "Times New Roman", serif;
+   }
+   
+   /* 2. Base elements
+      -------------------------------------------------------------------------- */
+   
+   *,
+   *::before,
+   *::after {
+     box-sizing: border-box;
+   }
+   
+   /* A wide gold scrollbar, always shown, so guests can see the page scrolls.
+      Firefox takes the standard properties; Chromium and Safari the pseudo-elements
+      (Chromium ignores those once scrollbar-color is set, hence the @supports). */
+   html {
+     overflow-y: scroll;
+   }
+   
+   ::-webkit-scrollbar {
+     width: 16px;
+   }
+   
+   ::-webkit-scrollbar-track {
+     background: #3a0610;
+   }
+   
+   ::-webkit-scrollbar-thumb {
+     min-height: 64px;
+     background: linear-gradient(90deg, var(--gold-mid), var(--gold-light), var(--gold-mid));
+     border: 3px solid #3a0610;
+     border-radius: 8px;
+   }
+   
+   ::-webkit-scrollbar-thumb:hover {
+     background: var(--gold-light);
+   }
+   
+   @supports not selector(::-webkit-scrollbar) {
+     html {
+       scrollbar-width: auto;
+       scrollbar-color: var(--gold-mid) #3a0610;
+     }
+   }
+   
+   html {
+     scroll-behavior: smooth;
+     /* Footer maroon shows under the page if it is ever pulled past the end. */
+     background-color: #5c0a16;
+     overscroll-behavior-y: none;
+   }
+   
+   body {
+     margin: 0;
+     font-family: var(--font-body);
+     font-size: clamp(1.2rem, 0.5vw + 1.05rem, 1.4rem);
+     line-height: 1.75;
+     color: var(--ink);
+     background-color: var(--champagne);
+     -webkit-font-smoothing: antialiased;
+   }
+   
+   img {
+     max-width: 100%;
+     height: auto;
+   }
+   
+   p {
+     margin: 0 0 1.1em;
+   }
+   
+   a {
+     color: var(--maroon);
+     text-underline-offset: 0.25em;
+     text-decoration-thickness: 1px;
+   }
+   
+   a:hover {
+     color: var(--silk-red-bright);
+   }
+   
+   :focus-visible {
+     outline: 2px solid var(--gold-mid);
+     outline-offset: 3px;
+     border-radius: 2px;
+   }
+   
+   .skip-link {
+     position: absolute;
+     left: 50%;
+     top: -100px;
+     transform: translateX(-50%);
+     z-index: 100;
+     padding: 0.6rem 1.4rem;
+     background: var(--maroon);
+     color: var(--gold-pale);
+     font-family: var(--font-display);
+     letter-spacing: 0.12em;
+     text-transform: uppercase;
+     font-size: 0.75rem;
+     text-decoration: none;
+   }
+   
+   .skip-link:focus {
+     top: 0.5rem;
+   }
+   
+   .visually-hidden {
+     position: absolute;
+     width: 1px;
+     height: 1px;
+     overflow: hidden;
+     clip: rect(0 0 0 0);
+     clip-path: inset(50%);
+     white-space: nowrap;
+   }
+   
+   /* 3. Gold / script type helpers
+      -------------------------------------------------------------------------- */
+   
+   h1,
+   h2,
+   h3,
+   h4 {
+     font-family: var(--font-display);
+     font-weight: 600;
+     line-height: 1.2;
+     margin: 0 0 0.6em;
+     letter-spacing: 0.04em;
+   }
+   
+   /* Foiled gold lettering. Falls back to a flat gold if background-clip is out. */
+   .gold-type {
+     color: var(--gold-mid);
+     background-image: linear-gradient(
+       180deg,
+       var(--gold-pale) 0%,
+       var(--gold-light) 28%,
+       var(--gold-mid) 52%,
+       var(--gold) 74%,
+       var(--gold-light) 100%
+     );
+     -webkit-background-clip: text;
+     background-clip: text;
+     -webkit-text-fill-color: transparent;
+     filter: drop-shadow(0 1px 0 rgba(58, 5, 14, 0.7)) drop-shadow(0 3px 14px rgba(40, 3, 10, 0.55));
+   }
+   
+   @supports not ((-webkit-background-clip: text) or (background-clip: text)) {
+     .gold-type {
+       -webkit-text-fill-color: currentColor;
+       color: var(--gold-light);
+     }
+   }
+   
+   .script {
+     font-family: var(--font-script);
+     font-weight: 400;
+     letter-spacing: 0.01em;
+     line-height: 1.15;
+   }
+   
+   .eyebrow {
+     font-family: var(--font-display);
+     font-size: clamp(0.85rem, 1.8vw, 1rem);
+     text-transform: uppercase;
+     letter-spacing: 0.34em;
+     margin: 0 0 1.1rem;
+     color: var(--nal-text-head);
+   }
+   
+   .panel--gold .eyebrow {
+     color: var(--ink-soft);
+   }
+   
+   /* A small gold rule with a diamond, used between ceremonial blocks. */
+   .rule {
+     display: block;
+     width: min(300px, 70%);
+     height: 1px;
+     margin: 2.2rem auto;
+     border: 0;
+     background: var(--rule-gold);
+     position: relative;
+     opacity: 0.85;
+   }
+   
+   .rule::after {
+     content: "";
+     position: absolute;
+     left: 50%;
+     top: 50%;
+     width: 9px;
+     height: 9px;
+     background: var(--gold-mid);
+     transform: translate(-50%, -50%) rotate(45deg);
+   }
+   
+   /* 4. Decorative motifs
+      -------------------------------------------------------------------------- */
+   
+   /* Red silk field. Layered gradients suggest folds over the silk photograph. */
+   .silk {
+     position: relative;
+     isolation: isolate;
+     color: var(--ivory);
+     background-color: var(--silk-red);
+     background-image:
+       radial-gradient(120% 80% at 50% 0%, rgba(214, 74, 96, 0.28), transparent 60%),
+       radial-gradient(85% 65% at 10% 90%, rgba(70, 6, 16, 0.85), transparent 62%),
+       radial-gradient(85% 65% at 90% 90%, rgba(70, 6, 16, 0.85), transparent 62%),
+       linear-gradient(0deg, var(--silk-red) 0%, var(--silk-red) 100%),
+       url("../assets/images/silk-red.jpg");
+     background-size: auto, auto, auto, auto, cover;
+     background-position: center;
+     background-blend-mode: soft-light, multiply, multiply, multiply, normal;
+   }
+   
+   /* Very slow satin sheen travelling across the silk. */
+   .silk::after {
+     content: "";
+     position: absolute;
+     inset: 0;
+     z-index: -1;
+     pointer-events: none;
+     background: linear-gradient(
+       104deg,
+       transparent 30%,
+       rgba(255, 214, 170, 0.09) 47%,
+       rgba(255, 233, 200, 0.14) 51%,
+       rgba(255, 214, 170, 0.09) 55%,
+       transparent 72%
+     );
+     background-size: 300% 100%;
+     animation: sheen 26s linear infinite;
+   }
+   
+   @keyframes sheen {
+     from { background-position: 140% 0; }
+     to { background-position: -40% 0; }
+   }
+   
+   .silk a {
+     color: var(--gold-light);
+   }
+   
+   /* Champagne bokeh field — page two of the invitation. */
+   .bokeh {
+     background-color: var(--champagne);
+     background-image: url("../assets/images/bokeh-champagne.jpg");
+     background-size: cover;
+     background-position: center;
+     background-repeat: no-repeat;
+   }
+   
+   /* A field painted once behind the whole page and pinned to the viewport, so the
+      copy scrolls over a still backdrop instead of restarting at every panel.
+      Panels on such a page carry no field class of their own — they stay
+      transparent and let this layer show through.
+   
+      This uses a fixed pseudo-element rather than `background-attachment: fixed`,
+      which iOS Safari and several mobile browsers ignore or render badly. */
+   .field-fixed::before {
+     content: "";
+     position: fixed;
+     inset: 0;
+     z-index: -1;
+     pointer-events: none;
+     background-position: center;
+     background-size: cover;
+     background-repeat: no-repeat;
+   }
+   
+   .field-fixed--champagne {
+     background-color: var(--champagne);
+   }
+   
+   .field-fixed--champagne::before {
+     background-image: url("../assets/images/bokeh-champagne.jpg");
+   }
+   
+   /* Home and Wedding share one painted backdrop; Nalangu has its own. Each swaps
+      to a portrait version on small screens. The body's own patterned field is
+      cleared, or it would paint over the fixed layer. */
+   body.field-fixed--home,
+   body.field-fixed--wedding,
+   body.theme-nalangu.field-fixed--nalangu {
+     background: none;
+   }
+   
+   .field-fixed--home::before {
+     background-image: url("../assets/images/ai/homepage-bg.jpeg");
+   }
+   
+   .field-fixed--wedding::before {
+     background-image: url("../assets/images/ai/homepage-bg.jpeg");
+   }
+   
+   .field-fixed--nalangu::before {
+     background-image: url("../assets/images/ai/nalangu-bg.jpeg");
+   }
+   
+   @media (max-width: 760px) {
+     .field-fixed--home::before {
+       background-image: url("../assets/images/ai/home-bg-mobile.jpeg");
+     }
+   
+     .field-fixed--wedding::before {
+       background-image: url("../assets/images/ai/wedding-bg-mobile.jpeg");
+     }
+   
+     .field-fixed--nalangu::before {
+       background-image: url("../assets/images/ai/nalangu-bg-mobile.jpeg");
+     }
+   }
+   
+   /* Ornamental field — the Nalangu page. A butter-yellow and gold ethnic pattern
+      (ethnic-tile-butter.jpg, recoloured from the vecteezy original), kept low in
+      contrast so the dark-brown copy stays clear, across the whole page; its panels carry no field class of their own. */
+   .field-henna {
+     background-color: var(--lemon);
+     background-image:
+       radial-gradient(60% 18% at 50% 8%, rgba(255, 246, 200, 0.5), transparent 100%),
+       radial-gradient(70% 16% at 50% 33%, rgba(255, 246, 200, 0.4), transparent 100%),
+       radial-gradient(70% 16% at 50% 62%, rgba(255, 246, 200, 0.4), transparent 100%),
+       radial-gradient(70% 16% at 50% 90%, rgba(255, 246, 200, 0.45), transparent 100%),
+       url("../assets/images/ethnic-tile-butter.jpg");
+     background-size: 100% 100%, 100% 100%, 100% 100%, 100% 100%, 480px 320px;
+     background-repeat: no-repeat, no-repeat, no-repeat, no-repeat, repeat;
+   }
+   
+   /* Separator between panels: a thin line, five diyas (one large in the middle,
+      two smaller either side), and the line again. It overlaps the panels' padding
+      so it sits on the seam instead of a hard edge. */
+   .divider {
+     position: relative;
+     z-index: 6;
+     display: flex;
+     align-items: flex-end;
+     justify-content: center;
+     gap: clamp(0.5rem, 1.6vw, 0.9rem);
+     width: min(640px, 88vw);
+     margin: calc(var(--panel-pad) * -0.3) auto;
+     pointer-events: none;
+   }
+   
+   .divider__line {
+     flex: 1;
+     align-self: center;
+     height: 1px;
+     background: var(--nalangu-ink);
+     opacity: 0.55;
+   }
+   
+   .divider--gold .divider__line {
+     background: var(--gold-light);
+     opacity: 0.75;
+   }
+   
+   .divider__diya {
+     display: block;
+     width: clamp(18px, 3.4vw, 26px);
+     height: auto;
+   }
+   
+   .divider__diya--big {
+     width: clamp(34px, 6.4vw, 50px);
+   }
+   
+   /* Wedding dress-code notice: a little smaller than the shared notice size. */
+   .silk .nalangu-details__sub--notice {
+     font-size: clamp(1.1rem, 2.5vw, 1.4rem);
+   }
+   
+   /* Wedding page break: gold filigree either side of a gold Ganesha. */
+   .divider--ornament {
+     align-items: center;
+     gap: clamp(0.3rem, 1.2vw, 0.8rem);
+     width: min(540px, 86vw);
+   }
+   
+   .divider__filigree {
+     display: block;
+     flex: 1 1 0;
+     min-width: 0;
+     height: auto;
+   }
+   
+   .divider__ganesha {
+     display: block;
+     flex: none;
+     width: clamp(30px, 6vw, 46px);
+     height: auto;
+   }
+   
+   /* Deep maroon silk, a darker sibling of .silk for alternating wedding panels. */
+   .silk--maroon {
+     background-color: var(--maroon);
+     background-image:
+       radial-gradient(120% 80% at 50% 0%, rgba(176, 29, 50, 0.4), transparent 62%),
+       linear-gradient(0deg, var(--maroon) 0%, var(--maroon) 100%),
+       url("../assets/images/silk-red.jpg");
+     background-size: auto, auto, cover;
+     background-blend-mode: soft-light, multiply, normal;
+   }
+   
+   /* Text set directly on silk (outside the ivory cards): gold titles, ivory copy. */
+   .silk .panel__title,
+   .silk .panel__subtitle {
+     color: var(--nal-teal-deep);
+   }
+   
+   .silk .eyebrow {
+     color: var(--gold-pale);
+   }
+   
+   .silk .card a,
+   .silk .form-card a,
+   .silk .registry-links a {
+     color: var(--maroon);
+   }
+   
+   .silk .panel__inner > .hint {
+     color: var(--ivory);
+   }
+   
+   .silk .timeline time {
+     color: var(--gold-light);
+   }
+   
+   .silk .timeline__event h3 {
+     color: var(--gold-pale);
+   }
+   
+   .silk .timeline__event p {
+     color: var(--ivory);
+   }
+   
+   /* On the wedding page each timeline stop is a small gold diya, with the line
+      running down from beneath it. */
+   .silk .timeline--split li {
+     grid-template-columns: minmax(5.5rem, 1fr) 2.6rem 1.7fr;
+   }
+   
+   .silk .timeline--split li::before {
+     width: 1.7rem;
+     height: 1.7rem;
+     margin-top: 0;
+     background: url("../assets/images/diya-gold.png") center / contain no-repeat;
+     transform: none;
+     box-shadow: none;
+   }
+   
+   .silk .timeline--split li::after {
+     margin-top: 2rem;
+     background: var(--gold);
+   }
+   
+   .silk .timeline--split time {
+     font-size: clamp(1rem, 2.4vw, 1.2rem);
+     padding-top: 0.35rem;
+   }
+   
+   .silk .timeline__event h3 {
+     padding-top: 0.2rem;
+   }
+   
+   /* Nalangu field bands: mustard and light yellow edged in gold. */
+   .field-mustard {
+     background-color: var(--mustard);
+     background-image:
+       url("../assets/images/paisley-tile-brown.png"),
+       radial-gradient(110% 80% at 50% 0%, rgba(255, 244, 189, 0.5), transparent 62%),
+       linear-gradient(180deg, var(--mustard) 0%, var(--mustard-deep) 100%);
+     background-size: 420px 420px, auto, auto;
+     box-shadow:
+       inset 0 2px 0 var(--gold-light),
+       inset 0 -2px 0 var(--gold);
+   }
+   
+   .field-lemon {
+     background-color: var(--lemon);
+     background-image:
+       radial-gradient(100% 70% at 50% 50%, rgba(255, 255, 240, 0.65), transparent 70%),
+       url("../assets/images/paisley-tile-gold.png");
+     background-size: auto, 420px 420px;
+   }
+   
+   /* On the Nalangu page maroon gives way to a deep gold-brown, so the two
+      celebrations keep to their own colours. */
+   .theme-nalangu .site-main {
+     --maroon: var(--nalangu-ink);
+   }
+   
+   /* Contrast on the Nalangu mustard: links, timeline and body copy in deep gold-brown. */
+   .theme-nalangu .jump-links a {
+     color: var(--nalangu-ink);
+     border-bottom-color: var(--nalangu-ink);
+   }
+   
+   .theme-nalangu .jump-links a:hover {
+     color: #2e1d02;
+   }
+   
+   .theme-nalangu .timeline--split li::before {
+     background: var(--nalangu-ink);
+     box-shadow: 0 0 0 3px var(--mustard);
+   }
+   
+   .theme-nalangu .timeline--split li::after {
+     background: var(--nalangu-ink);
+     opacity: 0.55;
+   }
+   
+   .theme-nalangu .timeline__event p,
+   .theme-nalangu .lede,
+   .theme-nalangu .panel--gold .eyebrow {
+     color: var(--nalangu-ink);
+   }
+   
+   /* Nalangu colours: the lotus pattern pressed into cerise silk, tone on tone,
+      so it reads as embossed (lotus-pattern-embossed-cerise.jpg, repeating down
+      the whole page). Over the yellow painted backdrop the copy is dark brown;
+      the lotus blue and pink are the accents. */
+   .theme-nalangu .site-main {
+     --maroon: var(--nal-head-on-field);
+     --ink: var(--nal-text-on-field);
+     --ink-soft: var(--nal-text-on-field);
+   }
+   
+   .theme-nalangu.field-henna {
+     background-color: #a0164e;
+     background-image: url("../assets/images/lotus-pattern-embossed-cerise.jpg");
+     background-size: 260px 260px;
+     background-repeat: repeat;
+   }
+   
+   .theme-nalangu .panel--stage,
+   .theme-nalangu #traditions,
+   .theme-nalangu #details,
+   .theme-nalangu #programme {
+     background: none;
+   }
+   
+   .theme-nalangu .panel--gold h1,
+   .theme-nalangu .panel--gold h2,
+   .theme-nalangu .panel--gold h3 {
+     color: var(--nal-head-on-field);
+   }
+   
+   .theme-nalangu .timeline time,
+   .theme-nalangu .jump-links a,
+   .theme-nalangu .timeline__event p,
+   .theme-nalangu .lede,
+   .theme-nalangu .panel--gold .eyebrow,
+   .theme-nalangu .nalangu-description,
+   .theme-nalangu .panel__inner > p {
+     color: var(--nal-text-on-field);
+   }
+   
+   /* The meanings as a honeycomb, on Nalangu and Wedding alike: hexagons of
+      translucent paper, so the backdrop's colours show softly through, ringed in
+      the page's accents, each row tucked into the gaps of the one above. The grid
+      runs in half-tile columns so a row can sit half a tile across; each row is
+      three quarters of a tile tall, and the tiles overhang into the next row.
+      Copy is held inside the straight-sided middle band so it never crosses the
+      slanted edges. Medium and wide screens set them 2 + 1 + 2 (Nalangu goes
+      3 + 2 when wide); phones stack wider flat-topped tiles edge to edge.
+      Each page sets --tile (ring) and --tile-ink (heading) on its tiles; the
+      icons are recoloured to match (icon-*-lotus-*.png, icon-*-wed-*.png). */
+   :is(.theme-nalangu, .theme-wedding) .ritual-list {
+     --hex-w: clamp(310px, 42vw, 350px);
+     --hex-h: calc(var(--hex-w) * 1.1547);
+     --hex-gap: 10px;
+     --hex-border: 4px;
+     display: grid;
+     width: max-content;
+     grid-template-columns: repeat(4, calc((var(--hex-w) + var(--hex-gap)) / 2));
+     grid-auto-rows: calc(var(--hex-h) * 0.75 + var(--hex-gap) * 0.866);
+     gap: 0;
+     padding-bottom: calc(var(--hex-h) * 0.25);
+   }
+
+   :is(.theme-nalangu, .theme-wedding) .ritual-list li {
+     /* Pointy-topped hexagon, and the same shape inset by the ring's width. */
+     --b: var(--hex-border);
+     --hex-outer: 50% 0, 100% 25%, 100% 75%, 50% 100%, 0 75%, 0 25%;
+     --hex-inner:
+       50% calc(var(--b) * 1.155),
+       calc(100% - var(--b)) calc(25% + var(--b) * 0.577),
+       calc(100% - var(--b)) calc(75% - var(--b) * 0.577),
+       50% calc(100% - var(--b) * 1.155),
+       var(--b) calc(75% - var(--b) * 0.577),
+       var(--b) calc(25% + var(--b) * 0.577);
+     position: relative;
+     isolation: isolate;
+     grid-column: span 2;
+     justify-self: center;
+     display: flex;
+     flex-direction: column;
+     align-items: center;
+     justify-content: center;
+     width: var(--hex-w);
+     height: var(--hex-h);
+     padding: calc(var(--hex-h) * 0.19) calc(var(--hex-w) * 0.12);
+     font-size: 0.88em;
+     line-height: 1.45;
+     color: var(--paper-ink);
+     background: none;
+     border: 0;
+     box-shadow: none;
+     filter: drop-shadow(0 6px 10px rgba(79, 52, 6, 0.18));
+   }
+
+   /* The ring is the outer hexagon with the inner one cut out; the paper fills
+      the inner one, so its transparency shows the backdrop, not the ring. */
+   :is(.theme-nalangu, .theme-wedding) .ritual-list li::before,
+   :is(.theme-nalangu, .theme-wedding) .ritual-list li::after {
+     content: "";
+     position: absolute;
+     inset: 0;
+     z-index: -1;
+   }
+
+   :is(.theme-nalangu, .theme-wedding) .ritual-list li::before {
+     clip-path: polygon(evenodd, var(--hex-outer), 50% 0, var(--hex-inner), 50% calc(var(--b) * 1.155));
+     background: var(--tile);
+   }
+
+   :is(.theme-nalangu, .theme-wedding) .ritual-list li::after {
+     clip-path: polygon(var(--hex-inner));
+     background:
+       radial-gradient(120% 90% at 50% 40%, rgba(255, 255, 255, 0.35), transparent 70%),
+       linear-gradient(180deg, var(--paper-glass), var(--paper-glass-deep));
+   }
+
+   :is(.theme-nalangu, .theme-wedding) .ritual-list .glyph {
+     flex: none;
+     width: 48px;
+     height: 48px;
+     margin-bottom: 0.5rem;
+   }
+
+   :is(.theme-nalangu, .theme-wedding) .ritual-list strong {
+     color: var(--tile-ink);
+     font-size: 0.85em;
+     letter-spacing: 0.1em;
+   }
+
+   /* Medium: 2 + 1 + 2. */
+   :is(.theme-nalangu, .theme-wedding) .ritual-list li:nth-child(1) { grid-area: 1 / 1 / 2 / 3; }
+   :is(.theme-nalangu, .theme-wedding) .ritual-list li:nth-child(2) { grid-area: 1 / 3 / 2 / 5; }
+   :is(.theme-nalangu, .theme-wedding) .ritual-list li:nth-child(3) { grid-area: 2 / 2 / 3 / 4; }
+   :is(.theme-nalangu, .theme-wedding) .ritual-list li:nth-child(4) { grid-area: 3 / 1 / 4 / 3; }
+   :is(.theme-nalangu, .theme-wedding) .ritual-list li:nth-child(5) { grid-area: 3 / 3 / 4 / 5; }
+
+   /* Wide: 3 + 2 on the Nalangu page. */
+   @media (min-width: 1280px) {
+     .theme-nalangu .ritual-list {
+       --hex-w: clamp(310px, 24vw, 350px);
+       grid-template-columns: repeat(6, calc((var(--hex-w) + var(--hex-gap)) / 2));
+     }
+
+     .theme-nalangu .ritual-list li:nth-child(3) { grid-area: 1 / 5 / 2 / 7; }
+     .theme-nalangu .ritual-list li:nth-child(4) { grid-area: 2 / 2 / 3 / 4; }
+     .theme-nalangu .ritual-list li:nth-child(5) { grid-area: 2 / 4 / 3 / 6; }
+   }
+
+   /* Phones: one column of wide, flat-topped tiles that grow to fit their copy
+      and meet edge to edge. */
+   @media (max-width: 760px) {
+     :is(.theme-nalangu, .theme-wedding) .ritual-list {
+       grid-template-columns: min(360px, 90vw);
+       grid-auto-rows: auto;
+       row-gap: 6px;
+       padding-bottom: 0;
+     }
+
+     :is(.theme-nalangu, .theme-wedding) .ritual-list li {
+       --hex-outer: 14% 0, 86% 0, 100% 50%, 86% 100%, 14% 100%, 0 50%;
+       --hex-inner:
+         calc(14% + var(--b) * 0.6) var(--b),
+         calc(86% - var(--b) * 0.6) var(--b),
+         calc(100% - var(--b) * 1.2) 50%,
+         calc(86% - var(--b) * 0.6) calc(100% - var(--b)),
+         calc(14% + var(--b) * 0.6) calc(100% - var(--b)),
+         calc(var(--b) * 1.2) 50%;
+       width: 100%;
+       height: auto;
+       min-height: 15rem;
+       padding: 1.6rem 17% 1.9rem;
+       font-size: 0.86em;
+       line-height: 1.4;
+     }
+
+     :is(.theme-nalangu, .theme-wedding) .ritual-list li::before {
+       clip-path: polygon(evenodd, var(--hex-outer), 14% 0, var(--hex-inner), calc(14% + var(--b) * 0.6) var(--b));
+     }
+
+     :is(.theme-nalangu, .theme-wedding) .ritual-list .glyph {
+       width: 42px;
+       height: 42px;
+       margin-bottom: 0.4rem;
+     }
+
+     :is(.theme-nalangu, .theme-wedding) .ritual-list li:nth-child(n) { grid-area: auto / 1 / auto / 2; }
+   }
+
+   /* The dress-code request, under the details: bold on a paper band, in the
+      page's --notice colours. */
+   :is(.theme-nalangu, .theme-wedding) p.nalangu-notice {
+     display: block;
+     width: fit-content;
+     max-width: 100%;
+     margin: clamp(2rem, 4vw, 3rem) auto 0;
+     padding: 0.8rem clamp(1.2rem, 4vw, 2.2rem);
+     font-family: var(--font-display);
+     font-size: clamp(1.15rem, 2.8vw, 1.5rem);
+     font-weight: 700;
+     letter-spacing: 0.04em;
+     line-height: 1.35;
+     text-align: center;
+     color: var(--notice-ink);
+     background: linear-gradient(180deg, var(--paper), var(--paper-deep));
+     border: 3px solid var(--notice-border);
+     border-radius: 3px;
+     box-shadow:
+       0 0 0 3px var(--paper) inset,
+       0 0 0 4px var(--notice-inner) inset,
+       0 6px 14px rgba(79, 52, 6, 0.18);
+   }
+
+   .theme-nalangu .jump-links a {
+     border-bottom-color: var(--nal-lotus-pink);
+   }
+
+   .theme-nalangu .jump-links a:hover {
+     color: var(--nal-lotus-pink-deep);
+   }
+
+   .theme-nalangu .timeline--split li::after,
+   .theme-nalangu .divider__line {
+     background: var(--nal-lotus-blue);
+   }
+
+   /* Programme points: a lotus in place of the gold diamond, blue and pink in turn,
+      with the line picking up again beneath each flower. */
+   .theme-nalangu .timeline--split li {
+     grid-template-columns: minmax(5.5rem, 1fr) 2.8rem 1.7fr;
+   }
+
+   .theme-nalangu .timeline--split li::before {
+     width: 2.6rem;
+     height: 1.7rem;
+     margin-top: 0;
+     transform: none;
+     box-shadow: none;
+     background: url("../assets/images/ai/lotus-blue.png") center / contain no-repeat;
+   }
+
+   .theme-nalangu .timeline--split li:nth-child(even)::before {
+     background-image: url("../assets/images/ai/lotus-pink.png");
+   }
+
+   .theme-nalangu .timeline--split li::after {
+     margin-top: 1.9rem;
+     opacity: 0.6;
+   }
+
+   @media (min-width: 640px) {
+     .theme-nalangu .timeline--alt li {
+       grid-template-columns: minmax(0, 1fr) 3.4rem minmax(0, 1fr);
+     }
+
+     .theme-nalangu .timeline--split li::before {
+       width: 3.2rem;
+       height: 2.1rem;
+     }
+
+     .theme-nalangu .timeline--split li::after {
+       margin-top: 2.3rem;
+     }
+   }
+
+   .theme-nalangu .rule {
+     background: linear-gradient(90deg, transparent, var(--nal-lotus-blue) 20%, var(--nal-lotus-pink) 50%, var(--nal-lotus-blue) 80%, transparent);
+   }
+
+   .theme-nalangu .rule::after {
+     background: var(--nal-lotus-pink);
+   }
+
+   /* The details sit straight on the backdrop, no card, on Nalangu and Wedding
+      alike: each one crowned with a lotus and a script label in its colour.
+      Wide screens set them two by two, chequered, with a soft line down the
+      middle; narrow screens stack them between the gems. Each page sets the
+      --detail-* colours and the two --crown-* lotuses. */
+   :is(.theme-nalangu, .theme-wedding) .nalangu-details {
+     max-width: 820px;
+     padding: 0;
+     background: none;
+     border: 0;
+     box-shadow: none;
+   }
+
+   :is(.theme-nalangu, .theme-wedding) .nalangu-details__row::before {
+     content: "";
+     display: block;
+     width: 3.4rem;
+     height: 2.2rem;
+     margin: 0 auto 0.3rem;
+     background: var(--crown-a) center / contain no-repeat;
+   }
+
+   :is(.theme-nalangu, .theme-wedding) .nalangu-details__row:nth-of-type(2)::before,
+   :is(.theme-nalangu, .theme-wedding) .nalangu-details__row:nth-of-type(3)::before {
+     background-image: var(--crown-b);
+   }
+
+   :is(.theme-nalangu, .theme-wedding) .nalangu-details__main {
+     font-size: clamp(1.1rem, 2.8vw, 1.55rem);
+     font-weight: 600;
+     line-height: 1.4;
+   }
+
+   :is(.theme-nalangu, .theme-wedding) .nalangu-details__main,
+   :is(.theme-nalangu, .theme-wedding) .nalangu-details__sub {
+     color: var(--detail-ink);
+   }
+
+   :is(.theme-nalangu, .theme-wedding) .nalangu-details__row h3 {
+     color: var(--detail-a);
+   }
+
+   :is(.theme-nalangu, .theme-wedding) .nalangu-details__row:nth-of-type(2) h3,
+   :is(.theme-nalangu, .theme-wedding) .nalangu-details__row:nth-of-type(3) h3 {
+     color: var(--detail-b);
+   }
+
+   @media (min-width: 640px) {
+     :is(.theme-nalangu, .theme-wedding) .nalangu-details {
+       display: grid;
+       grid-template-columns: 1fr 1fr;
+       row-gap: clamp(2rem, 4vw, 3rem);
+     }
+
+     :is(.theme-nalangu, .theme-wedding) .nalangu-details__gem {
+       display: none;
+     }
+
+     :is(.theme-nalangu, .theme-wedding) .nalangu-details__row {
+       padding: 0 clamp(1rem, 3vw, 2.2rem);
+     }
+
+     :is(.theme-nalangu, .theme-wedding) .nalangu-details__row:nth-of-type(even) {
+       border-left: 1px solid;
+       border-image: linear-gradient(180deg, transparent, var(--detail-line) 30%, var(--detail-line) 70%, transparent) 1;
+     }
+   }
+
+   :is(.theme-nalangu, .theme-wedding) .nalangu-details__gem {
+     background: linear-gradient(90deg, transparent, var(--gem-line) 20%, var(--gem-line) 80%, transparent);
+   }
+
+   :is(.theme-nalangu, .theme-wedding) .nalangu-details__gem::after {
+     background: var(--gem-dot);
+     box-shadow: 0 0 0 3px var(--gem-halo);
+   }
+
+   /* Nalangu palette for the shared tiles, details and notice: lotus blue and
+      pink with teal, on paper. */
+   .theme-nalangu {
+     --crown-a: url("../assets/images/ai/lotus-blue.png");
+     --crown-b: url("../assets/images/ai/lotus-pink.png");
+     --detail-a: var(--nal-lotus-blue-deep);
+     --detail-b: var(--nal-lotus-pink-deep);
+     --detail-ink: var(--nal-text-on-field);
+     --detail-line: var(--nal-lotus-pink);
+     --gem-line: var(--nal-lotus-blue);
+     --gem-dot: var(--nal-lotus-pink);
+     --gem-halo: var(--nal-lotus-blush);
+     --notice-ink: var(--nal-lotus-pink-deep);
+     --notice-border: var(--nal-lotus-pink);
+     --notice-inner: rgba(15, 143, 158, 0.55);
+   }
+
+   .theme-nalangu .ritual-list li {
+     --tile: var(--nal-lotus-teal);
+     --tile-ink: var(--nal-lotus-blue-deep);
+   }
+
+   .theme-nalangu .ritual-list li:nth-child(even) {
+     --tile: var(--nal-lotus-pink);
+     --tile-ink: var(--nal-lotus-pink-deep);
+   }
+
+   /* Wedding accents: green, red and gold. The desktop backdrop is deep red
+      and the phone one cream, so text set straight on it changes with them. */
+   .theme-wedding {
+     --crown-a: url("../assets/images/ai/lotus-green.png");
+     --crown-b: url("../assets/images/ai/lotus-gold.png");
+     --detail-a: var(--gold-light);
+     --detail-b: var(--wed-green-light);
+     --detail-ink: var(--ivory);
+     --detail-line: var(--gold);
+     --gem-line: var(--gold);
+     --gem-dot: var(--wed-red);
+     --gem-halo: var(--gold-pale);
+     --notice-ink: var(--wed-red-deep);
+     --notice-border: var(--wed-red);
+     --notice-inner: rgba(201, 162, 39, 0.7);
+   }
+
+   @media (max-width: 760px) {
+     .theme-wedding {
+       --detail-a: var(--wed-green-deep);
+       --detail-b: var(--wed-red-deep);
+       --detail-ink: var(--paper-ink);
+     }
+   }
+
+   .theme-wedding .ritual-list li:nth-child(3n + 1) {
+     --tile: var(--gold);
+     --tile-ink: var(--wed-gold-deep);
+   }
+
+   .theme-wedding .ritual-list li:nth-child(3n + 2) {
+     --tile: var(--wed-red);
+     --tile-ink: var(--wed-red-deep);
+   }
+
+   .theme-wedding .ritual-list li:nth-child(3n) {
+     --tile: var(--wed-green);
+     --tile-ink: var(--wed-green-deep);
+   }
+
+   /* Wedding titles: gold on the red backdrop, green on the cream phone one. */
+   .theme-wedding .silk .panel__title {
+     color: var(--gold-light);
+   }
+
+   @media (max-width: 760px) {
+     .theme-wedding .silk .panel__title {
+       color: var(--wed-green-deep);
+     }
+   }
+   
+   /* Home cards that preview each celebration's colours. */
+   .card.card--nalangu {
+     background: linear-gradient(180deg, var(--lemon), var(--mustard));
+   }
+   
+   .card.card--nalangu h3,
+   .card.card--nalangu .card__link {
+     color: #2e1d02;
+     font-weight: 700;
+     border-bottom-color: #2e1d02;
+   }
+   
+   .card.card--nalangu p {
+     color: var(--nalangu-ink);
+   }
+   
+   .card.card--wedding {
+     background: linear-gradient(180deg, var(--silk-red), var(--maroon));
+   }
+   
+   .card.card--wedding h3,
+   .card.card--wedding .card__link {
+     color: var(--gold-light);
+   }
+   
+   .card.card--wedding p {
+     color: var(--ivory);
+   }
+   
+   .card.card--wedding .card__link:hover {
+     color: var(--cream);
+   }
+   
+   .card__links {
+     list-style: none;
+     margin: 1.2rem 0 0;
+     padding: 0;
+     display: grid;
+     gap: 0.7rem;
+   }
+   
+   /* Red mandala field: one gold mandala tile painted on the body, so the pattern
+      runs unbroken down the whole page. Silk panels turn transparent over it;
+      .silk--maroon deepens the same pattern instead of starting a new one. */
+   .field-mandala-red {
+     background-color: #520411;
+     background-image:
+       url("../assets/images/paisley-tile-maroon.png"),
+       linear-gradient(180deg, #6a0a18 0%, #520411 45%, #46030e 100%);
+     background-size: 420px 420px, 100% 100%;
+     background-repeat: repeat, no-repeat;
+   }
+   
+   /* Wedding page: a maroon floral damask that drifts lighter and darker down the
+      page. The tile is mirrored top to bottom, so it repeats without a seam. */
+   .field-mandala-red--flow {
+     background-color: #7a0f1f;
+     background-image:
+       radial-gradient(60% 18% at 50% 8%, rgba(176, 29, 50, 0.45), transparent 100%),
+       radial-gradient(70% 16% at 50% 35%, rgba(140, 22, 40, 0.4), transparent 100%),
+       radial-gradient(70% 16% at 50% 65%, rgba(140, 22, 40, 0.4), transparent 100%),
+       radial-gradient(70% 16% at 50% 92%, rgba(176, 29, 50, 0.35), transparent 100%),
+       linear-gradient(180deg, rgba(60, 4, 12, 0) 0%, rgba(60, 4, 12, 0.35) 55%, rgba(60, 4, 12, 0) 100%),
+       url("../assets/images/floral-tile-maroon-embossed.jpg");
+     background-size: 100% 100%, 100% 100%, 100% 100%, 100% 100%, 100% 100%, 374px 1280px;
+     background-repeat: no-repeat, no-repeat, no-repeat, no-repeat, no-repeat, repeat;
+   }
+   
+   .field-mandala-red .silk,
+   .field-mandala-red .silk--maroon {
+     background: none;
+   }
+   
+   .field-mandala-red .silk::after {
+     display: none;
+   }
+   
+   /* A stage panel must not trap its garlands in a stacking context, or the
+      bells would hang in front of them instead of beneath. */
+   .silk.panel--stage {
+     isolation: auto;
+   }
+   
+   .field-mandala-red .silk--maroon {
+     background: rgba(40, 3, 10, 0.5);
+   }
+   
+   /* Warm marigold-gold field — the Nalangu pages. */
+   .bokeh--gold {
+     background-color: var(--champagne-deep);
+     background-image: url("../assets/images/bokeh-gold.jpg");
+   }
+   
+   /* A soft cream veil so dark-brown body text stays comfortable on the hot
+      marigold field, while the colour keeps burning at the edges. */
+   .bokeh--gold::before {
+     content: "";
+     position: absolute;
+     inset: 0;
+     z-index: 1;
+     pointer-events: none;
+     background: radial-gradient(
+       78% 72% at 50% 50%,
+       rgba(255, 249, 232, 0.82) 0%,
+       rgba(255, 245, 219, 0.55) 55%,
+       rgba(255, 240, 205, 0) 100%
+     );
+   }
+   
+   
+   /* Bells and Ganesha are pinned to the viewport, so they stay put while the
+      page scrolls beneath them. */
+   .bell{
+     position: fixed;
+     top: 2vh;
+     width: 12vw;
+     height:auto;
+     display: block;
+     line-height: 0;
+   }
+   
+   .bell img{
+     width: 100%;
+     height: auto;
+     display: block;
+   }
+   
+   .bell img,
+   .bell__etch{
+     transition: transform 220ms ease, filter 220ms ease, opacity 220ms ease;
+     transform-origin: 50% 8%;
+   }
+   
+   /* The page name, etched around the waist of the bell. */
+   .bell__etch{
+     position: absolute;
+     inset: 0;
+     width: 100%;
+     height: 100%;
+     pointer-events: none;
+     overflow: visible;
+   }
+   
+   .bell__etch text{
+     font-family: var(--font-display);
+     font-size: 68px;
+     font-weight: 600;
+     letter-spacing: 0.04em;
+     text-anchor: middle;
+     text-transform: uppercase;
+   }
+   
+   /* Two passes: a pale edge below the cut, then the cut itself. */
+   .bell__etch-light{
+     fill: rgba(255, 244, 214, 0.55);
+     transform: translateY(3px);
+   }
+   
+   .bell__etch-cut{
+     fill: rgba(94, 58, 18, 0.7);
+   }
+   
+   /* The bell lifts a little and catches the gold light when it can be rung. */
+   .bell:hover img,
+   .bell:focus-visible img,
+   .bell:hover .bell__etch,
+   .bell:focus-visible .bell__etch{
+     transform: scale(1.06) rotate(-3deg);
+   }
+   
+   .bell:hover img,
+   .bell:focus-visible img{
+     filter: brightness(1.18) saturate(1.1)
+             drop-shadow(0 0 10px rgba(230, 197, 110, 0.85))
+             drop-shadow(0 0 22px rgba(201, 162, 39, 0.55));
+   }
+   
+   .bell:hover .bell__etch-cut,
+   .bell:focus-visible .bell__etch-cut{
+     fill: rgba(78, 44, 10, 0.88);
+   }
+   
+   /* The right bell tilts inwards, towards the page centre. */
+   .bell--right:hover img,
+   .bell--right:focus-visible img,
+   .bell--right:hover .bell__etch,
+   .bell--right:focus-visible .bell__etch{
+     transform: scale(1.06) rotate(3deg);
+   }
+   
+   .bell:focus{ outline: none; }
+   
+   .bell:focus-visible{
+     outline: 2px solid var(--gold-light);
+     outline-offset: 4px;
+     border-radius: 6px;
+   }
+   
+   @media (prefers-reduced-motion: reduce){
+     .bell img,
+     .bell__etch{ transition: filter 220ms ease, opacity 220ms ease; }
+     .bell:hover img,
+     .bell:focus-visible img,
+     .bell:hover .bell__etch,
+     .bell:focus-visible .bell__etch{ transform: none; }
+     .bell__etch-light{ transform: translateY(3px); }
+   }
+   
+   /* Two bells, mirrored, on every page: the first link hangs left, the second right. */
+   
+   .bell--left{
+     z-index: 3;
+     left: 19.5vw;
+     top: 3vh;
+   }
+   
+   .bell--right{
+     z-index: 3;
+     right: 19.5vw;
+     top: 3vh;
+   }
+   
+   /* On phones the bells grow so the etched page names are easy to read. The
+      etched text is an SVG that scales with the bell. */
+   @media (max-width: 760px){
+     .bell{ width: 32vw; }
+     .bell--left{ left: 4vw; }
+     .bell--right{ right: 4vw; }
+   }
+   
+   /*  back bells */
+   
+   
+   
+   
+   
+   
+   /* Toran — the hanging flower doorway across the top of ceremonial pages. */
+   .toran {
+     position: absolute;
+     inset: 0 0 auto;
+     height: clamp(96px, 15vw, 210px);
+     background: url("../assets/images/garlands_new.png") center top / 100% 100% no-repeat;
+     pointer-events: none;
+     z-index: 2;
+   }
+   
+   .toran--beads {
+     background-image: url("../assets/images/bead-garland.png");
+     height: clamp(80px, 12vw, 165px);
+   }
+   
+   /* Gold Ganesha, seated under the centre of the garland. */
+   .ganesha {
+     position: fixed;
+     top: clamp(0.2rem, 1.1vw, 1rem);
+     left: 50%;
+     transform: translateX(-50%);
+     width: clamp(54px, 8vw, 108px);
+     z-index: 6;
+     filter: drop-shadow(0 4px 12px rgba(58, 5, 14, 0.5));
+   }
+   
+   /* Nalangu: Ganesha sits a little higher and smaller. */
+   .theme-nalangu .ganesha {
+     top: 0;
+     width: clamp(44px, 6.4vw, 86px);
+   }
+
+   /* Copy fades out as it scrolls up under Ganesha. js/main.js sets the two
+      lengths from Ganesha's bottom edge; without them the mask is invalid and
+      nothing is hidden. Ganesha must sit outside .site-main, or it fades too. */
+   .fade-under-ganesha .site-main {
+     -webkit-mask-image: linear-gradient(to bottom, transparent var(--fade-top), #000 var(--fade-bottom));
+     mask-image: linear-gradient(to bottom, transparent var(--fade-top), #000 var(--fade-bottom));
+   }
+
+   /* Deepam — kuthu vilakku lamp stands with hanging marigold, flanking the couple. */
+   .lamp {
+     position: absolute;
+     bottom: 0;
+     width: clamp(110px, 17vw, 260px);
+     z-index: 1;
+     pointer-events: none;
+     filter: drop-shadow(0 6px 18px rgba(58, 5, 14, 0.45));
+   }
+   
+   .lamp--left {
+     left: 0;
+   }
+   
+   .lamp--right {
+     right: 0;
+     transform: scaleX(-1);
+   }
+   
+   /* Hanging lotus / jasmine strings. */
+   .strand {
+     position: absolute;
+     top: 0;
+     width: clamp(48px, 7vw, 104px);
+     z-index: 2;
+     pointer-events: none;
+   }
+   
+   .strand--left { left: 6%; }
+   .strand--right { right: 6%; }
+   
+   /* Marigold-draped pots and pillars, standing either side of the Nalangu couch. */
+   .pillar {
+     position: absolute;
+     bottom: 0;
+     width: clamp(100px, 16vw, 230px);
+     z-index: 1;
+     pointer-events: none;
+   }
+   
+   .pillar--left { left: 0; }
+   
+   .pillar--right {
+     right: 0;
+     transform: scaleX(-1);
+   }
+   
+   /* A ceremonial stage: the couple sit centred between the pillars. */
+   .panel--stage {
+     padding-bottom: 0;
+     /* Let the side garlands hang past the panel into the next one instead of
+        being clipped; only the sideways overflow is trimmed. */
+     overflow-x: clip;
+     overflow-y: visible;
+   }
+   
+   /* Keep the intro between the side garlands. */
+   .nalangu-description {
+     max-width: min(34rem, 62vw);
+     margin: clamp(1.5rem, 5vw, 4rem) auto 0;
+   }
+   /* Text sits in front of the garlands (z-index 5) so it is never hidden. */
+   .panel--stage > .eyebrow,
+   .panel--stage > .panel__title,
+   .panel--stage > .nalangu-description {
+     position: relative;
+     z-index: 6;
+   }
+   
+   .panel--stage .panel__title--script {
+     margin-bottom: 0.15em;
+   }
+   
+   /* 5. Header & navigation
+      -------------------------------------------------------------------------- */
+   
+   .site-header {
+     position: relative;
+     z-index: 10;
+     background: linear-gradient(180deg, var(--maroon), var(--silk-red-deep));
+     border-bottom: 1px solid rgba(201, 162, 39, 0.45);
+     box-shadow: 0 2px 18px rgba(58, 5, 14, 0.3);
+   }
+   
+   .site-header__inner {
+     max-width: 1180px;
+     margin: 0 auto;
+     padding: 0.85rem clamp(1rem, 4vw, 2rem);
+     display: flex;
+     flex-direction: column;
+     align-items: center;
+     gap: 0.5rem;
+     text-align: center;
+   }
+   
+   .site-logo {
+     font-family: var(--font-script);
+     font-size: clamp(1.5rem, 3.4vw, 2.1rem);
+     line-height: 1.1;
+     text-decoration: none;
+     color: var(--gold-light);
+   }
+   
+   .site-logo .gold-type {
+     display: inline-block;
+   }
+   
+   .nav-toggle {
+     display: none;
+     font-family: var(--font-display);
+     font-size: 0.95rem;
+     letter-spacing: 0.24em;
+     text-transform: uppercase;
+     color: var(--gold-light);
+     background: transparent;
+     border: 1px solid rgba(201, 162, 39, 0.6);
+     border-radius: 2px;
+     padding: 0.5rem 1.1rem;
+     cursor: pointer;
+   }
+   
+   .site-nav ul {
+     list-style: none;
+     display: flex;
+     flex-wrap: wrap;
+     justify-content: center;
+     gap: clamp(1rem, 3.5vw, 3rem);
+     margin: 0;
+     padding: 0;
+   }
+   
+   .site-nav a {
+     font-family: var(--font-display);
+     font-size: clamp(0.9rem, 1.6vw, 1.05rem);
+     font-weight: 600;
+     text-transform: uppercase;
+     letter-spacing: 0.24em;
+     text-decoration: none;
+     color: var(--gold-light);
+     padding: 0.35rem 0;
+     border-bottom: 1px solid transparent;
+     transition: color 0.2s ease, border-color 0.2s ease;
+   }
+   
+   .site-nav a:hover {
+     color: var(--cream);
+     border-bottom-color: var(--gold);
+   }
+   
+   .site-nav a[aria-current="page"] {
+     color: var(--cream);
+     border-bottom-color: var(--gold-mid);
+   }
+   
+   /* In-page links under the Nalangu and Wedding page titles. */
+   .jump-links {
+     list-style: none;
+     display: flex;
+     flex-wrap: wrap;
+     justify-content: center;
+     gap: 0.6rem clamp(1rem, 3vw, 2rem);
+     margin: 1.6rem 0 0;
+     padding: 0;
+   }
+   
+   .jump-links a {
+     font-family: var(--font-display);
+     font-size: clamp(0.85rem, 1.6vw, 1rem);
+     font-weight: 600;
+     letter-spacing: 0.22em;
+     text-transform: uppercase;
+     text-decoration: none;
+     color: var(--gold-light);
+     border-bottom: 1px solid var(--gold);
+     padding-bottom: 2px;
+   }
+   
+   .jump-links a:hover {
+     color: var(--cream);
+     border-bottom-color: var(--gold-light);
+   }
+   
+   /* 6. Hero (home)
+      -------------------------------------------------------------------------- */
+   
+   /* The silk field carries one continuous background behind the hero and the
+      countdown, so no seam shows where the two sections meet. */
+   .silk-field {
+     position: relative;
+   }
+   
+   .hero {
+     position: relative;
+     overflow: hidden;
+     /* The extra 13vh clears the hanging bells; as padding it also pushes the
+        countdown down, so the couple never overlaps the frame. */
+     padding: calc(clamp(96px, 15vw, 210px) + 1rem + 13vh) clamp(1rem, 5vw, 3rem) clamp(2.5rem, 6vw, 4.5rem);
+     text-align: center;
+   }
+   
+   .hero__inner {
+     position: relative;
+     z-index: 4;
+     max-width: 818px;
+     margin: -11.5vh  auto;
+   }
+   
+   .hero__names {
+     margin: 0 0 0.1em;
+     font-family: var(--font-script);
+     font-weight: 400;
+     font-size: 7.6vh;
+     line-height: 1.15;
+     letter-spacing: 0.01em;
+     /* Written in from left to right: a soft-edged mask wipes across the names. */
+     -webkit-mask-image: linear-gradient(90deg, #000 40%, transparent 60%);
+     mask-image: linear-gradient(90deg, #000 40%, transparent 60%);
+     -webkit-mask-size: 250% 100%;
+     mask-size: 250% 100%;
+     -webkit-mask-repeat: no-repeat;
+     mask-repeat: no-repeat;
+     animation: write-on 3.6s cubic-bezier(0.45, 0.05, 0.35, 1) 0.4s both;
+   }
+   
+   /* The date and the verse wait until the names are written, then fade in. */
+   .hero__sub,
+   .hero__date {
+     animation: hero-fade 1.2s ease-out 2.8s both;
+   }
+   
+   @keyframes hero-fade {
+     from {
+       opacity: 0;
+     }
+     to {
+       opacity: 1;
+     }
+   }
+   
+   @keyframes write-on {
+     from {
+       -webkit-mask-position: 100% 0;
+       mask-position: 100% 0;
+     }
+     to {
+       -webkit-mask-position: 0 0;
+       mask-position: 0 0;
+     }
+   }
+   
+   @media (prefers-reduced-motion: reduce) {
+     .hero__sub,
+     .hero__date {
+       animation: none;
+     }
+   
+     .hero__names {
+       animation: none;
+       -webkit-mask-image: none;
+       mask-image: none;
+     }
+   }
+   
+   .hero__sub {
+     font-family: var(--font-display);
+     font-size: clamp(1.4rem, 5vw, 2.6rem);
+     text-transform: uppercase;
+     letter-spacing: 0.3em;
+     margin: 0 0 0.6em;
+   }
+   
+   .hero__welcome {
+     max-width: 44rem;
+     margin: clamp(1.4rem, 3vw, 2.4rem) auto 0;
+     color: var(--ivory);
+   }
+   
+   .hero__welcome-close {
+     font-family: var(--font-script);
+     font-size: clamp(1.8rem, 5vw, 2.8rem);
+     color: var(--gold-light);
+     margin: 0;
+   }
+   
+   .hero__date {
+     font-family: var(--font-body);
+     font-size: clamp(1.25rem, 3.2vw, 1.8rem);
+     font-style: italic;
+     letter-spacing: 0.06em;
+     color: var(--ivory);
+     margin-bottom: 0;
+   }
+   
+   /* The couple are pinned to the bottom of the viewport, behind the copy, so
+      only the text moves on scroll. z-index -1 puts them on the same layer as the
+      fixed field; coming later in the page, they paint just above it. */
+   .hero__couple {
+     position: fixed;
+     left: 28%;
+     bottom: 0;
+     z-index: -1;
+     transform: translateX(-50%);
+     width: clamp(200px, 35vw, 300px);
+     height: auto;
+     pointer-events: none;
+     filter: drop-shadow(0 10px 26px rgba(48, 4, 12, 0.5));
+   }
+   
+   /* Homepage stages. js/main.js adds .stages to <body>: the names, the welcome
+      and the countdown are each pinned in the space between Ganesha and the
+      couple's heads (--win-top / --win-h), and scrolling crossfades from one
+      to the next. Without JS they simply stack down the page. */
+   .stages .hero,
+   .stages .hero__inner {
+     padding: 0;
+     margin: 0;
+     overflow: visible;
+   }
+   
+   .stages .stage {
+     position: fixed;
+     left: 0;
+     right: 0;
+     top: var(--win-top);
+     height: var(--win-h);
+     z-index: 4;
+     display: flex;
+     flex-direction: column;
+     justify-content: center;
+     align-items: center;
+     margin: 0 auto;
+     padding: 0 clamp(1rem, 5vw, 3rem);
+     opacity: 0;
+     visibility: hidden;
+   }
+   
+   /* Later stages sit centred in the open area between the line where the
+      names start (--stage-start) and the stage floor (--stage-h), so they
+      neither climb towards Ganesha nor leave a gap underneath. */
+   .stages .stage ~ .stage,
+   .stages .countdown-band.stage {
+     top: var(--stage-start, var(--win-top));
+     height: var(--stage-h, auto);
+   }
+   
+   /* Keep the copy between the bells (--win-w is measured in js/main.js). */
+   .stages .stage > * {
+     max-width: min(44rem, var(--win-w, 100%));
+   }
+   
+   .stages .hero__names {
+     font-size: min(7.6vh, 11vw);
+   }
+   
+   /* The countdown frame is sized in js/main.js (--cd-w); its type is sized
+      against the frame itself (container units) so it shrinks with it. */
+   .stages .countdown {
+     container-type: inline-size;
+     width: var(--cd-w, min(780px, 92vw));
+     margin: 0 auto;
+     top: 0;
+   }
+   
+   .stages .countdown__title {
+     margin-top: -0.6rem;
+   }
+   
+   .stages .countdown__number {
+     font-size: 6.4cqw;
+   }
+   
+   .stages .countdown__label {
+     font-size: max(10px, 2.05cqw);
+   }
+   
+   @media (max-width: 760px) {
+     .hero__couple {
+       width: 72vw;
+     }
+   }
+   
+   /* 7. Countdown plate
+      -------------------------------------------------------------------------- */
+   
+   .countdown-band {
+     position: relative;
+     margin-top: calc(-1 * clamp(3rem, 9vw, 7rem));
+     padding: 0 clamp(1rem, 5vw, 3rem) clamp(2.5rem, 7vw, 5rem);
+     text-align: center;
+   }
+   
+   /* The countdown sits inside the floral frame (countdown-frame.png: the maroon
+      line art with its white removed, recoloured to --gold-light). .countdown__inner is inset by % of the
+      frame's own box, which keeps the values inside the frame's opening. The frame is min(720px, ~90vw) wide, so
+      type is sized as min(px, vw) pairs that shrink with it. */
+      .countdown {
+       position: relative;
+       width: min(780px, 100%);
+       aspect-ratio: 1600 / 1037;
+       margin: 10vh auto;
+       top: 2rem;
+       background:
+         url("../assets/images/countdown-frame.png") center / 100% 100% no-repeat,
+         radial-gradient(34% 38% at 50% 50%, rgba(58, 5, 14, 0.2), rgba(58, 5, 14, 0) 100%);
+       filter: drop-shadow(0 4px 10px rgba(40, 3, 10, 0.15));
+     }
+     
+     .countdown-wrap[hidden] {
+       display: none;
+     }
+     
+     .countdown__inner {
+       position: absolute;
+       inset: 21% 25% 19%;
+       display: flex;
+       flex-direction: column;
+       justify-content: center;
+     }
+     
+     .countdown__title {
+       font-family: var(--font-script);
+       font-size: clamp(2rem, 6vw, 3.2rem);
+       font-weight: 400;
+       line-height: 1.1;
+       text-align: center;
+       margin: -2.5rem 0 0;
+       color: var(--gold-light);
+     }
+   
+   /* Two rows of three: months, weeks, days over hours, minutes, seconds. */
+   .countdown__grid {
+     display: grid;
+     grid-template-columns: repeat(3, 1fr);
+     gap: min(16px, 2vw) 0;
+   }
+   
+   .countdown__unit {
+     display: flex;
+     flex-direction: column;
+     align-items: center;
+     gap: 3px;
+     border-left: 1px solid rgba(230, 197, 110, 0.35);
+   }
+   
+   .countdown__unit:nth-child(3n + 1) {
+     border-left: 0;
+   }
+   
+   .countdown__number {
+     font-family: var(--font-display);
+     font-weight: 700;
+     font-size: min(50px, 6.3vw);
+     line-height: 1;
+     font-variant-numeric: tabular-nums;
+     font-feature-settings: "tnum" 1;
+     color: var(--gold-pale);
+     text-shadow: 0 1px 0 rgba(58, 5, 14, 0.8), 0 0 14px rgba(212, 175, 55, 0.35);
+   }
+   
+   .countdown__unit--seconds .countdown__number {
+     color: var(--cream);
+   }
+   
+   .countdown__label {
+     font-family: var(--font-display);
+     font-size: max(11px, min(16px, 2.4vw));
+     text-transform: uppercase;
+     letter-spacing: clamp(0.06em, 1vw, 0.18em);
+     color: var(--gold-light);
+   }
+   
+   /* 8. Invitation panels, cards, lists
+      -------------------------------------------------------------------------- */
+   
+   .site-main {
+     display: block;
+     z-index: 5;
+   }
+   
+   /* Each section is a panel of the invitation, stacked down the page. */
+   .panel {
+     position: relative;
+     padding: var(--panel-pad) clamp(1rem, 5vw, 3rem);
+     text-align: center;
+     overflow: hidden;
+   }
+   
+   .panel--gold {
+     color: var(--ink);
+   }
+   
+   .panel--gold h1,
+   .panel--gold h2,
+   .panel--gold h3 {
+     color: var(--maroon);
+   }
+   
+   /* Panels that hang a garland above their content need room for it. */
+   .panel--crest {
+     padding-top: calc(clamp(80px, 12vw, 165px) + var(--panel-pad));
+   }
+   
+   .panel--crest-tall {
+     padding-top: calc(clamp(96px, 15vw, 210px) + var(--panel-pad));
+   }
+   
+   .panel__inner {
+     position: relative;
+     z-index: 4;
+     max-width: var(--measure);
+     margin: 0 auto;
+   }
+   
+   .panel__inner--wide {
+     max-width: 1080px;
+   }
+   
+   
+   .panel__title {
+     font-size: clamp(1.7rem, 5vw, 3rem);
+     letter-spacing: 0.1em;
+     text-transform: uppercase;
+   }
+   
+   /* A smaller heading for the parts inside one panel, e.g. Travel & Stay. */
+   .panel__subtitle {
+     margin: 2.4rem 0 1rem;
+     font-size: clamp(1rem, 2.4vw, 1.3rem);
+     letter-spacing: 0.14em;
+     text-transform: uppercase;
+     color: var(--maroon);
+   }
+   
+   .panel__title--script {
+     font-family: var(--font-script);
+     font-size: clamp(2.6rem, 9vw, 5rem);
+     text-transform: none;
+     letter-spacing: 0.01em;
+     color: var(--maroon);
+   }
+   
+   .page-title {
+     font-size: clamp(2rem, 7vw, 4.2rem);
+     line-height: 1.06;
+     letter-spacing: 0.06em;
+     text-transform: uppercase;
+   }
+   
+   .lede {
+     font-size: 1.1em;
+     font-style: italic;
+     color: var(--ink-soft);
+   }
+   
+   .silk .lede {
+     color: var(--ivory);
+   }
+   
+   /* Centred story prose, as on page two of the invitation. */
+   .prose {
+     max-width: var(--measure);
+     margin: 0 auto;
+     text-align: center;
+   }
+   
+   .prose p + p {
+     margin-top: 0.2em;
+   }
+   
+   .prose .said {
+     font-style: italic;
+     font-size: 1.12em;
+     color: var(--maroon);
+   }
+   
+   .prose .beat {
+     font-family: var(--font-display);
+     letter-spacing: 0.12em;
+     font-size: 1em;
+     text-transform: uppercase;
+     color: var(--ink-soft);
+   }
+   
+   .signoff {
+     font-family: var(--font-script);
+     font-size: clamp(1.8rem, 5vw, 2.8rem);
+     color: var(--maroon);
+     margin-top: 1.2rem;
+   }
+   
+   /* A repeated gold script refrain, used sparingly between panels. */
+   .refrain {
+     font-family: var(--font-script);
+     font-size: clamp(1.6rem, 5vw, 2.6rem);
+     text-align: center;
+     color: var(--gold);
+     opacity: 0.85;
+     margin: 0;
+     padding: clamp(0.8rem, 2vw, 1.5rem) 0;
+   }
+   
+   /* Ivory invitation cards. */
+   .card-grid {
+     list-style: none;
+     margin: 0 auto;
+     padding: 0;
+     max-width: 1080px;
+     display: grid;
+     gap: clamp(1rem, 2.5vw, 1.8rem);
+     grid-template-columns: repeat(auto-fit, minmax(270px, 1fr));
+   }
+   
+   /* Nalangu details: one ivory invitation panel, three centred rows split by gold gems. */
+   .nalangu-details {
+     max-width: 760px;
+     margin: 0 auto;
+     padding: clamp(1.6rem, 4vw, 3rem) clamp(1.2rem, 5vw, 3.5rem);
+     text-align: center;
+     background: linear-gradient(180deg, var(--cream), #fdeecd);
+     border: 1px solid var(--gold);
+     border-radius: 3px;
+     box-shadow:
+       0 0 0 6px rgba(255, 255, 255, 0.5) inset,
+       0 0 0 7px rgba(201, 162, 39, 0.45) inset,
+       0 12px 30px rgba(92, 10, 22, 0.15);
+   }
+   
+   .nalangu-details__row h3 {
+     margin: 0 0 0.5rem;
+     font-family: var(--font-script);
+     font-size: clamp(1.8rem, 5vw, 2.5rem);
+     font-weight: 400;
+     color: var(--gold);
+     text-transform: none;
+     letter-spacing: 0;
+   }
+   
+   .nalangu-details__main {
+     margin: 0;
+     font-family: var(--font-display);
+     font-size: clamp(1rem, 2.6vw, 1.4rem);
+     letter-spacing: 0.1em;
+     text-transform: uppercase;
+     color: var(--maroon);
+   }
+   
+   .nalangu-details__sub {
+     margin: 0.45rem auto 0;
+     max-width: 34rem;
+     font-style: italic;
+     font-size: clamp(1.05rem, 2.2vw, 1.25rem);
+     color: var(--ink-soft);
+   }
+   
+   /* The dress-code rule guests must not miss: large, bold, upright. */
+   .nalangu-details__sub--notice {
+     max-width: 40rem;
+     font-style: normal;
+     font-weight: 700;
+     font-size: clamp(1.35rem, 3.2vw, 1.8rem);
+     line-height: 1.35;
+     color: var(--maroon);
+   }
+   
+   .nalangu-details__gem {
+     display: block;
+     height: 1px;
+     margin: clamp(1.4rem, 3vw, 2.2rem) auto;
+     max-width: 320px;
+     background: var(--rule-gold);
+     position: relative;
+   }
+   
+   .nalangu-details__gem::after {
+     content: "";
+     position: absolute;
+     left: 50%;
+     top: 50%;
+     width: 9px;
+     height: 9px;
+     background: var(--gold);
+     transform: translate(-50%, -50%) rotate(45deg);
+     box-shadow: 0 0 0 3px var(--cream);
+   }
+   
+   .card {
+     position: relative;
+     padding: clamp(1.4rem, 3vw, 2.2rem);
+     text-align: center;
+     background: linear-gradient(180deg, var(--cream), #fdeecd);
+     border: 1px solid var(--gold);
+     border-radius: 3px;
+     box-shadow:
+       0 0 0 4px rgba(255, 255, 255, 0.5) inset,
+       0 0 0 5px rgba(201, 162, 39, 0.3) inset,
+       0 10px 26px rgba(92, 10, 22, 0.12);
+   }
+   
+   .card h2,
+   .card h3 {
+     color: var(--maroon);
+     font-size: clamp(1.05rem, 2.4vw, 1.35rem);
+     letter-spacing: 0.14em;
+     text-transform: uppercase;
+   }
+   
+   .card p {
+     color: var(--ink-soft);
+   }
+   
+   .card > :last-child {
+     margin-bottom: 0;
+   }
+   
+   .card__link {
+     display: inline-block;
+     font-family: var(--font-display);
+     font-size: 0.95rem;
+     letter-spacing: 0.22em;
+     text-transform: uppercase;
+     text-decoration: none;
+     color: var(--maroon);
+     border-bottom: 1px solid var(--gold);
+     padding-bottom: 2px;
+   }
+   
+   .card__link:hover {
+     color: var(--silk-red-bright);
+     border-bottom-color: var(--gold-mid);
+   }
+   
+   /* Ritual list — the auspicious meanings, each in a small ivory box with its icon. */
+   .ritual-list {
+     list-style: none;
+     /* Break out of the narrow text measure so each box has room. */
+     width: min(1080px, 90vw);
+     margin: 0 0 0 50%;
+     transform: translateX(-50%);
+     padding: 0;
+     display: flex;
+     flex-wrap: wrap;
+     justify-content: center;
+     --ritual-gap: clamp(0.9rem, 2vw, 1.4rem);
+     gap: var(--ritual-gap);
+   }
+   
+   @media (max-width: 760px) {
+     ul.ritual-list li {
+       flex-basis: 100%;
+     }
+   }
+   
+   .ritual-list li {
+     flex: 0 1 calc((100% - 2 * var(--ritual-gap)) / 3);
+     padding: clamp(1.2rem, 2.5vw, 1.6rem);
+     text-align: center;
+     font-size: 1em;
+     line-height: 1.6;
+     color: var(--ink-soft);
+     background: linear-gradient(180deg, var(--cream), #fdeecd);
+     border: 1px solid var(--gold);
+     border-radius: 3px;
+     box-shadow:
+       0 0 0 4px rgba(255, 255, 255, 0.5) inset,
+       0 0 0 5px rgba(201, 162, 39, 0.3) inset,
+       0 8px 20px rgba(92, 10, 22, 0.1);
+   }
+   
+   .ritual-list .glyph {
+     display: block;
+     width: 56px;
+     height: 56px;
+     margin: 0 auto 0.8rem;
+   }
+   
+   .ritual-list strong {
+     display: block;
+     margin-bottom: 0.4rem;
+     font-family: var(--font-display);
+     font-size: 0.95em;
+     font-weight: 600;
+     letter-spacing: 0.12em;
+     text-transform: uppercase;
+     color: var(--maroon);
+   }
+   
+   /* Definition pairs inside cards. */
+   .meta-list {
+     margin: 0 0 1.2rem;
+   }
+   
+   .meta-list > div {
+     padding: 0.55rem 0;
+     border-bottom: 1px solid rgba(201, 162, 39, 0.3);
+   }
+   
+   .meta-list > div:last-child {
+     border-bottom: 0;
+   }
+   
+   .meta-list dt {
+     font-family: var(--font-display);
+     font-size: 0.9rem;
+     letter-spacing: 0.22em;
+     text-transform: uppercase;
+     color: var(--ink-soft);
+   }
+   
+   .meta-list dd {
+     margin: 0.15rem 0 0;
+     font-size: 1.05em;
+     color: var(--maroon);
+   }
+   
+   /* Day-of timeline. */
+   .timeline {
+     list-style: none;
+     margin: 0 auto;
+     padding: 0;
+     max-width: var(--measure);
+     text-align: left;
+   }
+   
+   .timeline li {
+     position: relative;
+     padding: 1rem 0 1rem 1.8rem;
+     border-bottom: 1px solid rgba(201, 162, 39, 0.35);
+   }
+   
+   .timeline li::before {
+     content: "";
+     position: absolute;
+     left: 0;
+     top: 1.55rem;
+     width: 8px;
+     height: 8px;
+     background: var(--gold-mid);
+     transform: rotate(45deg);
+   }
+   
+   .timeline li:last-child {
+     border-bottom: 0;
+   }
+   
+   .timeline time {
+     display: block;
+     font-family: var(--font-display);
+     font-size: 0.95rem;
+     letter-spacing: 0.22em;
+     text-transform: uppercase;
+     color: var(--maroon);
+   }
+   
+   /* Split timeline: time on the left, a gold line and dot down the middle, the event on the right. */
+   .timeline--split {
+     max-width: 820px;
+   }
+   
+   .timeline--split li {
+     display: grid;
+     grid-template-columns: minmax(5.5rem, 1fr) 1.8rem 1.7fr;
+     column-gap: 0.4rem;
+     padding: 0 0 clamp(1.4rem, 3vw, 2.2rem);
+     border-bottom: 0;
+   }
+   
+   .timeline--split li::before {
+     position: static;
+     grid-column: 2;
+     grid-row: 1;
+     justify-self: center;
+     align-self: start;
+     margin-top: 0.35rem;
+     z-index: 1;
+     box-shadow: 0 0 0 3px var(--cream);
+   }
+   
+   .timeline--split li::after {
+     content: "";
+     grid-column: 2;
+     grid-row: 1;
+     justify-self: center;
+     align-self: stretch;
+     width: 1px;
+     margin-top: 0.7rem;
+     background: var(--gold-mid);
+   }
+   
+   .timeline--split li:last-child::after {
+     display: none;
+   }
+   
+   .timeline--split time {
+     grid-column: 1;
+     grid-row: 1;
+     text-align: right;
+     font-size: clamp(0.9rem, 2vw, 1.05rem);
+     line-height: 1.5;
+     padding-top: 0.2rem;
+   }
+   
+   /* Staggered timeline: events alternate sides of the centre line, odd on the
+      right with their time on the left, even mirrored. Narrow screens fall back
+      to the single-sided layout above. */
+   @media (min-width: 640px) {
+     .timeline--alt {
+       max-width: 920px;
+     }
+   
+     .timeline--alt li,
+     .silk .timeline--alt li {
+       grid-template-columns: minmax(0, 1fr) 2.6rem minmax(0, 1fr);
+     }
+   
+     .timeline--alt li:nth-child(even) time {
+       grid-column: 3;
+       text-align: left;
+     }
+   
+     .timeline--alt li:nth-child(even) .timeline__event {
+       grid-column: 1;
+       text-align: right;
+     }
+   }
+   
+   .timeline__event {
+     grid-column: 3;
+     grid-row: 1;
+   }
+   
+   .timeline__event h3 {
+     margin: 0 0 0.35rem;
+     font-size: clamp(1rem, 2.4vw, 1.25rem);
+     color: var(--maroon);
+   }
+   
+   .timeline__event p {
+     margin: 0;
+     color: var(--ink-soft);
+   }
+   
+   .registry-links {
+     list-style: none;
+     margin: 0;
+     padding: 0;
+     display: grid;
+     gap: 0.8rem;
+   }
+   
+   .registry-links a {
+     display: block;
+     padding: 0.9rem 1rem;
+     font-family: var(--font-display);
+     font-size: 1rem;
+     letter-spacing: 0.2em;
+     text-transform: uppercase;
+     text-decoration: none;
+     color: var(--maroon);
+     border: 1px solid var(--gold);
+     background: rgba(255, 255, 255, 0.4);
+   }
+   
+   .registry-links a:hover {
+     background: var(--cream);
+     border-color: var(--gold-mid);
+   }
+   
+   /* "Find us" block. */
+   .findus {
+     display: inline-flex;
+     align-items: center;
+     gap: 0.9rem;
+     font-family: var(--font-script);
+     font-size: clamp(1.8rem, 5vw, 2.8rem);
+     color: var(--maroon);
+     text-decoration: none;
+   }
+   
+   .findus__pin {
+     width: clamp(28px, 4vw, 44px);
+     flex: none;
+   }
+   
+   .findus:hover {
+     color: var(--silk-red-bright);
+   }
+   
+   /* Photo slots. */
+   .figure-slot {
+     margin: 1.8rem auto;
+     max-width: 560px;
+   }
+   
+   .figure-slot__frame {
+     aspect-ratio: 4 / 3;
+     border: 1px solid var(--gold);
+     background:
+       repeating-linear-gradient(45deg, rgba(201, 162, 39, 0.08) 0 12px, transparent 12px 24px),
+       var(--cream);
+     box-shadow: 0 0 0 5px rgba(255, 255, 255, 0.55) inset;
+   }
+   
+   .figure-slot figcaption {
+     margin-top: 0.7rem;
+     font-size: 1em;
+     font-style: italic;
+     color: var(--ink-soft);
+   }
+   
+   /* 9. Forms
+      -------------------------------------------------------------------------- */
+   
+   .form-card {
+     max-width: 640px;
+     margin: 0 auto;
+     padding: clamp(1.5rem, 4vw, 2.6rem);
+     text-align: left;
+     background: linear-gradient(180deg, var(--cream), #fdeecd);
+     border: 1px solid var(--gold);
+     box-shadow:
+       0 0 0 4px rgba(255, 255, 255, 0.5) inset,
+       0 0 0 5px rgba(201, 162, 39, 0.3) inset,
+       0 10px 26px rgba(92, 10, 22, 0.12);
+   }
+   
+   .field {
+     margin: 0 0 1.3rem;
+     padding: 0;
+     border: 0;
+   }
+   
+   .field label,
+   .field-label {
+     display: block;
+     margin-bottom: 0.4rem;
+     font-family: var(--font-display);
+     font-size: 0.9rem;
+     letter-spacing: 0.2em;
+     text-transform: uppercase;
+     color: var(--maroon);
+   }
+   
+   input[type="text"],
+   input[type="email"],
+   select,
+   textarea {
+     width: 100%;
+     padding: 0.7rem 0.85rem;
+     font-family: var(--font-body);
+     font-size: 1rem;
+     color: var(--ink);
+     background: #fffaf0;
+     border: 1px solid var(--gold);
+     border-radius: 2px;
+   }
+   
+   textarea {
+     min-height: 7rem;
+     resize: vertical;
+   }
+   
+   input[type="text"]:focus,
+   input[type="email"]:focus,
+   select:focus,
+   textarea:focus {
+     border-color: var(--maroon);
+     outline: 2px solid var(--gold-mid);
+     outline-offset: 1px;
+   }
+   
+   .choice-row {
+     display: flex;
+     flex-wrap: wrap;
+     gap: 0.5rem 1.6rem;
+   }
+   
+   .choice-row label {
+     display: inline-flex;
+     align-items: center;
+     gap: 0.5rem;
+     margin: 0;
+     font-family: var(--font-body);
+     font-size: 1rem;
+     letter-spacing: 0;
+     text-transform: none;
+     color: var(--ink);
+   }
+   
+   input[type="radio"],
+   input[type="checkbox"] {
+     accent-color: var(--maroon);
+     width: 1.05rem;
+     height: 1.05rem;
+   }
+   
+   .button {
+     display: inline-block;
+     padding: 0.85rem 2.4rem;
+     font-family: var(--font-display);
+     font-size: 1rem;
+     font-weight: 600;
+     letter-spacing: 0.24em;
+     text-transform: uppercase;
+     color: var(--gold-pale);
+     background: linear-gradient(180deg, var(--silk-red), var(--maroon));
+     border: 1px solid var(--gold);
+     border-radius: 2px;
+     cursor: pointer;
+     box-shadow: 0 6px 18px rgba(92, 10, 22, 0.25);
+   }
+   
+   .button:hover {
+     background: linear-gradient(180deg, var(--silk-red-bright), var(--silk-red));
+     color: var(--cream);
+   }
+   
+   .hint {
+     font-size: 1em;
+     font-style: italic;
+     color: var(--ink-soft);
+   }
+   
+   .form-status {
+     margin: 1rem 0 0;
+     padding: 0.8rem 1rem;
+     border-left: 3px solid var(--gold-mid);
+     background: rgba(255, 255, 255, 0.55);
+     font-size: 0.98em;
+   }
+   
+   .form-status.is-error {
+     border-left-color: var(--silk-red-bright);
+     color: var(--maroon);
+   }
+   
+   .form-status.is-success {
+     border-left-color: var(--gold-mid);
+     color: var(--ink);
+   }
+   
+   /* 10. Footer
+      -------------------------------------------------------------------------- */
+   
+   .site-footer {
+     position: relative;
+     display: flex;
+     flex-wrap: wrap;
+     align-items: center;
+     justify-content: space-between;
+     gap: 0.3rem 1rem;
+     padding: 0.6rem clamp(1rem, 5vw, 3rem);
+     color: var(--ivory);
+     background: linear-gradient(180deg, var(--silk-red-deep), var(--maroon));
+     border-top: 1px solid rgba(201, 162, 39, 0.45);
+     font-family: var(--font-display);
+     font-size: 0.9rem;
+     letter-spacing: 0.18em;
+     text-transform: uppercase;
+   }
+   
+   .site-footer a {
+     color: var(--gold-light);
+   }
+   
+   .site-footer__copy {
+     color: rgba(247, 236, 208, 0.7);
+   }
+   
+   /* 11. Scroll reveals
+      --------------------------------------------------------------------------
+      Mark anything with `data-reveal` and it fades up as it comes into view.
+      `data-reveal="fade"` fades on the spot with no movement — used for the story
+      title, which should simply appear out of nothing.
+      Stagger a group with `data-reveal-delay="300"` (milliseconds).
+   
+      Elements only start hidden when the `js` class is present, which the small
+      script in each page's <head> sets. With JavaScript off, nothing is hidden and
+      the whole story reads normally. */
+   
+   .js [data-reveal] {
+     opacity: 0;
+     transform: translateY(1.75rem);
+     transition:
+       opacity 900ms ease,
+       transform 900ms cubic-bezier(0.22, 0.68, 0.24, 1);
+   }
+   
+   /* The title has no rise — it resolves out of the gold, slowly. */
+   .js [data-reveal="fade"] {
+     transform: none;
+     transition-duration: 1800ms;
+   }
+   
+   .js [data-reveal].is-revealed {
+     opacity: 1;
+     transform: none;
+   }
+   
+   /* 12. Motion & responsive
+      -------------------------------------------------------------------------- */
+   
+   @media (max-width: 760px) {
+     /* Keep the toran across the top; retire the side hangings and lamps. */
+     .strand {
+       display: none;
+     }
+   
+     .lamp {
+       width: 88px;
+       opacity: 0.9;
+     }
+   
+     /* Collapsible nav. The four ceremonial links stack; the toggle drives them. */
+     .nav-toggle {
+       display: inline-block;
+     }
+   
+     #site-nav:not(.is-open) ul {
+       display: none;
+     }
+   
+     #site-nav ul {
+       flex-direction: column;
+       gap: 0.35rem;
+       padding-top: 0.5rem;
+     }
+   }
+   
+   @media (max-width: 460px) {
+     .lamp {
+       width: 68px;
+     }
+   }
+   
+   @media (prefers-reduced-motion: reduce) {
+     html {
+       scroll-behavior: auto;
+     }
+   
+     .silk::after {
+       animation: none;
+     }
+   
+     /* Reveals resolve instantly rather than not at all, so no text is stranded. */
+     .js [data-reveal] {
+       opacity: 1;
+       transform: none;
+       transition: none;
+     }
+   
+     *,
+     *::before,
+     *::after {
+       transition-duration: 0.01ms !important;
+     }
+   }
+   
+   @media print {
+     .site-header,
+     .site-footer,
+     .toran,
+     .lamp,
+     .strand,
+     .ganesha {
+       display: none;
+     }
+   
+     body {
+       background: #fff;
+       color: #000;
+     }
+   }
+   
