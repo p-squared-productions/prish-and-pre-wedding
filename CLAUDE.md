@@ -11,6 +11,7 @@ The visual system is a classic South African Tamil / South Indian wedding invita
   index.html      Home — the silk hero, Ganesha, couple, lamps, countdown
   nalangu.html    Nalangu — #traditions, #details, #programme
   details.html    Wedding — #traditions, #details, #programme
+  favicon.ico     Red lotus tab icon, made from assets/images/lotus-icon.jpg
   css/styles.css  Shared stylesheet (all decoration lives here)
   js/main.js      Shared unobtrusive JS
   assets/images/  Motifs extracted from the invitation PDF, plus photos

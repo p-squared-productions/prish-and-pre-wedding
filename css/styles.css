@@ -674,7 +674,7 @@
       Each page sets --tile (ring) and --tile-ink (heading) on its tiles; the
       icons are recoloured to match (icon-*-lotus-*.png, icon-*-wed-*.png). */
    :is(.theme-nalangu, .theme-wedding) .ritual-list {
-     --hex-w: clamp(310px, 42vw, 350px);
+     --hex-w: clamp(270px, 36vw, 300px);
      --hex-h: calc(var(--hex-w) * 1.1547);
      --hex-gap: 10px;
      --hex-border: 4px;
@@ -708,8 +708,8 @@
      width: var(--hex-w);
      height: var(--hex-h);
      padding: calc(var(--hex-h) * 0.19) calc(var(--hex-w) * 0.12);
-     font-size: 0.88em;
-     line-height: 1.45;
+     font-size: 0.84em;
+     line-height: 1.4;
      color: var(--paper-ink);
      background: none;
      border: 0;
@@ -741,9 +741,9 @@
 
    :is(.theme-nalangu, .theme-wedding) .ritual-list .glyph {
      flex: none;
-     width: 48px;
-     height: 48px;
-     margin-bottom: 0.5rem;
+     width: 42px;
+     height: 42px;
+     margin-bottom: 0.4rem;
    }
 
    :is(.theme-nalangu, .theme-wedding) .ritual-list strong {
@@ -762,7 +762,7 @@
    /* Wide: 3 + 2 on the Nalangu page. */
    @media (min-width: 1280px) {
      .theme-nalangu .ritual-list {
-       --hex-w: clamp(310px, 24vw, 350px);
+       --hex-w: clamp(260px, 20vw, 300px);
        grid-template-columns: repeat(6, calc((var(--hex-w) + var(--hex-gap)) / 2));
      }
 
@@ -1029,6 +1029,26 @@
      color: var(--detail-b);
    }
 
+   /* Stacked in one column, the chequer would read a, b, b, a; alternate
+      them one by one instead. */
+   @media (max-width: 639px) {
+     :is(.theme-nalangu, .theme-wedding) .nalangu-details__row:nth-of-type(odd)::before {
+       background-image: var(--crown-a);
+     }
+
+     :is(.theme-nalangu, .theme-wedding) .nalangu-details__row:nth-of-type(even)::before {
+       background-image: var(--crown-b);
+     }
+
+     :is(.theme-nalangu, .theme-wedding) .nalangu-details__row:nth-of-type(odd) h3 {
+       color: var(--detail-a);
+     }
+
+     :is(.theme-nalangu, .theme-wedding) .nalangu-details__row:nth-of-type(even) h3 {
+       color: var(--detail-b);
+     }
+   }
+
    @media (min-width: 640px) {
      :is(.theme-nalangu, .theme-wedding) .nalangu-details {
        display: grid;
@@ -1145,9 +1165,38 @@
        color: var(--paper-ink);
      }
 
-     .theme-wedding .silk .eyebrow,
-     .theme-wedding .silk .timeline time {
+     .theme-wedding .silk .eyebrow {
        color: var(--wed-gold-deep);
+     }
+
+     /* Gold fades into the cream, so the programme's diyas, times and line,
+        and the rules and gems that break up the page, turn maroon. */
+     .theme-wedding .silk .timeline time {
+       color: var(--maroon);
+     }
+
+     .theme-wedding .silk .timeline--split li::before {
+       background-image: url("../assets/images/diya-maroon.png");
+     }
+
+     .theme-wedding .silk .timeline--split li::after {
+       background: var(--maroon);
+     }
+
+     .theme-wedding {
+       --gem-line: var(--maroon);
+       --gem-dot: var(--maroon);
+     }
+
+     .theme-wedding .rule,
+     .theme-wedding .nalangu-details__gem {
+       height: 2px;
+       opacity: 1;
+       background: linear-gradient(90deg, transparent, var(--maroon) 20%, var(--maroon) 80%, transparent);
+     }
+
+     .theme-wedding .rule::after {
+       background: var(--maroon);
      }
 
      .theme-wedding .silk .jump-links a,
@@ -1437,11 +1486,35 @@
      mask-image: linear-gradient(to bottom, transparent var(--fade-top), #000 var(--fade-bottom));
    }
 
-   /* Phones, Nalangu: the copy also fades in just above the peacocks and lotuses
-      along the bottom of the backdrop. nalangu-bg-mobile.jpeg is 900 x 1600 and
-      the peacocks' heads sit 72% of the way down; js/main.js turns that into
-      --fade-low-top / --fade-low-bottom. Set low enough that the jump links
-      under the title show in full on the first screen. */
+   /* The copy also fades in from the bottom, just above the decor along the
+      foot of the backdrop. js/main.js turns --decor-top (where the decor starts,
+      as a fraction of the image height) into --fade-low-top / --fade-low-bottom.
+      nalangu-bg.jpeg is 1600 x 900 and homepage-bg.jpeg is 1536 x 1024; the
+      fade starts 86% down, over the lower lotuses and the pond. */
+   body.theme-nalangu {
+     --decor-top: 0.86;
+     --field-ratio: 0.5625;
+   }
+
+   body.theme-wedding {
+     --decor-top: 0.86;
+     --field-ratio: 0.6667;
+   }
+
+   :is(.theme-nalangu, .theme-wedding).fade-under-ganesha .site-main {
+     /* Room below the last item so it can scroll up past the fade. */
+     padding-bottom: var(--fade-room, 0);
+     -webkit-mask-image: linear-gradient(to bottom,
+       transparent var(--fade-top), #000 var(--fade-bottom),
+       #000 var(--fade-low-top), transparent var(--fade-low-bottom));
+     mask-image: linear-gradient(to bottom,
+       transparent var(--fade-top), #000 var(--fade-bottom),
+       #000 var(--fade-low-top), transparent var(--fade-low-bottom));
+   }
+
+   /* Phones swap to portrait backdrops. nalangu-bg-mobile.jpeg is 900 x 1600
+      and the peacocks' heads sit 72% of the way down. Set low enough that the
+      jump links under the title show in full on the first screen. */
    @media (max-width: 760px) {
      body.theme-nalangu {
        --decor-top: 0.72;
@@ -1453,17 +1526,6 @@
      body.theme-wedding {
        --decor-top: 0.75;
        --field-ratio: 1.7778;
-     }
-
-     :is(.theme-nalangu, .theme-wedding).fade-under-ganesha .site-main {
-       /* Room below the last item so it can scroll up past the fade. */
-       padding-bottom: var(--fade-room, 0);
-       -webkit-mask-image: linear-gradient(to bottom,
-         transparent var(--fade-top), #000 var(--fade-bottom),
-         #000 var(--fade-low-top), transparent var(--fade-low-bottom));
-       mask-image: linear-gradient(to bottom,
-         transparent var(--fade-top), #000 var(--fade-bottom),
-         #000 var(--fade-low-top), transparent var(--fade-low-bottom));
      }
    }
 
@@ -1791,7 +1853,9 @@
      left: 0;
      right: 0;
      top: var(--win-top);
-     height: var(--win-h);
+     /* --lead-h lets the names reach a little lower when the couple sits off
+        to one side and leaves open space under the middle (js/main.js). */
+     height: var(--lead-h, var(--win-h));
      z-index: 4;
      display: flex;
      flex-direction: column;
@@ -1817,8 +1881,10 @@
      max-width: min(44rem, var(--win-w, 100%));
    }
    
+   /* The names run about 8.3 font-sizes wide; the last term keeps them on one
+      line inside the copy column on tall, narrow screens such as tablets. */
    .stages .hero__names {
-     font-size: min(7.6vh, 11vw);
+     font-size: min(7.6vh, 11vw, calc(min(44rem, var(--win-w, 100vw)) / 8.8));
    }
    
    /* The countdown frame is sized in js/main.js (--cd-w); its type is sized

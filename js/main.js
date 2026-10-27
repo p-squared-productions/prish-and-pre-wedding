@@ -69,16 +69,31 @@
       root.style.setProperty("--win-w", width + "px");
 
       // Where the names actually start once centred; later stages start there.
+      // Measured with the names centred above the heads, so later stages keep
+      // their place whether or not --lead-h moves the names below.
+      root.style.removeProperty("--lead-h");
       var first = stages[0].firstElementChild;
       var start = top + (first ? first.offsetTop : 0);
       root.style.setProperty("--stage-start", start + "px");
 
       // The open area for the later stages runs down to the stage floor, or
-      // to the couple's heads when they sit under the middle of the page.
+      // to the couple's heads when they sit under the middle of the page or
+      // the screen is portrait, where they fill too much of the width.
       var c = couple.getBoundingClientRect();
       var middle = (c.left + c.right) / 2;
-      var floor = middle > viewW * 0.35 && middle < viewW * 0.65 ? heads : viewH * 0.86;
+      var clear = viewW > viewH && (middle < viewW * 0.35 || middle > viewW * 0.65);
+      var floor = clear ? viewH * 0.86 : heads;
       root.style.setProperty("--stage-h", Math.max(floor - start, 120) + "px");
+
+      // With the couple off to one side, the names centre on a space that
+      // reaches halfway from the heads to the stage floor, but the quote
+      // never drops below the heads, where it would crowd the groom.
+      if (floor > heads) {
+        var last = stages[0].lastElementChild;
+        var textH = first && last ? last.offsetTop + last.offsetHeight - first.offsetTop : 0;
+        var lead = Math.min((heads + floor) / 2 - top, 2 * (heads - top) - textH);
+        root.style.setProperty("--lead-h", Math.max(lead, height) + "px");
+      }
 
       // The countdown fits above the heads when there is room; on short
       // screens it keeps a readable size and sits over the couple instead.
