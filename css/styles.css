@@ -19,7 +19,8 @@
 /* 1. Fonts & design tokens
    -------------------------------------------------------------------------- */
 
-   @import url("https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;600;700&family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=Great+Vibes&display=swap");
+   /* Cinzel, Cormorant Garamond and Great Vibes are linked from each page's
+      <head> (not @imported here), so they download alongside this file. */
 
    :root {
      /* Silk */
@@ -386,7 +387,12 @@
    
    /* Home and Wedding share one painted backdrop; Nalangu has its own. Each swaps
       to a portrait version on small screens. The body's own patterned field is
-      cleared, or it would paint over the fixed layer. */
+      cleared, or it would paint over the fixed layer.
+
+      Under each backdrop lies a tiny (24px) copy of it, written into this file,
+      which the browser stretches into a soft blur: the page shows its colours at
+      once and the full image sharpens over it as it arrives. The pages also
+      preload their backdrop in <head>, so it downloads alongside this file. */
    body.field-fixed--home,
    body.field-fixed--wedding,
    body.theme-nalangu.field-fixed--nalangu {
@@ -394,28 +400,28 @@
    }
    
    .field-fixed--home::before {
-     background-image: url("../assets/images/ai/homepage-bg.webp");
+     background-image: url("../assets/images/ai/homepage-bg.webp"), url("data:image/webp;base64,UklGRrYAAABXRUJQVlA4IKoAAABwBACdASoYABAAPtFUpEuoJKOhsAgBABoJbACdMoR3ACU6AT1DW/EgjnrYgAD+vbR0C0LXHqKbsylgwGk+ESW1cglW3Wt/VW5fP6R/JuXBMO+9V0bU3qYtWeQF3AuCJxupT14j55WLtofg65wzuquOvEPRWb4fE++D+pHA2qihE7aCiN0A2gJ9BrLLq7V2/SX8DJG7RR0A3XvujpX4DfUOyaqzfUqy9f5gAA==");
    }
    
    .field-fixed--wedding::before {
-     background-image: url("../assets/images/ai/homepage-bg.webp");
+     background-image: url("../assets/images/ai/homepage-bg.webp"), url("data:image/webp;base64,UklGRrYAAABXRUJQVlA4IKoAAABwBACdASoYABAAPtFUpEuoJKOhsAgBABoJbACdMoR3ACU6AT1DW/EgjnrYgAD+vbR0C0LXHqKbsylgwGk+ESW1cglW3Wt/VW5fP6R/JuXBMO+9V0bU3qYtWeQF3AuCJxupT14j55WLtofg65wzuquOvEPRWb4fE++D+pHA2qihE7aCiN0A2gJ9BrLLq7V2/SX8DJG7RR0A3XvujpX4DfUOyaqzfUqy9f5gAA==");
    }
    
    .field-fixed--nalangu::before {
-     background-image: url("../assets/images/ai/nalangu-bg.webp");
+     background-image: url("../assets/images/ai/nalangu-bg.webp"), url("data:image/webp;base64,UklGRsQAAABXRUJQVlA4ILgAAAAQBQCdASoYAA4APtFWo0uoJKMhsAgBABoJbACdMoRwDhNv1VA2eShD1geLdA1HgY4AAN3emRFpNT/J9OFkdItzATEGJBoKEqV5LI4mTX3B/jcvlNvX1g+Tc9QCHeiBybRRGQ6QNGJ5yrrcM0ZAPBD3+wkHHkk4Jkk+eWt5w2fjPCeoYNjS0GvyOANXL+HHpKkL2fC22/5M4X1mUOR0883ncXvep4TAMWvuK3/lPRpvNOrfYiJ3QAAA");
    }
    
    @media (max-width: 760px) {
      .field-fixed--home::before {
-       background-image: url("../assets/images/ai/home-bg-mobile.webp");
+       background-image: url("../assets/images/ai/home-bg-mobile.webp"), url("data:image/webp;base64,UklGRqoAAABXRUJQVlA4IJ4AAACwAwCdASoNABgAPtFUo0uoJKMhsAgBABoJbACdAB4h+8oqc+DUAAD+zYlAkcxeunEYU7b+aZhEmpZlBaUGHU/DJ5zdwKXjLIsrTFFri5siKPfeqlcSE/UFWS85UumZCgB5nCS55UbtjYqeS71O3qYLuTPDm1PdrMTBYnFZWaZEaOo2HqPaB62KOZ9RDM95jZUBFoGM+wAO5Iip/4AAAA==");
      }
    
      .field-fixed--wedding::before {
-       background-image: url("../assets/images/ai/wedding-bg-mobile.webp");
+       background-image: url("../assets/images/ai/wedding-bg-mobile.webp"), url("data:image/webp;base64,UklGRrwAAABXRUJQVlA4ILAAAACwBACdASoNABgAPtFWpEuoJKOhsAgBABoJbACdMoR3ACoStuw7MLHLtZfZbv0AAP6rsNTS53eVHGe2uWeepYL7uMeQ35CS/OHvXkAaSH9cEpQcRXTn3COIt35t3YmQ3TAL6UPx+4Qxz7cdU6JvJHAC+WypX6Hv0UakrXoL69J5m7jrk4VYUqGC4q27GepwCUlvSz6BgG7rEnsJtBRHzCsxL05SC+g+LFDsbRxcBmAAAA==");
      }
    
      .field-fixed--nalangu::before {
-       background-image: url("../assets/images/ai/nalangu-bg-mobile.webp");
+       background-image: url("../assets/images/ai/nalangu-bg-mobile.webp"), url("data:image/webp;base64,UklGRrgAAABXRUJQVlA4IKwAAADQBACdASoNABgAPtFYpEwoJSOiMAgBABoJbACdMoRwDhTgL0Sa5fLqHFyZMhIGsAD6gHxjtpYbtgNwPiBkmU/3rBdlO0tJcvXLv6y/+hYAKzbcM6KwA5ggvUTE+79lizvHmbpQVC2LaN8YeZ99ngavxmuKISr5zSpm3fSNZhNUjiDSZZfNZ6tCzIFGsjOYVojDqEWxkjxTPKeSml+RcLx+cim7DAJp7eYd7AAA");
      }
    }
    
