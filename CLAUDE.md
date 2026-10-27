@@ -12,6 +12,8 @@ The visual system is a classic South African Tamil / South Indian wedding invita
   nalangu.html    Nalangu — #traditions, #details, #programme
   details.html    Wedding — #traditions, #details, #programme
   favicon.ico     Red lotus tab icon, made from assets/images/lotus-icon.jpg
+  sw.js           Service worker: caches images after the first visit
+  .github/workflows/static.yml  Deploys october-redo to GitHub Pages
   css/styles.css  Shared stylesheet (all decoration lives here)
   js/main.js      Shared unobtrusive JS
   assets/images/  Motifs extracted from the invitation PDF, plus photos
@@ -97,6 +99,11 @@ The RSVP form has been removed from the site. The form-handling code in `js/main
 `marigold-pillar.png`, `couple-nalangu.png`, `couple-seated.png`, `bokeh-champagne.jpg` and
 `bokeh-gold.jpg`. They are the couple's own invitation artwork — prefer reusing them over adding new
 decoration, and never substitute random stock art.
+
+The pages reference `.webp` copies of these images (the bells scaled to 480px wide); the
+original `.png`/`.jpg` files stay alongside as sources. When you add or replace an image,
+save a `.webp` copy and reference that. `sw.js` serves images cache-first, so if you
+replace an image under the same file name, bump `CACHE` in `sw.js` so guests fetch it again.
 
 Guest photos go in the same folder. Use `<img>` with meaningful `alt` text when a photo is content.
 Decorative frames can keep empty `alt`.

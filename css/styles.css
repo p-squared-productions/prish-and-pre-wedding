@@ -352,7 +352,7 @@
    /* Champagne bokeh field — page two of the invitation. */
    .bokeh {
      background-color: var(--champagne);
-     background-image: url("../assets/images/bokeh-champagne.jpg");
+     background-image: url("../assets/images/bokeh-champagne.webp");
      background-size: cover;
      background-position: center;
      background-repeat: no-repeat;
@@ -381,7 +381,7 @@
    }
    
    .field-fixed--champagne::before {
-     background-image: url("../assets/images/bokeh-champagne.jpg");
+     background-image: url("../assets/images/bokeh-champagne.webp");
    }
    
    /* Home and Wedding share one painted backdrop; Nalangu has its own. Each swaps
@@ -394,28 +394,28 @@
    }
    
    .field-fixed--home::before {
-     background-image: url("../assets/images/ai/homepage-bg.jpeg");
+     background-image: url("../assets/images/ai/homepage-bg.webp");
    }
    
    .field-fixed--wedding::before {
-     background-image: url("../assets/images/ai/homepage-bg.jpeg");
+     background-image: url("../assets/images/ai/homepage-bg.webp");
    }
    
    .field-fixed--nalangu::before {
-     background-image: url("../assets/images/ai/nalangu-bg.jpeg");
+     background-image: url("../assets/images/ai/nalangu-bg.webp");
    }
    
    @media (max-width: 760px) {
      .field-fixed--home::before {
-       background-image: url("../assets/images/ai/home-bg-mobile.jpeg");
+       background-image: url("../assets/images/ai/home-bg-mobile.webp");
      }
    
      .field-fixed--wedding::before {
-       background-image: url("../assets/images/ai/wedding-bg-mobile.jpeg");
+       background-image: url("../assets/images/ai/wedding-bg-mobile.webp");
      }
    
      .field-fixed--nalangu::before {
-       background-image: url("../assets/images/ai/nalangu-bg-mobile.jpeg");
+       background-image: url("../assets/images/ai/nalangu-bg-mobile.webp");
      }
    }
    
@@ -429,7 +429,7 @@
        radial-gradient(70% 16% at 50% 33%, rgba(255, 246, 200, 0.4), transparent 100%),
        radial-gradient(70% 16% at 50% 62%, rgba(255, 246, 200, 0.4), transparent 100%),
        radial-gradient(70% 16% at 50% 90%, rgba(255, 246, 200, 0.45), transparent 100%),
-       url("../assets/images/ethnic-tile-butter.jpg");
+       url("../assets/images/ethnic-tile-butter.webp");
      background-size: 100% 100%, 100% 100%, 100% 100%, 100% 100%, 480px 320px;
      background-repeat: no-repeat, no-repeat, no-repeat, no-repeat, repeat;
    }
@@ -557,7 +557,7 @@
      width: 1.7rem;
      height: 1.7rem;
      margin-top: 0;
-     background: url("../assets/images/diya-gold.png") center / contain no-repeat;
+     background: url("../assets/images/diya-gold.webp") center / contain no-repeat;
      transform: none;
      box-shadow: none;
    }
@@ -580,7 +580,7 @@
    .field-mustard {
      background-color: var(--mustard);
      background-image:
-       url("../assets/images/paisley-tile-brown.png"),
+       url("../assets/images/paisley-tile-brown.webp"),
        radial-gradient(110% 80% at 50% 0%, rgba(255, 244, 189, 0.5), transparent 62%),
        linear-gradient(180deg, var(--mustard) 0%, var(--mustard-deep) 100%);
      background-size: 420px 420px, auto, auto;
@@ -593,7 +593,7 @@
      background-color: var(--lemon);
      background-image:
        radial-gradient(100% 70% at 50% 50%, rgba(255, 255, 240, 0.65), transparent 70%),
-       url("../assets/images/paisley-tile-gold.png");
+       url("../assets/images/paisley-tile-gold.webp");
      background-size: auto, 420px 420px;
    }
    
@@ -641,7 +641,7 @@
    
    .theme-nalangu.field-henna {
      background-color: #a0164e;
-     background-image: url("../assets/images/lotus-pattern-embossed-cerise.jpg");
+     background-image: url("../assets/images/lotus-pattern-embossed-cerise.webp");
      background-size: 260px 260px;
      background-repeat: repeat;
    }
@@ -854,11 +854,11 @@
      margin-top: 0;
      transform: none;
      box-shadow: none;
-     background: url("../assets/images/ai/lotus-blue.png") center / contain no-repeat;
+     background: url("../assets/images/ai/lotus-blue.webp") center / contain no-repeat;
    }
 
    .theme-nalangu .timeline--split li:nth-child(even)::before {
-     background-image: url("../assets/images/ai/lotus-pink.png");
+     background-image: url("../assets/images/ai/lotus-pink.webp");
    }
 
    .theme-nalangu .timeline--split li::after {
@@ -1095,8 +1095,8 @@
    /* Nalangu palette for the shared tiles, details and notice: lotus blue and
       pink with teal, on paper. */
    .theme-nalangu {
-     --crown-a: url("../assets/images/ai/lotus-blue.png");
-     --crown-b: url("../assets/images/ai/lotus-pink.png");
+     --crown-a: url("../assets/images/ai/lotus-blue.webp");
+     --crown-b: url("../assets/images/ai/lotus-pink.webp");
      --detail-a: var(--nal-lotus-blue-deep);
      --detail-b: var(--nal-lotus-pink-deep);
      --detail-ink: var(--nal-text-on-field);
@@ -1122,8 +1122,8 @@
    /* Wedding accents: green, red and gold. The desktop backdrop is deep red
       and the phone one cream, so text set straight on it changes with them. */
    .theme-wedding {
-     --crown-a: url("../assets/images/ai/lotus-green.png");
-     --crown-b: url("../assets/images/ai/lotus-gold.png");
+     --crown-a: url("../assets/images/ai/lotus-green.webp");
+     --crown-b: url("../assets/images/ai/lotus-gold.webp");
      --detail-a: var(--gold-light);
      --detail-b: var(--wed-green-light);
      --detail-ink: var(--ivory);
@@ -1194,7 +1194,7 @@
      }
 
      .theme-wedding .silk .timeline--split li::before {
-       background-image: url("../assets/images/diya-maroon.png");
+       background-image: url("../assets/images/diya-maroon.webp");
      }
 
      .theme-wedding .silk .timeline--split li::after {
@@ -1274,7 +1274,7 @@
    .field-mandala-red {
      background-color: #520411;
      background-image:
-       url("../assets/images/paisley-tile-maroon.png"),
+       url("../assets/images/paisley-tile-maroon.webp"),
        linear-gradient(180deg, #6a0a18 0%, #520411 45%, #46030e 100%);
      background-size: 420px 420px, 100% 100%;
      background-repeat: repeat, no-repeat;
@@ -1290,7 +1290,7 @@
        radial-gradient(70% 16% at 50% 65%, rgba(140, 22, 40, 0.4), transparent 100%),
        radial-gradient(70% 16% at 50% 92%, rgba(176, 29, 50, 0.35), transparent 100%),
        linear-gradient(180deg, rgba(60, 4, 12, 0) 0%, rgba(60, 4, 12, 0.35) 55%, rgba(60, 4, 12, 0) 100%),
-       url("../assets/images/floral-tile-maroon-embossed.jpg");
+       url("../assets/images/floral-tile-maroon-embossed.webp");
      background-size: 100% 100%, 100% 100%, 100% 100%, 100% 100%, 100% 100%, 374px 1280px;
      background-repeat: no-repeat, no-repeat, no-repeat, no-repeat, no-repeat, repeat;
    }
@@ -1317,7 +1317,7 @@
    /* Warm marigold-gold field — the Nalangu pages. */
    .bokeh--gold {
      background-color: var(--champagne-deep);
-     background-image: url("../assets/images/bokeh-gold.jpg");
+     background-image: url("../assets/images/bokeh-gold.webp");
    }
    
    /* A soft cream veil so dark-brown body text stays comfortable on the hot
@@ -1469,7 +1469,7 @@
      position: absolute;
      inset: 0 0 auto;
      height: clamp(96px, 15vw, 210px);
-     background: url("../assets/images/garlands_new.png") center top / 100% 100% no-repeat;
+     background: url("../assets/images/garlands_new.webp") center top / 100% 100% no-repeat;
      pointer-events: none;
      z-index: 2;
    }
@@ -1909,14 +1909,12 @@
      max-width: min(44rem, var(--win-w, 100%));
    }
    
-   /* The names run about 8.3 font-sizes wide and sit on one line with clear
-      space either side of them in the copy column (--col / 10). Where that
-      would make them small, as on upright tablets, they break evenly onto two
-      lines of about 5.4 instead. */
+   /* The names always sit on one line. They run about 8.3 font-sizes wide,
+      so --col / 10 leaves clear space either side of them in the copy column. */
    .stages .hero__names {
      --col: min(44rem, var(--win-w, 100vw));
-     font-size: min(8.2vh, 12vw, max(calc(var(--col) / 10), min(6vh, calc(var(--col) / 6.4))));
-     text-wrap: balance;
+     font-size: min(8.2vh, 12vw, calc(var(--col) / 10));
+     white-space: nowrap;
    }
 
    /* "5 DECEMBER 2026" with its letter-spacing runs about 16 font-sizes wide;
@@ -1989,10 +1987,10 @@
        height: var(--win-h);
      }
 
-     /* Two even lines, kept inside the peacocks and pillars on either side. */
+     /* One line, kept inside the peacocks and pillars on either side
+        (about 8.3 font-sizes wide, so 8.2vw fills about 68% of the width). */
      .stages .stage > .hero__names {
-       font-size: min(6.4vh, 11vw);
-       max-width: 68vw;
+       font-size: min(6.4vh, 8.2vw);
      }
 
      /* Letter-spacing trails the last letter; pad the start to match so the
@@ -2041,7 +2039,7 @@
      .countdown-wrap .countdown {
        aspect-ratio: 1037 / 1600;
        background-image:
-         url("../assets/images/countdown-frame-tall.png"),
+         url("../assets/images/countdown-frame-tall.webp"),
          radial-gradient(38% 34% at 50% 50%, rgba(58, 5, 14, 0.2), rgba(58, 5, 14, 0) 100%);
      }
 
@@ -2097,7 +2095,7 @@
        margin: 10vh auto;
        top: 2rem;
        background:
-         url("../assets/images/countdown-frame.png") center / 100% 100% no-repeat,
+         url("../assets/images/countdown-frame.webp") center / 100% 100% no-repeat,
          radial-gradient(34% 38% at 50% 50%, rgba(58, 5, 14, 0.2), rgba(58, 5, 14, 0) 100%);
        filter: drop-shadow(0 4px 10px rgba(40, 3, 10, 0.15));
      }

@@ -335,6 +335,17 @@
     }
   }
 
+  /* --- Image caching ----------------------------------------------------
+     sw.js keeps the images on the guest's device after the first visit.
+     Service workers only run over http(s), so opening the files directly
+     simply skips this. */
+
+  if ("serviceWorker" in navigator && /^https?:$/.test(location.protocol)) {
+    window.addEventListener("load", function () {
+      navigator.serviceWorker.register("sw.js").catch(function () {});
+    });
+  }
+
   /* --- RSVP form -------------------------------------------------------- */
 
   var form = document.getElementById("rsvp-form");
