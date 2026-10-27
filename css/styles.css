@@ -151,34 +151,12 @@
    
    html {
      scroll-behavior: smooth;
-     /* The colour behind everything, which browsers also paint into any strip
-        the page does not reach (such as behind a phone's navigation buttons).
-        On the backdrop pages it matches the bottom edge of that backdrop. */
-     background-color: #5c0a16;
+     /* The colour behind everything. Phones' browsers (Samsung Internet among
+        them) also paint it into the strip behind the navigation buttons, which
+        the page itself cannot reach, so it is a near-black maroon that reads
+        as a dark frame under the backdrop. */
+     background-color: #1a0408;
      overscroll-behavior-y: none;
-   }
-
-   html:has(body.field-fixed--home),
-   html:has(body.field-fixed--wedding) {
-     background-color: #433c17;
-   }
-
-   html:has(body.field-fixed--nalangu) {
-     background-color: #ca7030;
-   }
-
-   @media (max-width: 760px) {
-     html:has(body.field-fixed--home) {
-       background-color: #5e3c18;
-     }
-
-     html:has(body.field-fixed--wedding) {
-       background-color: #8f2c12;
-     }
-
-     html:has(body.field-fixed--nalangu) {
-       background-color: #ac5a24;
-     }
    }
    
    body {
