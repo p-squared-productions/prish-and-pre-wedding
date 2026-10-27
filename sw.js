@@ -3,13 +3,13 @@
    visits and when moving between pages.
 
    - Images (anything under assets/): cache first, then the network.
-   - Pages, CSS and JS: network first, so updates show straight away; the
-     cached copy is only used when offline.
+   - Pages, CSS and JS: network first, always checked with the server, so
+     updates show straight away; the cached copy is only used when offline.
 
    Bump CACHE when an image is replaced under the same file name, so guests
    fetch the new one. */
 
-var CACHE = "prish-v3";
+var CACHE = "prish-v4";
 
 self.addEventListener("install", function (event) {
   self.skipWaiting();
@@ -57,8 +57,11 @@ self.addEventListener("fetch", function (event) {
     return;
   }
 
+  // "no-cache" makes the browser check with the server every time (a tiny
+  // request when nothing changed), rather than reuse its own copy for the
+  // ten minutes GitHub Pages allows, so a pushed change shows straight away.
   event.respondWith(
-    fetch(request).then(function (response) {
+    fetch(request.url, { cache: "no-cache", credentials: "same-origin" }).then(function (response) {
       if (response.ok) {
         var copy = response.clone();
         caches.open(CACHE).then(function (cache) {
