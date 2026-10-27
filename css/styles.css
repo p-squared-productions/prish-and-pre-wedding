@@ -491,6 +491,12 @@
      height: auto;
    }
    
+   /* The Wedding page swaps in maroon divider art on phones with <picture>;
+      the wrapper steps aside so the images stay the flex items. */
+   .divider picture {
+     display: contents;
+   }
+
    .divider__ganesha {
      display: block;
      flex: none;
@@ -775,7 +781,7 @@
       tiles small enough that two sit side by side. */
    @media (max-width: 760px) {
      :is(.theme-nalangu, .theme-wedding) .ritual-list {
-       --hex-w: min(176px, calc((100vw - 2.6rem) / 2));
+       --hex-w: min(176px, calc((84vw - 6px) / 2));
        --hex-gap: 6px;
        --hex-border: 3px;
      }
@@ -881,6 +887,13 @@
    @media (max-width: 760px) {
      :is(.theme-nalangu, .theme-wedding) .panel--crest {
        padding-top: calc(3vh + 49vw + 1rem);
+     }
+
+     /* Keep the copy in the clear middle of the backdrop, off the garlands,
+        trims and peacocks down its sides. */
+     :is(.theme-nalangu, .theme-wedding) .panel {
+       padding-left: 12vw;
+       padding-right: 12vw;
      }
 
      :is(.theme-nalangu, .theme-wedding) .eyebrow {
@@ -1167,6 +1180,11 @@
 
      .theme-wedding .silk .eyebrow {
        color: var(--wed-gold-deep);
+     }
+
+     /* "The Wedding Day" over the page title reads stronger in maroon. */
+     .theme-wedding .panel--crest > .eyebrow {
+       color: var(--maroon);
      }
 
      /* Gold fades into the cream, so the programme's diyas, times and line,
@@ -1853,8 +1871,8 @@
      left: 0;
      right: 0;
      top: var(--win-top);
-     /* --lead-h lets the names reach a little lower when the couple sits off
-        to one side and leaves open space under the middle (js/main.js). */
+     /* --lead-h trims the names' space from below, so they sit a little
+        above its middle (js/main.js). */
      height: var(--lead-h, var(--win-h));
      z-index: 4;
      display: flex;
@@ -1875,16 +1893,52 @@
      top: var(--stage-start, var(--win-top));
      height: var(--stage-h, auto);
    }
+
+   /* The welcome is wide enough to reach the couple, so it uses the whole
+      space from Ganesha down to their heads, and js/main.js shrinks it if it
+      still needs to. */
+   @media (min-width: 761px) {
+     .stages .stage ~ .hero__welcome.stage {
+       top: var(--win-top);
+       height: var(--win-h);
+     }
+   }
    
    /* Keep the copy between the bells (--win-w is measured in js/main.js). */
    .stages .stage > * {
      max-width: min(44rem, var(--win-w, 100%));
    }
    
-   /* The names run about 8.3 font-sizes wide; the last term keeps them on one
-      line inside the copy column on tall, narrow screens such as tablets. */
+   /* The names run about 8.3 font-sizes wide and sit on one line with clear
+      space either side of them in the copy column (--col / 10). Where that
+      would make them small, as on upright tablets, they break evenly onto two
+      lines of about 5.4 instead. */
    .stages .hero__names {
-     font-size: min(7.6vh, 11vw, calc(min(44rem, var(--win-w, 100vw)) / 8.8));
+     --col: min(44rem, var(--win-w, 100vw));
+     font-size: min(8.2vh, 12vw, max(calc(var(--col) / 10), min(6vh, calc(var(--col) / 6.4))));
+     text-wrap: balance;
+   }
+
+   /* "5 DECEMBER 2026" with its letter-spacing runs about 16 font-sizes wide;
+      keep it on one line, unless the column is so narrow (upright tablets)
+      that it would get tiny, when the year drops to a second line. */
+   .stages .hero__sub {
+     font-size: max(1.4rem, min(2.6rem, calc(min(44rem, var(--win-w, 100vw)) / 16.5)));
+   }
+
+   .stages .hero__date {
+     font-size: clamp(1.25rem, min(3.2vw, 3.6vh), 2rem);
+     text-wrap: balance;
+   }
+
+   /* Short laptop screens have little room for the welcome, so it eases
+      down with the height rather than being shrunk to fit. */
+   .stages .hero__welcome p {
+     font-size: clamp(1rem, 2.4vh, 1.35rem);
+   }
+
+   .stages .hero__welcome .hero__welcome-close {
+     font-size: clamp(1.8rem, min(5vw, 4.4vh), 3rem);
    }
    
    /* The countdown frame is sized in js/main.js (--cd-w); its type is sized
@@ -1935,20 +1989,24 @@
        height: var(--win-h);
      }
 
-     .stages .hero__names {
-       font-size: min(6.4vh, 9vw);
+     /* Two even lines, kept inside the peacocks and pillars on either side. */
+     .stages .stage > .hero__names {
+       font-size: min(6.4vh, 11vw);
+       max-width: 68vw;
      }
 
      /* Letter-spacing trails the last letter; pad the start to match so the
         date sits truly centred. */
-     .hero__sub {
-       font-size: 1.05rem;
+     .hero__sub,
+     .stages .hero__sub {
+       font-size: min(1.12rem, 4.4vw);
        letter-spacing: 0.25em;
        padding-left: 0.25em;
      }
 
-     .hero__date {
-       font-size: 1rem;
+     .hero__date,
+     .stages .hero__date {
+       font-size: 1.08rem;
        letter-spacing: 0.03em;
      }
 
@@ -1959,20 +2017,62 @@
 
      .hero__welcome,
      .stages .stage > .hero__welcome {
-       max-width: 19rem;
+       max-width: min(19rem, 72vw);
      }
 
-     .hero__welcome p {
-       font-size: 0.95rem;
+     .hero__welcome p,
+     .stages .hero__welcome p {
+       font-size: 1rem;
        line-height: 1.5;
      }
 
-     .hero__welcome .hero__welcome-close {
-       font-size: 1.35rem;
+     .hero__welcome .hero__welcome-close,
+     .stages .hero__welcome .hero__welcome-close {
+       font-size: 1.45rem;
+       text-wrap: balance;
      }
 
      .countdown-wrap .countdown__title {
        font-size: 1.45rem;
+     }
+
+     /* The frame stands upright (countdown-frame-tall.png, the same art turned
+        90 degrees) to fill the height, with the values two by three inside. */
+     .countdown-wrap .countdown {
+       aspect-ratio: 1037 / 1600;
+       background-image:
+         url("../assets/images/countdown-frame-tall.png"),
+         radial-gradient(38% 34% at 50% 50%, rgba(58, 5, 14, 0.2), rgba(58, 5, 14, 0) 100%);
+     }
+
+     .countdown-wrap .countdown__inner {
+       inset: 22% 20%;
+     }
+
+     .countdown-wrap .countdown__grid {
+       grid-template-columns: repeat(2, 1fr);
+       row-gap: 5cqw;
+     }
+
+     .countdown-wrap .countdown__unit {
+       border-left: 1px solid rgba(230, 197, 110, 0.35);
+     }
+
+     .countdown-wrap .countdown__unit:nth-child(odd) {
+       border-left: 0;
+     }
+
+     .stages .countdown__number {
+       font-size: 12cqw;
+     }
+
+     .stages .countdown__label {
+       font-size: max(8px, 3.6cqw);
+       letter-spacing: 0.08em;
+     }
+
+     .stages .countdown__title {
+       margin-top: 0.2rem;
      }
    }
    
