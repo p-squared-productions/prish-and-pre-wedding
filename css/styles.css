@@ -771,44 +771,32 @@
      .theme-nalangu .ritual-list li:nth-child(5) { grid-area: 2 / 4 / 3 / 6; }
    }
 
-   /* Phones: one column of wide, flat-topped tiles that grow to fit their copy
-      and meet edge to edge. */
+   /* Phones: the honeycomb stays (2 + 1 + 2 on Nalangu, 2 + 1 on Wedding), with
+      tiles small enough that two sit side by side. */
    @media (max-width: 760px) {
      :is(.theme-nalangu, .theme-wedding) .ritual-list {
-       grid-template-columns: min(360px, 90vw);
-       grid-auto-rows: auto;
-       row-gap: 6px;
-       padding-bottom: 0;
+       --hex-w: min(176px, calc((100vw - 2.6rem) / 2));
+       --hex-gap: 6px;
+       --hex-border: 3px;
      }
 
      :is(.theme-nalangu, .theme-wedding) .ritual-list li {
-       --hex-outer: 14% 0, 86% 0, 100% 50%, 86% 100%, 14% 100%, 0 50%;
-       --hex-inner:
-         calc(14% + var(--b) * 0.6) var(--b),
-         calc(86% - var(--b) * 0.6) var(--b),
-         calc(100% - var(--b) * 1.2) 50%,
-         calc(86% - var(--b) * 0.6) calc(100% - var(--b)),
-         calc(14% + var(--b) * 0.6) calc(100% - var(--b)),
-         calc(var(--b) * 1.2) 50%;
-       width: 100%;
-       height: auto;
-       min-height: 15rem;
-       padding: 1.6rem 17% 1.9rem;
-       font-size: 0.86em;
-       line-height: 1.4;
-     }
-
-     :is(.theme-nalangu, .theme-wedding) .ritual-list li::before {
-       clip-path: polygon(evenodd, var(--hex-outer), 14% 0, var(--hex-inner), calc(14% + var(--b) * 0.6) var(--b));
+       padding: calc(var(--hex-h) * 0.2) calc(var(--hex-w) * 0.13);
+       font-size: 0.66rem;
+       line-height: 1.3;
      }
 
      :is(.theme-nalangu, .theme-wedding) .ritual-list .glyph {
-       width: 42px;
-       height: 42px;
-       margin-bottom: 0.4rem;
+       width: 26px;
+       height: 26px;
+       margin-bottom: 0.2rem;
      }
 
-     :is(.theme-nalangu, .theme-wedding) .ritual-list li:nth-child(n) { grid-area: auto / 1 / auto / 2; }
+     :is(.theme-nalangu, .theme-wedding) .ritual-list strong {
+       font-size: 0.95em;
+       letter-spacing: 0.06em;
+       margin-bottom: 0.15rem;
+     }
    }
 
    /* The dress-code request, under the details: bold on a paper band, in the
@@ -884,6 +872,105 @@
 
      .theme-nalangu .timeline--split li::after {
        margin-top: 2.3rem;
+     }
+   }
+
+   /* Phones: every line centred and the type a size down. The intro starts
+      below the bells (3vh down, about 49vw tall at 32vw wide) so the title is
+      never hidden behind them. */
+   @media (max-width: 760px) {
+     :is(.theme-nalangu, .theme-wedding) .panel--crest {
+       padding-top: calc(3vh + 49vw + 1rem);
+     }
+
+     :is(.theme-nalangu, .theme-wedding) .eyebrow {
+       font-size: 0.75rem;
+       letter-spacing: 0.28em;
+       padding-left: 0.28em;
+     }
+
+     :is(.theme-nalangu, .theme-wedding) .panel__title {
+       font-size: 1.35rem;
+       letter-spacing: 0.08em;
+       line-height: 1.25;
+     }
+
+     :is(.theme-nalangu, .theme-wedding) .nalangu-description,
+     :is(.theme-nalangu, .theme-wedding) .panel__inner > p {
+       font-size: 1rem;
+       line-height: 1.6;
+     }
+
+     :is(.theme-nalangu, .theme-wedding) .nalangu-description {
+       max-width: 21rem;
+     }
+
+     :is(.theme-nalangu, .theme-wedding) .jump-links a {
+       font-size: 0.75rem;
+       letter-spacing: 0.16em;
+     }
+
+     :is(.theme-nalangu, .theme-wedding) .nalangu-details__row h3 {
+       font-size: 1.6rem;
+     }
+
+     :is(.theme-nalangu, .theme-wedding) .nalangu-details__main {
+       font-size: 1rem;
+     }
+
+     :is(.theme-nalangu, .theme-wedding) .panel__inner > p.nalangu-notice {
+       font-size: 1rem;
+       line-height: 1.35;
+     }
+   }
+
+   /* Phones: the programme stacks into one centred column, lotus, time, then
+      the event, in place of the two-sided timeline. Wedding uses its diya. */
+   @media (max-width: 639px) {
+     :is(.theme-nalangu, .theme-wedding) .timeline--split li {
+       grid-template-columns: 1fr;
+       justify-items: center;
+       text-align: center;
+       row-gap: 0.3rem;
+       padding-bottom: 0.3rem;
+     }
+
+     :is(.theme-nalangu, .theme-wedding) .timeline--split li::before {
+       grid-column: 1;
+       grid-row: 1;
+     }
+
+     /* The line now runs down from each event to the next stop. */
+     :is(.theme-nalangu, .theme-wedding) .timeline--split li::after {
+       grid-column: 1;
+       grid-row: 4;
+       align-self: start;
+       height: 2.4rem;
+       margin-top: 0.4rem;
+     }
+
+     :is(.theme-nalangu, .theme-wedding) .timeline--split time {
+       grid-column: 1;
+       grid-row: 2;
+       text-align: center;
+       font-size: 0.8rem;
+       letter-spacing: 0.18em;
+       padding-top: 0;
+     }
+
+     :is(.theme-nalangu, .theme-wedding) .timeline__event {
+       grid-column: 1;
+       grid-row: 3;
+       max-width: 21rem;
+     }
+
+     :is(.theme-nalangu, .theme-wedding) .timeline__event h3 {
+       font-size: 1rem;
+     }
+
+     :is(.theme-nalangu, .theme-wedding) .timeline__event p {
+       font-size: 0.95rem;
+       line-height: 1.5;
      }
    }
 
@@ -1047,6 +1134,29 @@
    @media (max-width: 760px) {
      .theme-wedding .silk .panel__title {
        color: var(--wed-green-deep);
+     }
+
+     /* The rest of the copy set on silk is ivory for the red backdrop; on the
+        cream phone backdrop it turns to dark ink, red and gold. */
+     .theme-wedding .silk,
+     .theme-wedding .silk .lede,
+     .theme-wedding .silk .panel__inner > .hint,
+     .theme-wedding .silk .timeline__event p {
+       color: var(--paper-ink);
+     }
+
+     .theme-wedding .silk .eyebrow,
+     .theme-wedding .silk .timeline time {
+       color: var(--wed-gold-deep);
+     }
+
+     .theme-wedding .silk .jump-links a,
+     .theme-wedding .silk .timeline__event h3 {
+       color: var(--wed-red-deep);
+     }
+
+     .theme-wedding .silk .jump-links a {
+       border-bottom-color: var(--wed-red);
      }
    }
    
@@ -1325,6 +1435,36 @@
    .fade-under-ganesha .site-main {
      -webkit-mask-image: linear-gradient(to bottom, transparent var(--fade-top), #000 var(--fade-bottom));
      mask-image: linear-gradient(to bottom, transparent var(--fade-top), #000 var(--fade-bottom));
+   }
+
+   /* Phones, Nalangu: the copy also fades in just above the peacocks and lotuses
+      along the bottom of the backdrop. nalangu-bg-mobile.jpeg is 900 x 1600 and
+      the peacocks' heads sit 72% of the way down; js/main.js turns that into
+      --fade-low-top / --fade-low-bottom. Set low enough that the jump links
+      under the title show in full on the first screen. */
+   @media (max-width: 760px) {
+     body.theme-nalangu {
+       --decor-top: 0.72;
+       --field-ratio: 1.7778;
+     }
+
+     /* wedding-bg-mobile.jpeg is also 900 x 1600; its lamps and elephants
+        start about 75% of the way down. */
+     body.theme-wedding {
+       --decor-top: 0.75;
+       --field-ratio: 1.7778;
+     }
+
+     :is(.theme-nalangu, .theme-wedding).fade-under-ganesha .site-main {
+       /* Room below the last item so it can scroll up past the fade. */
+       padding-bottom: var(--fade-room, 0);
+       -webkit-mask-image: linear-gradient(to bottom,
+         transparent var(--fade-top), #000 var(--fade-bottom),
+         #000 var(--fade-low-top), transparent var(--fade-low-bottom));
+       mask-image: linear-gradient(to bottom,
+         transparent var(--fade-top), #000 var(--fade-bottom),
+         #000 var(--fade-low-top), transparent var(--fade-low-bottom));
+     }
    }
 
    /* Deepam — kuthu vilakku lamp stands with hanging marigold, flanking the couple. */
@@ -1699,12 +1839,74 @@
    }
    
    .stages .countdown__label {
-     font-size: max(10px, 2.05cqw);
+     font-size: max(8px, 1.6cqw);
    }
    
    @media (max-width: 760px) {
      .hero__couple {
        width: 72vw;
+     }
+
+     /* Phones: every line centred on the screen, and the type a size down. */
+     .hero,
+     .hero__inner,
+     .stage,
+     .stage > * {
+       text-align: center;
+       margin-left: auto;
+       margin-right: auto;
+     }
+
+     .stages .stage > * {
+       width: 100%;
+     }
+
+     /* Later stages use the whole space from the bells down to the couple's
+        heads, so they sit higher instead of starting at the names' line. */
+     .stages .stage ~ .stage,
+     .stages .countdown-band.stage {
+       top: var(--win-top);
+       height: var(--win-h);
+     }
+
+     .stages .hero__names {
+       font-size: min(6.4vh, 9vw);
+     }
+
+     /* Letter-spacing trails the last letter; pad the start to match so the
+        date sits truly centred. */
+     .hero__sub {
+       font-size: 1.05rem;
+       letter-spacing: 0.25em;
+       padding-left: 0.25em;
+     }
+
+     .hero__date {
+       font-size: 1rem;
+       letter-spacing: 0.03em;
+     }
+
+     .hero__date,
+     .stages .stage > .hero__date {
+       max-width: 18em;
+     }
+
+     .hero__welcome,
+     .stages .stage > .hero__welcome {
+       max-width: 19rem;
+     }
+
+     .hero__welcome p {
+       font-size: 0.95rem;
+       line-height: 1.5;
+     }
+
+     .hero__welcome .hero__welcome-close {
+       font-size: 1.35rem;
+     }
+
+     .countdown-wrap .countdown__title {
+       font-size: 1.45rem;
      }
    }
    
@@ -1792,7 +1994,7 @@
    
    .countdown__label {
      font-family: var(--font-display);
-     font-size: max(11px, min(16px, 2.4vw));
+     font-size: max(9px, min(13px, 1.9vw));
      text-transform: uppercase;
      letter-spacing: clamp(0.06em, 1vw, 0.18em);
      color: var(--gold-light);

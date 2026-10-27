@@ -122,9 +122,28 @@
 
     var fade = function () {
       fading = false;
-      var line = fadeGanesha.getBoundingClientRect().bottom - fadeMain.getBoundingClientRect().top;
+      var mainTop = fadeMain.getBoundingClientRect().top;
+      var line = fadeGanesha.getBoundingClientRect().bottom - mainTop;
       fadeMain.style.setProperty("--fade-top", line + "px");
       fadeMain.style.setProperty("--fade-bottom", line + 90 + "px");
+
+      // Pages whose backdrop has decor along the bottom set --decor-top (where
+      // it starts, as a fraction of the image height) and --field-ratio (image
+      // height / width). The copy then fades in just above that decor too.
+      var styles = window.getComputedStyle(document.body);
+      var decorTop = parseFloat(styles.getPropertyValue("--decor-top"));
+      var ratio = parseFloat(styles.getPropertyValue("--field-ratio"));
+      if (decorTop && ratio) {
+        // The backdrop is background-size: cover, centred on the viewport.
+        var viewH = window.innerHeight;
+        var imageH = Math.max(viewH, document.documentElement.clientWidth * ratio);
+        var decorLine = viewH / 2 + (decorTop - 0.5) * imageH;
+        var decor = decorLine - mainTop;
+        fadeMain.style.setProperty("--fade-low-top", decor - 40 + "px");
+        fadeMain.style.setProperty("--fade-low-bottom", decor + 30 + "px");
+        // Room under the last item so it can scroll clear of the fade.
+        fadeMain.style.setProperty("--fade-room", Math.max(0, viewH - decorLine + 64) + "px");
+      }
     };
 
     var onFadeScroll = function () {
