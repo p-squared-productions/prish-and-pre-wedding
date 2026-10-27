@@ -137,7 +137,19 @@
     document.body.classList.add("stages");
     measure();
     window.addEventListener("scroll", onScroll, { passive: true });
-    window.addEventListener("resize", measure);
+    // Phones resize the window as their toolbars slide in and out while
+    // scrolling; re-laying the stages out then makes the page jump. Only a
+    // real change (a new width, or rotating the phone) measures again.
+    var lastW = window.innerWidth;
+    var lastH = window.innerHeight;
+    window.addEventListener("resize", function () {
+      if (window.innerWidth === lastW && Math.abs(window.innerHeight - lastH) < 160) {
+        return;
+      }
+      lastW = window.innerWidth;
+      lastH = window.innerHeight;
+      measure();
+    });
     window.addEventListener("load", measure);
     if (!couple.complete) {
       couple.addEventListener("load", measure);
@@ -181,9 +193,12 @@
       var ratio = parseFloat(styles.getPropertyValue("--field-ratio"));
       if (decorTop && ratio) {
         // The backdrop is background-size: cover, centred on the viewport.
+        // It fills the backdrop layer, which is sized to the tallest the
+        // window gets (toolbars hidden), so measure that rather than the window.
         var viewH = window.innerHeight;
-        var imageH = Math.max(viewH, document.documentElement.clientWidth * ratio);
-        var decorLine = viewH / 2 + (decorTop - 0.5) * imageH;
+        var layerH = parseFloat(window.getComputedStyle(document.body, "::before").height) || viewH;
+        var imageH = Math.max(layerH, document.documentElement.clientWidth * ratio);
+        var decorLine = layerH / 2 + (decorTop - 0.5) * imageH;
         var decor = decorLine - mainTop;
         fadeMain.style.setProperty("--fade-low-top", decor - 40 + "px");
         fadeMain.style.setProperty("--fade-low-bottom", decor + 30 + "px");

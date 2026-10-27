@@ -151,9 +151,34 @@
    
    html {
      scroll-behavior: smooth;
-     /* Footer maroon shows under the page if it is ever pulled past the end. */
+     /* The colour behind everything, which browsers also paint into any strip
+        the page does not reach (such as behind a phone's navigation buttons).
+        On the backdrop pages it matches the bottom edge of that backdrop. */
      background-color: #5c0a16;
      overscroll-behavior-y: none;
+   }
+
+   html:has(body.field-fixed--home),
+   html:has(body.field-fixed--wedding) {
+     background-color: #433c17;
+   }
+
+   html:has(body.field-fixed--nalangu) {
+     background-color: #ca7030;
+   }
+
+   @media (max-width: 760px) {
+     html:has(body.field-fixed--home) {
+       background-color: #5e3c18;
+     }
+
+     html:has(body.field-fixed--wedding) {
+       background-color: #8f2c12;
+     }
+
+     html:has(body.field-fixed--nalangu) {
+       background-color: #ac5a24;
+     }
    }
    
    body {
@@ -366,10 +391,18 @@
    
       This uses a fixed pseudo-element rather than `background-attachment: fixed`,
       which iOS Safari and several mobile browsers ignore or render badly. */
+   /* The layer is as tall as the window gets with the phone's toolbars hidden
+      (100lvh), plus any strip behind the phone's own navigation buttons, so it
+      neither resizes nor jumps as the toolbars slide away while scrolling, and
+      the image shows behind the buttons instead of the page colour. */
    .field-fixed::before {
      content: "";
      position: fixed;
-     inset: 0;
+     top: 0;
+     left: 0;
+     right: 0;
+     height: 100vh;
+     height: calc(100lvh + env(safe-area-inset-bottom, 0px));
      z-index: -1;
      pointer-events: none;
      background-position: center;
@@ -1852,7 +1885,8 @@
    .hero__couple {
      position: fixed;
      left: 28%;
-     bottom: 0;
+     /* Sits above a phone's navigation buttons; the backdrop runs on beneath. */
+     bottom: env(safe-area-inset-bottom, 0px);
      z-index: -1;
      transform: translateX(-50%);
      width: clamp(200px, 35vw, 300px);

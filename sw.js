@@ -9,7 +9,7 @@
    Bump CACHE when an image is replaced under the same file name, so guests
    fetch the new one. */
 
-var CACHE = "prish-v2";
+var CACHE = "prish-v3";
 
 self.addEventListener("install", function (event) {
   self.skipWaiting();
