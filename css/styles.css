@@ -156,10 +156,16 @@
         the page itself cannot reach, so it is a near-black maroon that reads
         as a dark frame under the backdrop. */
      background-color: #1a0408;
-     overscroll-behavior-y: none;
+     overscroll-behavior: none;
+     /* On a phone a swipe only ever scrolls the copy up and down: anything
+        hanging past the sides is trimmed, and a diagonal swipe from a corner
+        can no longer drag the whole page sideways. Pinch-zoom still works. */
+     overflow-x: hidden;
+     touch-action: pan-y pinch-zoom;
    }
-   
+
    body {
+     overflow-x: clip;
      margin: 0;
      font-family: var(--font-body);
      font-size: clamp(1.2rem, 0.5vw + 1.05rem, 1.4rem);
